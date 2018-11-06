@@ -4,19 +4,22 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+	<link href="../dados/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../dados/css/AdminLTE.min.css">
 	<link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 	<link href="css/main.css" rel="stylesheet">
 
 </head>
 
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="home.html">Locadora</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-		aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+<nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php">LoCar</a>
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sair</a>
+        </li>
+      </ul>
+    </nav>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
