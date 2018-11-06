@@ -1,0 +1,70 @@
+.mb, .btn-toolbar {
+
+    margin-bottom: 15px;
+}
+
+.box .btn-toolbar {
+
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.box .callout, .box .list-group, .box .callout, .tab-pane .callout, .box-widget .box-body p, .box .table, .tab-pane .table {
+
+    margin-bottom: 0;
+}
+
+.form-group label {
+
+    display: block;
+}
+
+#jchat .janela {
+
+    height: 100%;
+}
+
+#jchat .callout {
+
+    margin-bottom: 10px;
+}
+
+#uonline {
+
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+#uonline .nav img {
+
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+#uonline .nav a {
+
+    padding-left: 50px;
+}
+
+#uonline .box-body {
+
+    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+textarea.big {
+    
+    height: 300px;
+}
+
+.box-comments {
+    
+    margin-top: 0;
+}
+
+.number-color {
+    
+    color: #555;
+}
