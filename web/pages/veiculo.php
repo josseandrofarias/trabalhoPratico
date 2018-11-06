@@ -6,9 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="../dados/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../dados/css/AdminLTE.min.css">
-	<link href="open-iconic-master/font/css/open-iconic-bootstrap.css" rel="stylesheet">
-	<link href="css/main.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -109,11 +106,11 @@
 			</tbody>
 		</table>
 	</div>
-	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#telaNovo">Novo</button>
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#telaNovo">Novo</button>
 
-	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#telaEditar">Editar</button>
+	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#telaEditar">Editar</button>
 
-	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#telaExcluir">Excluir</button>
+	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#telaExcluir">Excluir</button>
 </div>
 <div class="container">
 
@@ -224,9 +221,10 @@
 			</div>
 
 
-			<script src="js/jquery-3.3.1.min.js"></script>
-			<script src="js/bootstrap.js"></script>
-			<script src="js/main.js"></script>
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+			<script src="../dados/js/jquery-3.3.1.min.js"></script>
+			<script src="../dados/js/bootstrap.js"></script>
+			
 		</body>
 
 		</html>
