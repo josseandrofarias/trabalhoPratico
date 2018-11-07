@@ -77,43 +77,41 @@
 
                     <!-- ESCREVER CODIGO AQUI! -->
 					
-					<input class="form-control form-control-lg" type="text" placeholder="Nome"></br/>
-					
-					<input class="form-control form-control-lg" type="text" placeholder="CPF"></br/>
-					
-					<input class="form-control form-control-lg" type="text" placeholder="RG"></br/>
-					
-					<input class="form-control form-control-lg" type="text" placeholder="Endereço"></br/>
-					
-					<input class="form-control form-control-lg" type="text" placeholder="Cargo"></br/>
-					
-					<div class="form-check">
-  						<input class="form-check-input" type="checkbox" value="" id="ckbxSupervisor">
- 						<label class="form-check-label" for="defaultCheck1">Supervisor</label>
-					</div>
+					<form>
+  						<div class="form-group">
+    						<input class="form-control form-control-lg" type="text" placeholder="Nome"></br/>
+    						<input class="form-control form-control-lg" type="text" placeholder="Endereço"></br/>
+    						<div class="row">
+ 								<div class="col-md-3">
+ 									<input class="form-control form-control-lg" type="text" placeholder="CPF"></br/>
+ 								</div>
+  								<div class="col-md-3">
+  									<input class="form-control form-control-lg" type="text" placeholder="RG"></br/>	
+  								</div>
+							</div>
+    						
+    						
+    						<input class="form-control form-control-lg" type="text" placeholder="Cargo"></br/>
 
-					<div class="well">
-  						<div id="datetimepicker2" class="input-append">
-    						<input data-format="MM/dd/yyyy HH:mm:ss PP" type="text"></input>
-    						<span class="add-on">
-     							<i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i>
-   							</span>
+    						<div class="row">
+ 								<div class="col-md-4">
+ 									<input class="form-control form-control-lg" type="date" placeholder="Admissao"></br/>
+ 								</div>
+  								<div class="col-md-4">
+  									<input class="form-control form-control-lg" type="date" placeholder="Admissao"></br/>	
+  								</div>
+							</div>
+
+    						
+    						
   						</div>
-					</div>
-					<script type="text/javascript">
-					  $(function() {
-					    $('#datetimepicker2').datetimepicker({
-					      language: 'en',
-					      pick12HourFormat: true
-					    });
-					  });
-					</script>
+  						<div class="form-group form-check">
+    						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+    						<label class="form-check-label" for="exampleCheck1">Check me out</label>
+  						</div>
+  						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
 					
-					<button type="button" class="btn btn-primary btn-sm">Editar</button>
-					
-					<button type="button" class="btn btn-primary btn-sm">Excluir</button>
-					
-					<button type="button" class="btn btn-primary btn-sm">Salvar</button>
 					
 
 				</main>
