@@ -1,133 +1,75 @@
-
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="Grupo2" content="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="Grupo2" content="">
 
-    <title>LoCar - Locadora de veículos</title>
+  <title>LocVec - Locadora de veículos</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="../dados/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../dados/css/AdminLTE.min.css">
+  <!--<link href="dados/css/materialize.min.css" rel="stylesheet">-->
+  <?php include '../CSSLink.php';?>
 
+</head>
 
+<body>
+  <div class="wrapper" style="height: auto; min-height: 100%">
+    <!--Topo site-->
+    <?php include '../topo.php'; ?>
+    <!--Menu lateral-->
+    <?php include '../menuLateral.php'; ?>
 
-    <!-- Custom styles for this template -->
-    <link href="../dashboard.css" rel="stylesheet">
-  </head>
-
-  <body>
-    <nav class="navbar navbar-dark bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="index.php">LoCar</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sair</a>
-        </li>
-      </ul>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="../index.php">
-                  <span data-feather="home"></span>
-                  Locação<span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="clientes.php">
-                  <span data-feather="user"></span>
-                  Clientes
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="veiculo.php">
-                  <span data-feather="shopping-cart"></span>
-                  Carros
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="relatorios.php">
-                  <span data-feather="file"></span>
-                  Relatórios
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="cad_funcionarios.php">
-                  <span data-feather="users"></span>
-                  Funcionários
-                </a>
-              </li>
-            </ul>
+    <!--centro meio que irá mudar-->
+    <div class="content-wrapper" style="min-height: 717px;">
+      <main role="main" class="col-md-9 col-lg-10 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="input-group mb-3">
+            <h1 class="h2">Gerar relatórios</h1>
           </div>
-        </nav>
+        </div>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <div class="input-group mb-3">
-                <h1 class="h2">Gerar relatórios</h1>
+        <div class="container-fluid">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01"><strong>Tipo do relatório</strong></label>
             </div>
+            <select class="custom-select col-2" id="inputGroupSelect01">
+              <option selected>Selecione...</option>
+              <option value="1">Km Carros</option>
+              <option value="2">Locações</option>
+              <option value="3">Clientes</option>
+              <option value="4">Funcionários</option>
+            </select>
           </div>
+        </div>
 
-            <div class="container-fluid">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01"><strong>Tipo do relatório</strong></label>
-                </div>
-                <select class="custom-select col-2" id="inputGroupSelect01">
-                  <option selected>Selecione...</option>
-                  <option value="1">Km Carros</option>
-                  <option value="2">Locações</option>
-                  <option value="3">Clientes</option>
-                  <option value="4">Funcionários</option>
-                </select>
-              </div>
+        <div class="container-fluid">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01"><strong>Data inicial</strong></label>
             </div>
+            <input class="form-control col-2" type="date" value="" id="data_final">
+          </div>
+        </div>
 
-            <div class="container-fluid">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01"><strong>Data inicial</strong></label>
-                </div>
-               <input class="form-control col-2" type="date" value="" id="data_final">
-              </div>
+        <div class="container-fluid">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01"><strong>Data final</strong></label>
             </div>
-
-            <div class="container-fluid">
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="inputGroupSelect01"><strong>Data final</strong></label>
-                </div>
-               <input class="form-control col-2" type="date" value="" id="data_final">
-              </div>
-              <button type="button" class="btn btn-primary btn-lg" style="background-color: #545254; border-color: #000">Gerar relatório</button>
-            </div>
-
-            
-
-
-        </main>
-      </div>
+            <input class="form-control col-2" type="date" value="" id="data_final">
+          </div>
+          <button type="button" class="btn btn-primary btn-lg" style="background-color: #545254; border-color: #000">Gerar relatório</button>
+        </div>
+      </main>
     </div>
+    <!--finalização do meio--> 
 
-    
+    <!--painel mudar de cor-->
+    <?php include '../painelConfCor.php'; ?>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
-    <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-
-  </body>
+  <?php include '../JSLink.php';?>
+</body>
 </html>
