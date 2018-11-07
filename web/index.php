@@ -10,7 +10,7 @@
         <title>LoCar - Locadora de veículos</title>
 
         <!--<link href="dados/css/materialize.min.css" rel="stylesheet">-->
-        <?php include './CSSLink.php';?>
+        <?php include './dados/CSSLink.php';?>
 
     </head>
 
@@ -19,9 +19,9 @@
         <div class="wrapper" style="height: auto; min-height: 100%">
 
             <!--Topo site-->
-            <?php include './topo.php'; ?>
+            <?php include './dados/topo.php'; ?>
             <!--Menu lateral-->
-            <?php include './menuLateral.php'; ?>
+            <?php include './dados/menuLateral.php'; ?>
 
             <!--centro-->
             <div class="content-wrapper" style="min-height: 717px;">
@@ -176,8 +176,8 @@
             <!--finalização do Centro--> 
             
             <!--painel mudar de cor-->
-            <?php include './painelConfCor.php'; ?>
+            <?php include './dados/painelConfCor.php'; ?>
         </div>
-        <?php include './JSLink.php';?>
+        <?php include './dados/JSLink.php';?>
     </body>
 </html>
