@@ -57,7 +57,7 @@ abstract class TFuncoes {
                         <ul class="sidebar-menu tree" data-widget="tree">
                             <!--<li class="header">Opções de navegação</li>-->
                             <li>
-                                <a href="../index.php">
+                                <a href="./index.php">
                                     <span data-feather="home"></span>
                                     <span>Locação</span>
                                 </a>
