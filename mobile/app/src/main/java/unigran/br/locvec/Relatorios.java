@@ -21,6 +21,7 @@ public class Relatorios extends AppCompatActivity
 
         Spinner tipoRelatorio;
         EditText dataInicial, dataFinal;
+        static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,7 @@ public class Relatorios extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.relatorios, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -92,6 +93,19 @@ public class Relatorios extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+        finish();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -99,15 +113,19 @@ public class Relatorios extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_locacao) {
-            Intent it = new Intent(Relatorios.this, Main.class);
+            Intent it = new Intent(Relatorios.this, main.class);
             startActivity(it);
         } else if (id == R.id.nav_clientes) {
 
         } else if (id == R.id.nav_carros) {
 
         } else if (id == R.id.nav_relatorios) {
+            if(active){
+
+            }else{
             Intent it = new Intent(Relatorios.this, Relatorios.class);
             startActivity(it);
+            }
 
         } else if (id == R.id.nav_relatorios) {
 

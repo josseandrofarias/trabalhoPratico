@@ -14,8 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class Main extends AppCompatActivity
+public class main extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +26,6 @@ public class Main extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,7 +38,7 @@ public class Main extends AppCompatActivity
     }
 
     public void clickBtnRelatorios(View view){
-        Intent it = new Intent(Main.this, Relatorios.class);
+        Intent it = new Intent(main.this, Relatorios.class);
         startActivity(it);
     }
 
@@ -80,6 +74,19 @@ public class Main extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+        finish();
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -87,14 +94,18 @@ public class Main extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_locacao) {
-            Intent it = new Intent(Main.this, Main.class);
-            startActivity(it);
+            if(active){
+
+            }else{
+                Intent it = new Intent(main.this, main.class);
+                startActivity(it);
+            }
         } else if (id == R.id.nav_clientes) {
 
         } else if (id == R.id.nav_carros) {
 
         } else if (id == R.id.nav_relatorios) {
-            Intent it = new Intent(Main.this, Relatorios.class);
+            Intent it = new Intent(main.this, Relatorios.class);
             startActivity(it);
 
         } else if (id == R.id.nav_relatorios) {
