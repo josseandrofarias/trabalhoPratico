@@ -18,5 +18,6 @@
         <item>Funcionários</item>
     </string-array>
     <string name="title_activity_main">Locação</string>
+    <string name="title_activity_funcionario">funcionario</string>
 
 </resources>
