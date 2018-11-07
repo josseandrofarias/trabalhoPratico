@@ -8,13 +8,17 @@ abstract class TFuncoes {
 <link rel="stylesheet" href="./dados/css/font-awesome.min.css">
 <link rel="stylesheet" href="./dados/css/AdminLTE.min.css">
 <link rel="stylesheet" href="./dados/css/_all-skins.min.css">
-        <link rel="stylesheet" href="./dados/css/site.css">';
+        <link rel="stylesheet" href="./dados/css/site.css">
+            <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">';
         } else {
             return '<link rel="stylesheet" href="../dados/css/bootstrap.min.css">
 <link rel="stylesheet" href="../dados/css/font-awesome.min.css">
 <link rel="stylesheet" href="../dados/css/AdminLTE.min.css">
 <link rel="stylesheet" href="../dados/css/_all-skins.min.css">
-        <link rel="stylesheet" href="../dados/css/site.css">';
+        <link rel="stylesheet" href="../dados/css/site.css">
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">';
         }
     }
 
