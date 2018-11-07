@@ -1,5 +1,7 @@
 
-<!doctype html>
+<?php
+include './TFuncao.php';
+?>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -10,7 +12,9 @@
         <title>LoCar - Locadora de veículos</title>
 
         <!--<link href="dados/css/materialize.min.css" rel="stylesheet">-->
-        <?php include './dados/CSSLink.php';?>
+        <?php
+        echo TFuncoes::AddCss(true);
+        ?>
 
     </head>
 
@@ -19,14 +23,14 @@
         <div class="wrapper" style="height: auto; min-height: 100%">
 
             <!--Topo site-->
-            <?php include './dados/topo.php'; ?>
+            <?php echo TFuncoes::AddTopo() ?>
             <!--Menu lateral-->
-            <?php include './dados/menuLateral.php'; ?>
+            <?php echo TFuncoes::AddMenuLateral(true);// include './dados/menuLateral.php'; ?>
 
             <!--centro-->
             <div class="content-wrapper" style="min-height: 717px;">
                 <section class="content">
-                     
+
                     <!--Meio a ser mudado--> 
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">Locação</h1>
@@ -174,10 +178,10 @@
                 </section>
             </div>
             <!--finalização do Centro--> 
-            
+
             <!--painel mudar de cor-->
-            <?php include './dados/painelConfCor.php'; ?>
+            <?php echo TFuncoes::AddPainelCor(); ?>
         </div>
-        <?php include './dados/JSLink.php';?>
+        <?php echo TFuncoes::AddJs(true) ?>
     </body>
 </html>
