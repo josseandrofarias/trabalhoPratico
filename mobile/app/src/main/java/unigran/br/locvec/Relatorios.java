@@ -13,15 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import unigran.br.locvec.Máscaras.MáscaraCampoData;
 
 public class Relatorios extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
         Spinner tipoRelatorio;
+        EditText dataInicial, dataFinal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,13 @@ public class Relatorios extends AppCompatActivity
 
         // FIM TIPOS DE RELATORIO
 
-//
+        // MASCARA PARA DATA INICIAL E FINAL
+        dataInicial = (EditText) findViewById(R.id.edDataInicial);
+        new MáscaraCampoData(dataInicial);
+
+        dataFinal = (EditText) findViewById(R.id.edDataFinal);
+        new MáscaraCampoData(dataFinal);
+
 
 
     }
