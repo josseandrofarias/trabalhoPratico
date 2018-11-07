@@ -3,31 +3,31 @@
         <ul class="sidebar-menu tree" data-widget="tree">
             <!--<li class="header">Opções de navegação</li>-->
             <li>
-                <a href="index.php">
+                <a href="../index.php">
                     <span data-feather="home"></span>
                     <span>Locação</span>
                 </a>
             </li>
             <li>
-                <a href="pages/clientes.php">
+                <a href="./cad_cliente.php">
                     <span data-feather="user"></span>
                     <span>Clientes</span>
                 </a>
             </li>
             <li>
-                <a href="pages/veiculo.php">
+                <a href="./veiculo.php">
                     <span data-feather="shopping-cart"></span>
                     <span>Carros</span>
                 </a>
             </li>
             <li>
-                <a href="pages/relatorios.php">
+                <a href="./relatorios.php">
                     <span data-feather="file"></span>
                     <span>Relatórios</span>
                 </a>
             </li>
             <li>
-                <a href="pages/cad_funcionarios.php">
+                <a href="./cad_funcionarios.php">
                     <span data-feather="users"></span>
                     <span>Funcionários</span>
                 </a>

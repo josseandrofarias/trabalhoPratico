@@ -3,10 +3,10 @@
     <string name="title_activity_relatorios">Relatorios</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">LocVec</string>
+    <string name="nav_header_subtitle">Locadora de veículos</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configurações</string>
     <string name="data_final">Data final</string>
     <string name="data_inicial">Data inicial</string>
     <string name="relat_rios">Relatórios</string>
@@ -17,4 +17,6 @@
         <item>Clientes</item>
         <item>Funcionários</item>
     </string-array>
+    <string name="title_activity_main">Locação</string>
+
 </resources>

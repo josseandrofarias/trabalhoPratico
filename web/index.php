@@ -1,5 +1,7 @@
 
-<!doctype html>
+<?php
+include './TFuncao.php';
+?>
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -10,23 +12,26 @@
         <title>LoCar - Locadora de veículos</title>
 
         <!--<link href="dados/css/materialize.min.css" rel="stylesheet">-->
-        <?php include './CSSLink.php';?>
+        <?php
+        echo TFuncoes::AddCss(true);
+        ?>
 
     </head>
 
-    <body>
+    <body class="skin-blue">
 
         <div class="wrapper" style="height: auto; min-height: 100%">
 
             <!--Topo site-->
-            <?php include './topo.php'; ?>
+            <?php echo TFuncoes::AddTopo() ?>
             <!--Menu lateral-->
-            <?php include './menuLateral.php'; ?>
+            <?php echo TFuncoes::AddMenuLateral(true);// include './dados/menuLateral.php'; ?>
 
-            <!--centro meio que irá mudar-->
+            <!--centro-->
             <div class="content-wrapper" style="min-height: 717px;">
                 <section class="content">
 
+                    <!--Meio a ser mudado--> 
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="h2">Locação</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
@@ -169,13 +174,14 @@
                             </tbody>
                         </table>
                     </div>
+                    <!--Final do centro aonde irá ocorrer Edição-->
                 </section>
             </div>
-            <!--finalização do meio--> 
-            
+            <!--finalização do Centro--> 
+
             <!--painel mudar de cor-->
-            <?php include './painelConfCor.php'; ?>
+            <?php echo TFuncoes::AddPainelCor(); ?>
         </div>
-        <?php include './JSLink.php';?>
+        <?php echo TFuncoes::AddJs(true) ?>
     </body>
 </html>
