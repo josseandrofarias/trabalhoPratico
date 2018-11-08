@@ -78,7 +78,7 @@ abstract class TFuncoes {
                                  </a>
                             </li>
                             <li>
-                                <a href="./index.php">
+                                <a href="./pages/cad_cliente.php">
                                     <div class="row">
                                         <i class="material-icons">people</i> 
                                         <span>Clientes</span>
@@ -86,7 +86,7 @@ abstract class TFuncoes {
                                  </a>
                             </li>
                             <li>
-                                <a href="./index.php">
+                                <a href="./pages/veiculo.php">
                                     <div class="row">
                                         <i class="material-icons">directions_car</i>
                                         <span>Carros</span>
@@ -94,15 +94,15 @@ abstract class TFuncoes {
                                  </a>
                             </li>
                             <li>
-                                <a href="./index.php">
+                                <a href="./pages/relatorios.php">
                                     <div class="row">
                                         <i class="material-icons">print</i>
-                                        <span> Relatoórios</span>
+                                        <span> Relatórios</span>
                                     </div>
                                  </a>
                             </li>
                             <li>
-                                <a href="./index.php">
+                                <a href="./pages/cad_funcionarios.php">
                                     <div class="row">
                                         <i class="material-icons">work</i>
                                         <span>Funcionários</span>
@@ -121,33 +121,43 @@ abstract class TFuncoes {
                             <!--<li class="header">Opções de navegação</li>-->
                             <li>
                                 <a href="../index.php">
-                                    <span data-feather="home"></span>
-                                    <span>Locação</span>
-                                </a>
+                                    <div class="row">
+                                        <i class="material-icons">home</i>
+                                        <span>Locação</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
                                 <a href="./cad_cliente.php">
-                                    <span data-feather="user"></span>
-                                    <span>Clientes</span>
-                                </a>
+                                    <div class="row">
+                                        <i class="material-icons">people</i> 
+                                        <span>Clientes</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
                                 <a href="./veiculo.php">
-                                    <span data-feather="shopping-cart"></span>
-                                    <span>Carros</span>
-                                </a>
+                                    <div class="row">
+                                        <i class="material-icons">directions_car</i>
+                                        <span>Carros</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
                                 <a href="./relatorios.php">
-                                    <span data-feather="file"></span>
-                                    <span>Relatórios</span>
-                                </a>
+                                    <div class="row">
+                                        <i class="material-icons">print</i>
+                                        <span> Relatórios</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
                                 <a href="./cad_funcionarios.php">
-                                    <span data-feather="users"></span>
-                                    <span>Funcionários</span>
-                                </a>
+                                    <div class="row">
+                                        <i class="material-icons">work</i>
+                                        <span>Funcionários</span>
+                                    </div>
+                                 </a>
                             </li>
                         </ul>
                         <!--</div>-->
