@@ -1,5 +1,6 @@
 package unigran.br.locvec;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -89,5 +90,10 @@ public class Funcionario extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void acNovoCad(View view){
+        Intent it = new Intent(Funcionario.this, FuncionarioManutencao.class);
+        startActivity(it);
     }
 }
