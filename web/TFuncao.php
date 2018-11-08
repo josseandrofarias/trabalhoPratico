@@ -2,6 +2,14 @@
 
 abstract class TFuncoes {
 
+    public static function AddCssLogin() {
+        return'<link rel="stylesheet" href="./dados/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./dados/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="./dados/css/site.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">';
+    }
+
     public static function AddCss($index) {
         if ($index) {
             return '<link rel="stylesheet" href="./dados/css/bootstrap.min.css">
@@ -10,7 +18,8 @@ abstract class TFuncoes {
 <link rel="stylesheet" href="./dados/css/_all-skins.min.css">
         <link rel="stylesheet" href="./dados/css/site.css">
             <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">';
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
         } else {
             return '<link rel="stylesheet" href="../dados/css/bootstrap.min.css">
 <link rel="stylesheet" href="../dados/css/font-awesome.min.css">
@@ -18,7 +27,8 @@ abstract class TFuncoes {
 <link rel="stylesheet" href="../dados/css/_all-skins.min.css">
         <link rel="stylesheet" href="../dados/css/site.css">
         <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">';
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">';
         }
     }
 
@@ -29,7 +39,6 @@ abstract class TFuncoes {
                 <script src="./dados/js/adminlte.min.js" type="text/javascript"></script>
                 <script src="./dados/js/demo.js" type="text/javascript"></script>
                 <script src="./dados/js/bootbox.min.js" type="text/javascript"></script>
-
                 <!-- Icons -->
                 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
                 <script>
@@ -43,7 +52,6 @@ abstract class TFuncoes {
                 <script src="../dados/js/adminlte.min.js" type="text/javascript"></script>
                 <script src="../dados/js/demo.js" type="text/javascript"></script>
                 <script src="../dados/js/bootbox.min.js" type="text/javascript"></script>
-
                 <!-- Icons -->
                 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
                 <script>
