@@ -21,7 +21,7 @@ public class Relatorios extends AppCompatActivity
 
         Spinner tipoRelatorio;
         EditText dataInicial, dataFinal;
-        static boolean active = false;
+        static boolean active = false; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
