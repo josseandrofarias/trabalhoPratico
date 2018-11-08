@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FuncionarioManutencao">
+    tools:context="unigran.br.locvec.FuncionarioManutencao">
 
     <TextView
         android:id="@+id/textView2"
@@ -177,7 +177,8 @@
         android:ems="10"
         android:inputType="date"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        tools:layout_editor_absoluteX="196dp" />
+        tools:layout_editor_absoluteX="196dp"
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/checkBox"
@@ -186,7 +187,8 @@
         android:layout_marginTop="8dp"
         android:text="Supervisor"
         app:layout_constraintTop_toBottomOf="@+id/editText6"
-        tools:layout_editor_absoluteX="27dp" />
+        tools:layout_editor_absoluteX="27dp"
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/checkBox2"

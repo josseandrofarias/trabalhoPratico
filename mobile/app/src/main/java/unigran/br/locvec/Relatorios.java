@@ -14,14 +14,15 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import unigran.br.locvec.Máscaras.MáscaraCampoData;
+import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.Utilitarios.MáscaraCampoData;
 
 public class Relatorios extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-        Spinner tipoRelatorio;
-        EditText dataInicial, dataFinal;
-        static boolean active = false; 
+    Spinner tipoRelatorio;
+    EditText dataInicial, dataFinal;
+    static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class Relatorios extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
         }
     }
 
@@ -113,22 +115,25 @@ public class Relatorios extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_locacao) {
-            Intent it = new Intent(Relatorios.this, main.class);
+            Intent it = new Intent(Relatorios.this, ListaLocacao.class);
             startActivity(it);
         } else if (id == R.id.nav_clientes) {
-
+            Intent it = new Intent(Relatorios.this, ListaCliente.class);
+            startActivity(it);
         } else if (id == R.id.nav_carros) {
-
+            Intent it = new Intent(Relatorios.this, ListaVeiculo.class);
+            startActivity(it);
         } else if (id == R.id.nav_relatorios) {
             if(active){
 
             }else{
-            Intent it = new Intent(Relatorios.this, Relatorios.class);
-            startActivity(it);
+                Intent it = new Intent(Relatorios.this, Relatorios.class);
+                startActivity(it);
             }
 
-        } else if (id == R.id.nav_relatorios) {
-
+        } else if (id == R.id.nav_funcionarios) {
+            Intent it = new Intent(Relatorios.this, Funcionario.class);
+            startActivity(it);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

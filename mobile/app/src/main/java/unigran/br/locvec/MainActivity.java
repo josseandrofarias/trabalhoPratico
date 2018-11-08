@@ -14,11 +14,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class main extends AppCompatActivity
+import locvec.unigran.br.locvec.R;
+
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     static boolean active = false;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+        finish();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +52,7 @@ public class main extends AppCompatActivity
     }
 
     public void clickBtnRelatorios(View view){
-        Intent it = new Intent(main.this, Relatorios.class);
+        Intent it = new Intent(MainActivity.this, Relatorios.class);
         startActivity(it);
     }
 
@@ -74,18 +88,6 @@ public class main extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        active = true;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        active = false;
-        finish();
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -97,19 +99,21 @@ public class main extends AppCompatActivity
             if(active){
 
             }else{
-                Intent it = new Intent(main.this, main.class);
+                Intent it = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(it);
             }
         } else if (id == R.id.nav_clientes) {
-
+            Intent it = new Intent(MainActivity.this, ListaCliente.class);
+            startActivity(it);
         } else if (id == R.id.nav_carros) {
-
+            Intent it = new Intent(MainActivity.this, ListaVeiculo.class);
+            startActivity(it);
         } else if (id == R.id.nav_relatorios) {
-            Intent it = new Intent(main.this, Relatorios.class);
+            Intent it = new Intent(MainActivity.this, ListaLocacao.class);
             startActivity(it);
 
-        } else if (id == R.id.nav_funcionários) {
-            Intent it = new Intent(main.this, Funcionario.class);
+        } else if (id == R.id.nav_funcionarios) {
+            Intent it = new Intent(MainActivity.this, Funcionario.class);
             startActivity(it);
         }
 

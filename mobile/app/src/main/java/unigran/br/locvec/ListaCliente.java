@@ -14,11 +14,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import locvec.unigran.br.locvec.R;
+
 public class ListaCliente extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     static boolean active = false;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+        finish();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +70,7 @@ public class ListaCliente extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.lista_cliente, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -82,22 +96,25 @@ public class ListaCliente extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_locacao) {
+            Intent it = new Intent(ListaCliente.this, ListaLocacao.class);
+            startActivity(it);
+        } else if (id == R.id.nav_clientes) {
             if(active){
 
             }else{
-                Intent it = new Intent(main.this, main.class);
+                Intent it = new Intent(ListaCliente.this, ListaCliente.class);
                 startActivity(it);
             }
-        } else if (id == R.id.nav_clientes) {
-
         } else if (id == R.id.nav_carros) {
-
+            Intent it = new Intent(ListaCliente.this, ListaVeiculo.class);
+            startActivity(it);
         } else if (id == R.id.nav_relatorios) {
-            Intent it = new Intent(main.this, Relatorios.class);
+            Intent it = new Intent(ListaCliente.this, Relatorios.class);
             startActivity(it);
 
-        } else if (id == R.id.nav_relatorios) {
-
+        } else if (id == R.id.nav_funcionarios) {
+            Intent it = new Intent(ListaCliente.this, Funcionario.class);
+            startActivity(it);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

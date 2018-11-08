@@ -14,8 +14,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import locvec.unigran.br.locvec.R;
+
 public class Funcionario extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    static boolean active = false;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +65,7 @@ public class Funcionario extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.funcionario, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -73,18 +90,26 @@ public class Funcionario extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_locacao) {
+            Intent it = new Intent(Funcionario.this, ListaLocacao.class);
+            startActivity(it);
+        } else if (id == R.id.nav_clientes) {
+            Intent it = new Intent(Funcionario.this, ListaCliente.class);
+            startActivity(it);
+        } else if (id == R.id.nav_carros) {
+            Intent it = new Intent(Funcionario.this, ListaVeiculo.class);
+            startActivity(it);
+        } else if (id == R.id.nav_relatorios) {
+            Intent it = new Intent(Funcionario.this, Relatorios.class);
+            startActivity(it);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_funcionarios) {
+            if(active){
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            }else{
+                Intent it = new Intent(Funcionario.this, Funcionario.class);
+                startActivity(it);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

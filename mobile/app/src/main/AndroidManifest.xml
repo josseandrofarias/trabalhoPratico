@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="unigran.br.locvec">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="locvec.unigran.br.locvec">
 
     <application
         android:allowBackup="true"
@@ -8,14 +9,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Relatorios"
-            android:label="@string/title_activity_relatorios"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".main"
-            android:label="@string/title_activity_main"
+            android:name="unigran.br.locvec.ListaLocacao"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +22,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Funcionario"
+            android:name="unigran.br.locvec.Relatorios"
+            android:label="@string/title_activity_relatorios"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="unigran.br.locvec.ClienteManutencao" />
+        <activity
+            android:name="unigran.br.locvec.Funcionario"
             android:label="@string/title_activity_funcionario"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FuncionarioManutencao"></activity>
+        <activity android:name="unigran.br.locvec.FuncionarioManutencao" />
+        <activity
+            android:name="unigran.br.locvec.ListaCliente"
+            android:label="@string/title_activity_lista_cliente"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="unigran.br.locvec.MainActivity"
+            android:label="@string/title_activity_lista_locacao"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="unigran.br.locvec.ListaVeiculo"
+            android:label="@string/title_activity_lista_veiculo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="unigran.br.locvec.LocacaoManutencao" />
+        <activity android:name="unigran.br.locvec.VeiculoManutencao"></activity>
     </application>
 
 </manifest>

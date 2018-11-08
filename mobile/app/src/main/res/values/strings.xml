@@ -21,6 +21,9 @@
         <item>Funcionários</item>
     </string-array>
     <string name="title_activity_main">Locação</string>
-    <string name="title_activity_funcionario">funcionario</string>
+    <string name="title_activity_funcionario">Funcionario</string>
+    <string name="title_activity_lista_cliente">Lista Cliente</string>
+    <string name="title_activity_lista_locacao">Lista Locacao</string>
+    <string name="title_activity_lista_veiculo">Lista Veiculo</string>
 
 </resources>

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClienteManutencao">
+    tools:context="unigran.br.locvec.ClienteManutencao"
+    tools:ignore="MissingConstraints">
 
     <EditText
         android:id="@+id/editText2"
@@ -17,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="111dp" />
+        tools:layout_editor_absoluteY="111dp"/>
 
     <EditText
         android:id="@+id/editText3"

@@ -1,4 +1,4 @@
-package unigran.br.locvec.Máscaras;
+package unigran.br.locvec.Utilitarios;
 
 import android.text.Editable;
 import android.text.TextWatcher;
