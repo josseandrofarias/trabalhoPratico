@@ -32,15 +32,54 @@
 					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 						<h1 class="h2">Gerenciamento de Locações</h1>
 						<div class="btn-toolbar mb-2 mb-md-0">
-							<div class="btn-group mr-2">
-								<a href="cadastrar_locacao.php" class="btn btn-sm btn-outline-secondary">Cadastrar</a>
-								<a href="#" class="btn btn-sm btn-outline-secondary">Deletar</a>
-								<a href="#" class="btn btn-sm btn-outline-secondary">Editar</a>
+							<div class="btn-group mr-2">	
+								<a href="cadastrar_locacao.php" class="btn btn-success" data-toggle="modal" data-target="#modalCadastro">
+								<i class="fas fa-pen"></i>
+								Nova Locação</a>
 							</div>
 						</div>
 					</div>
 
-				</div>		
+				</div>	
+
+
+				<div class="modal" id="modalCadastro">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<h4 class="modal-title">Cadastrar Locação</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								
+								<div class="col-6">
+									<form>
+										<div class="form-group">
+											<label for="numeroCliente">Número do Cliente</label>
+											<input type="text" class="form-control" id="numeroCliente">
+										</div>
+										<div class="form-group">
+											<label for="placaCarro">Placa do Carro</label>
+											<input type="text" class="form-control" id="placaCarro">
+										</div>
+										<div class="form-group">
+											<label for="dataLocacao">Data de Locação</label>
+											<input type="date" class="form-control" id="dataLocacao" value="" >
+										</div>
+									</form>
+								</div>
+
+							</div>
+
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-success">Cadastrar</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+							</div>
+						</div>
+					</div>
+				</div>	
 		
 				<!-- ******************************************************************* -->
 
