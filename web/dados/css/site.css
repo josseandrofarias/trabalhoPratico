@@ -72,10 +72,11 @@ textarea.big {
 #btnGerar{
     background-color: #545254;
     border-color: #000;
-    width: 150px;"
+    width: 150px;
+    box-shadow: none;
 }
 
-#btnGerar:hover, #btnGerar:active, #btnGerar:focus {
+#btnGerar:hover {
   color: #ffffff !important;
   background-color: #1F2838 !important;
   border-color: #000 !important;
