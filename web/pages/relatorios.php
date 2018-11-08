@@ -38,11 +38,9 @@ include '../TFuncao.php';
           </div>
 
           <div class="container-fluid">
+                <p class="input" for="inputGroupSelect01">Tipo do relatório</p>
             <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01"><strong>Tipo do relatório</strong></label>
-              </div>
-              <select class="custom-select col-2" id="inputGroupSelect01">
+              <select class="custom-select custom-select-lg" id="inputGroupSelect01">
                 <option selected>Selecione...</option>
                 <option value="1">Km Carros</option>
                 <option value="2">Locações</option>
@@ -53,23 +51,23 @@ include '../TFuncao.php';
           </div>
 
           <div class="container-fluid">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01"><strong>Data inicial</strong></label>
-              </div>
-              <input class="form-control col-2" type="date" value="" id="data_final">
+
+            <div class="row">
+                <div class="col-md-4 ">
+                  <p class="label">Data Inicial</p>
+                    <input class="form-control form-control-lg" type="date" placeholder="Inicial">
+
+                </div>
+                <div class="col-md-4">
+                  <p class="label">Data Final</p>
+                    <input class="form-control form-control-lg" type="date" placeholder="Final">   
+                </div>
             </div>
+            <br>
+            <button type="button" class="btn btn-primary btn-lg" id="btnGerar">Gerar</button>
           </div>
 
-          <div class="container-fluid">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputGroupSelect01"><strong>Data final</strong></label>
-              </div>
-              <input class="form-control col-2" type="date" value="" id="data_final">
-            </div>
-            <button type="button" class="btn btn-primary btn-lg" style="background-color: #545254; border-color: #000">Gerar relatório</button>
-          </div>
+
 
         <!--Final do centro aonde irá ocorrer Edição-->
       </section>

@@ -75,14 +75,9 @@ textarea.big {
     width: 150px;"
 }
 
-#btnGerar{
-    background-color: #545254;
-    border-color: #000;
-    width: 150px;"
-}
-
-#btnGerar:hover{
-    background-color: #545254;
-    border-color: #fff;
-    width: 150px;"
+#btnGerar:hover, #btnGerar:active, #btnGerar:focus {
+  color: #ffffff !important;
+  background-color: #1F2838 !important;
+  border-color: #000 !important;
+  box-shadow: none;
 }
