@@ -12,20 +12,12 @@ include './TFuncao.php';
         <title>LoCar - Login</title>
 
         <?php
-        echo TFuncoes::AddCss(true);
+        echo TFuncoes::AddCssLogin();
         ?>
-
-        <!--        <link rel="stylesheet" href="./dados/css/bootstrap.min.css">
-        <link rel="stylesheet" href="./dados/css/font-awesome.min.css">
-        <link rel="stylesheet" href="./dados/css/AdminLTE.min.css">
-        <link rel="stylesheet" href="./dados/css/_all-skins.min.css">
-                <link rel="stylesheet" href="./dados/css/site.css">
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">-->
+        <!--<link href="dados/css/materialize.min.css" rel="stylesheet">-->
 
     </head>
-    <!--<body class="loginBody">-->
-    <body class="login-page">
+    <body class="login-page" style="overflow: hidden;">
         <div class="login-box">
 
             <!--logo-->
@@ -35,20 +27,25 @@ include './TFuncao.php';
                 </a>
             </div>
             <!--Form login-->
-            <div class="login-box-body ">
+            <div class="login-box-body">
                 <p class="login-box-msg">Entre com CPF e Senha para iniciar suas vendas</p>
                 <form>
                     <div class="form-group has-feedback">
                         <div class="input-group ">
-                            <span class="fas fa-user form-control-lg col-2"></span>
-                            <input type="text" class="form-control" placeholder="CPF" required="required">
+                            <span class="input-group-text">
+                                <span class="material-icons">person</span>
+                                <input type="text" class="form-control" placeholder="CPF" required="required">
+                            </span>
                         </div>
                     </div>
 
+
                     <div class="form-group has-feedback ">
                         <div class="input-group">
-                            <span class="fas fa-key form-control-lg col-2"></span>
-                            <input type="password" class="form-control" placeholder="Senha" required="required">
+                            <span class="input-group-text">
+                                <span class="material-icons">lock</span>
+                                <input type="password" class="form-control" placeholder="Senha" required="required">
+                            </span>
                         </div>
                     </div>
 
@@ -68,10 +65,6 @@ include './TFuncao.php';
         <?php
         echo TFuncoes::AddJs(true);
         ?>
-           <!--<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/solid.js" integrity="sha384-Xgf/DMe1667bioB9X1UM5QX+EG6FolMT4K7G+6rqNZBSONbmPh/qZ62nBPfTx+xG" crossorigin="anonymous"></script>-->
-<!--<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/regular.js" integrity="sha384-XrvTJeiQ46fxxPrZP6fay5yejA2FV4G1XsS8E4Piz6Fz+7FaEFTw7A7GR972irVV" crossorigin="anonymous"></script>-->
-<!--<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/brands.js" integrity="sha384-S2C955KPLo8/zc2J7kJTG38hvFV+SnzXM6hwfEUhGHw5wPo6uXbnbjSJgw3clO4G" crossorigin="anonymous"></script>-->
-<!--<script defer src="https://use.fontawesome.com/releases/v5.5.0/js/fontawesome.js" integrity="sha384-bNOdVeWbABef8Lh4uZ8c3lJXVlHdf8W5hh1OpJ4dGyqIEhMmcnJrosjQ36Kniaqm" crossorigin="anonymous"></script>-->
     </body>
 
 </html>
