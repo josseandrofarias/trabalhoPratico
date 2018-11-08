@@ -15,7 +15,6 @@ include './TFuncao.php';
         <?php
         echo TFuncoes::AddCss(true);
         ?>
-
     </head>
 
     <body class="skin-blue">
@@ -24,8 +23,9 @@ include './TFuncao.php';
 
             <!--Topo site-->
             <?php echo TFuncoes::AddTopo() ?>
+
             <!--Menu lateral-->
-            <?php echo TFuncoes::AddMenuLateral(true);// include './dados/menuLateral.php'; ?>
+            <?php echo TFuncoes::AddMenuLateral(true); ?>
 
             <!--centro-->
             <div class="content-wrapper" style="min-height: 717px;">

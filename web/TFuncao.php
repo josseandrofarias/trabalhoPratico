@@ -71,33 +71,43 @@ abstract class TFuncoes {
                             <!--<li class="header">Opções de navegação</li>-->
                             <li>
                                 <a href="./index.php">
-                                    <span data-feather="home"></span>
-                                    <span>Locação</span>
-                                </a>
+                                    <div class="row">
+                                        <i class="material-icons">home</i>
+                                        <span>Locação</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/cad_cliente.php">
-                                    <span data-feather="user"></span>
-                                    <span>Clientes</span>
-                                </a>
+                                <a href="./index.php">
+                                    <div class="row">
+                                        <i class="material-icons">people</i> 
+                                        <span>Clientes</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/veiculo.php">
-                                    <span data-feather="shopping-cart"></span>
-                                    <span>Carros</span>
-                                </a>
+                                <a href="./index.php">
+                                    <div class="row">
+                                        <i class="material-icons">directions_car</i>
+                                        <span>Carros</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/relatorios.php">
-                                    <span data-feather="file"></span>
-                                    <span>Relatórios</span>
-                                </a>
+                                <a href="./index.php">
+                                    <div class="row">
+                                        <i class="material-icons">print</i>
+                                        <span> Relatoórios</span>
+                                    </div>
+                                 </a>
                             </li>
                             <li>
-                                <a href="./pages/cad_funcionarios.php">
-                                    <span data-feather="users"></span>
-                                    <span>Funcionários</span>
-                                </a>
+                                <a href="./index.php">
+                                    <div class="row">
+                                        <i class="material-icons">work</i>
+                                        <span>Funcionários</span>
+                                    </div>
+                                 </a>
                             </li>
                         </ul>
                         <!--</div>-->
@@ -164,46 +174,43 @@ abstract class TFuncoes {
 
     public static function AddTopo() {
         return '<header class="main-header">
-    <a class="logo" href="index.php">
-        <span class="logo-mini"><b>LV</b></span>
-        <span class="logo-lg"><b>Loc</b>Vec</span>
-    </a>
-    <nav class="navbar navbar-static-top">
-        <a id="menu-toggle" href="#" data-toggle="push-menu" role="button">
-            <span data-feather="menu"></span>
-        </a>
+                <a class="logo" href="index.php">
+                    <span class="logo-mini"><b>LV</b></span>
+                    <span class="logo-lg"><b>Loc</b>Vec</span>
+                </a>
+                <nav class="navbar navbar-static-top">
+                    <a class="material-icons text-white" id="menu-toggle" href="#" data-toggle="push-menu" role="button">menu</a>
 
-        <div class="navbar-custom-menu">
-            <ul class="row nav navbar-nav navbar-expand">
-                <li class="col-9 dropdown user user-menu nav-item">
-                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                        <!--<img class="user-image" src="imgcaminho">-->
-                        <span data-feather="user"></span>
-                        <span class="hidden-xs">Usuário</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="user-body">Usuário: Master</li>
-                        <li class="user-footer">
-                            <div class="row">
-                                <div class="col-sm-8">
-                                    <a class="btn btn-success btn-flat btn-block" href="?acao=logoff&amp;pgn=inicio">Ajustes</a>
-                                </div>
-                                <div class="col-sm-4">
-                                    <a class="btn btn-default btn-flat btn-block" href="?acao=sair&amp;pgn=inicio">Sair</a>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="col-3 nav-item">
-                    <a href="#" data-toggle="control-sidebar">
-                        <span data-feather="settings"></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>';
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav navbar-expand">
+                            <li class="col-9 dropdown user user-menu nav-item ">
+                                <a class=" dropdown-toggle" href="#" data-toggle="dropdown">                         
+                                    <span class="material-icons text-white">account_circle</span>
+                                    <span class="hidden-xs">Usuário</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="user-body">Usuário: Master</li>
+                                    <li class="user-footer">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <a class="btn btn-success btn-flat btn-block" href="?acao=logoff&amp;pgn=inicio">Ajustes</a>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <a class="btn btn-default btn-flat btn-block" href="?acao=sair&amp;pgn=inicio">Sair</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="col-3 nav-item">
+                                <a href="#" data-toggle="control-sidebar">
+                                    <span data-feather="settings"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>';
     }
 
 }
