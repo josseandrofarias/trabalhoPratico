@@ -31,7 +31,7 @@ public class ListaVeiculo extends AppCompatActivity
     public void onStop() {
         super.onStop();
         active = false;
-        finish();
+        //finish(); //Não posso dar finish na tela pois caso eu queira voltar para esta tela o app nao deve ser fechado
     }
 
     @Override
@@ -55,8 +55,19 @@ public class ListaVeiculo extends AppCompatActivity
 
     public void clickBtnVeiculo(View view){
         Intent i = new Intent(this, VeiculoManutencao.class);
-        startActivity(i);
+        startActivityForResult(i, 1);
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Pronto, você tem o retorno para a sua Activity, ai se você quiser retornar algum valor da outra
+        //Activity, isso tambem é possivel
+    }
+
+
+
+
 
     @Override
     public void onBackPressed() {
