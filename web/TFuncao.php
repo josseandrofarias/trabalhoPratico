@@ -94,7 +94,7 @@ abstract class TFuncoes {
                                  </a>
                             </li>
                             <li>
-                                <a href="./pages/relatorios.php">
+                                <a href="./pages/gerar_relatorios.php">
                                     <div class="row">
                                         <i class="material-icons">print</i>
                                         <span> Relatórios</span>
@@ -144,7 +144,7 @@ abstract class TFuncoes {
                                  </a>
                             </li>
                             <li>
-                                <a href="./relatorios.php">
+                                <a href="./gerar_relatorios.php">
                                     <div class="row">
                                         <i class="material-icons">print</i>
                                         <span> Relatórios</span>
