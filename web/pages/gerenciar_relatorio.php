@@ -64,7 +64,7 @@ include '../TFuncao.php';
                 </div>
             </div>
             <br>
-            <button type="button" class="btn btn-primary btn-lg" id="btnGerar">Gerar</button>
+            <button type="button" class="btn btn-primary btn-lg" id="btnGerar" onclick="document.location.href='./gerar_relatorio.php'">Gerar</button>
           </div>
 
 
