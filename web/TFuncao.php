@@ -2,6 +2,22 @@
 
 abstract class TFuncoes {
 
+    public static function AddConexao() {
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $db_name = "test";
+
+        $conn = new mysqli($servername, $username, $password, $db_name);
+
+        if ($conn->connect_error) {
+            die("Falha na Conexão com o banco".$conn->connect_error);
+        }else
+            return $conn;
+    }
+    
+
     public static function AddCssLogin() {
         return'<link rel="stylesheet" href="./dados/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -166,7 +182,6 @@ abstract class TFuncoes {
                 </aside>';
         }
     }
-
 
     public static function AddPainelCor() {
         return '<aside class="control-sidebar control-sidebar-dark">
