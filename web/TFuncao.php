@@ -167,6 +167,7 @@ abstract class TFuncoes {
         }
     }
 
+
     public static function AddPainelCor() {
         return '<aside class="control-sidebar control-sidebar-dark">
                 <div>

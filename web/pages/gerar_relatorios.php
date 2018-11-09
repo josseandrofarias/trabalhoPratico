@@ -9,7 +9,7 @@ include '../TFuncao.php';
   <meta name="description" content="">
   <meta name="Grupo2" content="">
 
-  <title>LoCar - Locadora de veículos</title>
+  <title>Relatórios - LoCar</title>
 
   <?php
   echo TFuncoes::AddCss(false);
