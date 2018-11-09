@@ -2,9 +2,16 @@ package unigran.br.locvec;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.Entidades.EFuncionario;
 
 public class FuncionarioManutencao extends AppCompatActivity {
 
@@ -30,8 +37,8 @@ public class FuncionarioManutencao extends AppCompatActivity {
         vCargo = findViewById(R.id.etCargo);
         vAdmissao = findViewById(R.id.etAdmissao);
         vDemissao = findViewById(R.id.etDemissao);
-        vFlagSupervisor = findViewById(R.id.ckBoxSupervisor);
-        vFlagDesativado = findViewById(R.id.ckBoxDesativado);
+        //vFlagSupervisor = findViewById(R.id.ckBoxSupervisor);
+        //vFlagDesativado = findViewById(R.id.ckBoxDesativado);
 
         //mascara
         SimpleMaskFormatter smfCPF = new SimpleMaskFormatter("NNN.NNN.NNN-NN");
@@ -39,7 +46,7 @@ public class FuncionarioManutencao extends AppCompatActivity {
         vCPF.addTextChangedListener(mtwCPF);
 
         SimpleMaskFormatter smfAdmissao = new SimpleMaskFormatter("NN/NN/NNNN");
-        MaskTextWatcher mtwAdmissao = new MaskTextWatcher(vAdmissao, smf);
+        MaskTextWatcher mtwAdmissao = new MaskTextWatcher(vAdmissao, smfAdmissao);
         vAdmissao.addTextChangedListener(mtwAdmissao);
 
         SimpleMaskFormatter smfDemissao = new SimpleMaskFormatter("NN/NN/NNNN");
@@ -57,14 +64,13 @@ public class FuncionarioManutencao extends AppCompatActivity {
         }else if(TextUtils.isEmpty(vRG.getText())){
             Toast.makeText(getApplicationContext(), "Informe um RG", Toast.LENGTH_LONG).show();
         }else{
-            Pessoa pessoa = new Pessoa();
-            pessoa.setvNome(nome.getText().toString());
-            pessoa.setvEmail(email.getText().toString());
-            pessoa.setvFone(telefone.getText().toString());
+            EFuncionario efunc = new EFuncionario();
+            efunc.setvNome(vNome.getText().toString());
+
 
             try{
-                DAO.add(pessoa);
-                Toast.makeText(getApplicationContext(), "Muito bem " + pessoa.getvNome(), Toast.LENGTH_LONG).show();
+                //DAO.add(efunc);
+                Toast.makeText(getApplicationContext(), "Muito bem " + efunc.getvNome(), Toast.LENGTH_LONG).show();
                 onBackPressed();
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(), "É, não deu muito certo!", Toast.LENGTH_LONG).show();
