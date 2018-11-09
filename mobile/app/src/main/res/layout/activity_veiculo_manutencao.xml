@@ -14,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:text="Modelo:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/etNome" />
 
     <TextView
         android:id="@+id/textView2"
@@ -27,8 +27,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="348dp"
+        android:id="@+id/etNome"
+        android:layout_width="340dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/etEndereco"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -59,11 +59,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Placa:"
-        app:layout_constraintStart_toEndOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toEndOf="@+id/etEndereco"
+        app:layout_constraintTop_toBottomOf="@+id/etNome" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/etCPF"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -83,10 +83,10 @@
         android:layout_marginTop="16dp"
         android:text="Nome:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/etEndereco" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/etRG"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -105,11 +105,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Cor:"
-        app:layout_constraintStart_toEndOf="@+id/editText4"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintStart_toEndOf="@+id/etRG"
+        app:layout_constraintTop_toBottomOf="@+id/etCPF" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/etCargo"
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -129,11 +129,11 @@
         android:layout_marginTop="16dp"
         android:text="Valor Locação:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/etRG" />
 
     <EditText
-        android:id="@+id/editText6"
-        android:layout_width="170dp"
+        android:id="@+id/etAdmissao"
+        android:layout_width="181dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -151,8 +151,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Valor Seguro:"
-        app:layout_constraintStart_toEndOf="@+id/editText6"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintStart_toEndOf="@+id/etAdmissao"
+        app:layout_constraintTop_toBottomOf="@+id/etCargo" />
 
     <Switch
         android:id="@+id/switch1"
@@ -162,7 +162,7 @@
         android:layout_marginTop="24dp"
         android:text="Ativo: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText6" />
+        app:layout_constraintTop_toBottomOf="@+id/etAdmissao" />
 
     <Button
         android:id="@+id/button3"

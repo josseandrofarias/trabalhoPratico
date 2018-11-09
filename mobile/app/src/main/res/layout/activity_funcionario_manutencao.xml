@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etNome"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -41,10 +41,10 @@
         android:text="Endereço"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/etNome" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/etEndereco"
         android:layout_width="342dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -66,10 +66,10 @@
         android:text="CPF"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/etEndereco" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/etCPF"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -89,10 +89,10 @@
         android:text="RG"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/etEndereco" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/etRG"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -114,10 +114,10 @@
         android:text="Cargo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/etCPF" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/etCargo"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -146,7 +146,7 @@
         android:text="Admissão"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/etCargo" />
 
     <TextView
         android:id="@+id/textView9"
@@ -156,10 +156,10 @@
         android:layout_marginTop="8dp"
         android:text="Demissão"
         app:layout_constraintStart_toEndOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/etCargo" />
 
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/etAdmissao"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -170,7 +170,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <EditText
-        android:id="@+id/editText7"
+        android:id="@+id/etDemissao"
         android:layout_width="172dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -181,17 +181,20 @@
         tools:ignore="MissingConstraints" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/ckBoxSupervisor"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:checked="false"
+        android:clickable="false"
+        android:duplicateParentState="false"
         android:text="Supervisor"
-        app:layout_constraintTop_toBottomOf="@+id/editText6"
-        tools:layout_editor_absoluteX="27dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/etAdmissao"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="27dp" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/ckBoxDesativado"
         android:layout_width="165dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -200,7 +203,7 @@
         android:text="Desativado"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toEndOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/editText7" />
+        app:layout_constraintTop_toBottomOf="@+id/etDemissao" />
 
     <Button
         android:id="@+id/button2"
@@ -210,7 +213,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/btnSalvar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/ckBoxSupervisor" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -227,6 +230,6 @@
         android:layout_marginEnd="5dp"
         android:text="@string/btnCancelar"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/ckBoxDesativado" />
 
 </android.support.constraint.ConstraintLayout>
