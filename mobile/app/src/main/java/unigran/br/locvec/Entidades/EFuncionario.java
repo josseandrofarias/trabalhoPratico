@@ -1,5 +1,7 @@
 package unigran.br.locvec.Entidades;
 
+import android.widget.EditText;
+
 import java.util.Date;
 
 public class EFuncionario {
@@ -10,8 +12,8 @@ public class EFuncionario {
     private String vCargo;
     private Date vAdmissao;
     private Date vDemissao;
-    private int vFlagSupervisor;
-    private int vFlagDesativado;
+    private Boolean vFlagSupervisor;
+    private Boolean vFlagDesativado;
 
     public String getvNome() {
         return vNome;
@@ -69,19 +71,19 @@ public class EFuncionario {
         this.vDemissao = vDemissao;
     }
 
-    public int getvFlagSupervisor() {
+    public Boolean getvFlagSupervisor() {
         return vFlagSupervisor;
     }
 
-    public void setvFlagSupervisor(int vFlagSupervisor) {
+    public void setvFlagSupervisor(Boolean vFlagSupervisor) {
         this.vFlagSupervisor = vFlagSupervisor;
     }
 
-    public int getvFlagDesativado() {
+    public Boolean getvFlagDesativado() {
         return vFlagDesativado;
     }
 
-    public void setvFlagDesativado(int vFlagDesativado) {
+    public void setvFlagDesativado(Boolean vFlagDesativado) {
         this.vFlagDesativado = vFlagDesativado;
     }
 }

@@ -10,23 +10,23 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="310dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="127dp"
         android:text="Nome"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etNome"
-        android:layout_width="340dp"
+        android:layout_width="349dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords|textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -35,24 +35,24 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="299dp"
+        android:layout_marginEnd="105dp"
         android:text="Endereço"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNome" />
 
     <EditText
         android:id="@+id/etEndereco"
-        android:layout_width="342dp"
+        android:layout_width="346dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="1dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -60,9 +60,9 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="137dp"
+        android:layout_marginEnd="139dp"
         android:text="CPF"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,10 +72,12 @@
         android:id="@+id/etCPF"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="14dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -95,37 +97,35 @@
         android:id="@+id/etRG"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="17dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="299dp"
+        android:layout_marginEnd="127dp"
         android:text="Cargo"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCPF" />
 
     <EditText
         android:id="@+id/etCargo"
-        android:layout_width="340dp"
+        android:layout_width="347dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginEnd="1dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:inputType="textCapSentences|textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -162,10 +162,12 @@
         android:id="@+id/etAdmissao"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="14dp"
         android:ems="10"
         android:inputType="date"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -173,25 +175,29 @@
         android:id="@+id/etDemissao"
         android:layout_width="172dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="17dp"
         android:ems="10"
         android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        tools:layout_editor_absoluteX="196dp"
         tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/ckBoxSupervisor"
         android:layout_width="155dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:checked="false"
-        android:clickable="false"
+        android:clickable="true"
         android:duplicateParentState="false"
         android:text="Supervisor"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAdmissao"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="27dp" />
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/ckBoxDesativado"
@@ -226,10 +232,20 @@
         android:id="@+id/button3"
         android:layout_width="164dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="5dp"
+        android:onClick="acaoSair"
         android:text="@string/btnCancelar"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toEndOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/ckBoxDesativado" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="19dp" />
 
 </android.support.constraint.ConstraintLayout>
