@@ -23,6 +23,7 @@ import java.util.Locale;
 import locvec.unigran.br.locvec.R;
 import unigran.br.locvec.Entidades.EFuncionario;
 import unigran.br.locvec.Utilitarios.MáscaraCampoData;
+import unigran.br.locvec.Utilitarios.ValidaCPF;
 
 public class FuncionarioManutencao extends AppCompatActivity {
 
@@ -66,6 +67,10 @@ public class FuncionarioManutencao extends AppCompatActivity {
     }
 
     public void acSalvar(View view) {
+        ValidaCPF objValida = new ValidaCPF();
+        //remove formatação do cpf para validação
+        String vTempCPF = vCPF.getText().toString().replaceAll("[^0-9]", "");
+
         if(TextUtils.isEmpty(vNome.getText())){
             Toast.makeText(getApplicationContext(), "Informe um nome", Toast.LENGTH_LONG).show();
         }else if (TextUtils.isEmpty(vEndereco.getText())){
@@ -74,6 +79,8 @@ public class FuncionarioManutencao extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Informe um CPF", Toast.LENGTH_LONG).show();
         }else if(TextUtils.isEmpty(vRG.getText())){
             Toast.makeText(getApplicationContext(), "Informe um RG", Toast.LENGTH_LONG).show();
+        }else if(objValida.CPFValida(vTempCPF) == false){
+            Toast.makeText(getApplicationContext(), "CPF incorreto", Toast.LENGTH_LONG).show();
         }else{
             EFuncionario efunc = new EFuncionario();
             efunc.setvNome(vNome.getText().toString());
@@ -81,19 +88,14 @@ public class FuncionarioManutencao extends AppCompatActivity {
             efunc.setvRG(vRG.getText().toString());
             efunc.setvCPF(vCPF.getText().toString());
             efunc.setvCargo(vCargo.getText().toString());
-            SimpleDateFormat formatoDate = new SimpleDateFormat("dd/MM/yyyy");
-            Date vDateAdmissao = formatoDate.parse(vAdmissao.getText().toString(),null);
-            Date vDateDemissao = formatoDate.parse(vDemissao.getText().toString(),null);
-            efunc.setvAdmissao(vDateAdmissao);
-            efunc.setvDemissao(vDateDemissao);
+            //fodaZe a data
             efunc.setvFlagSupervisor(vFlagSupervisor.getIncludeFontPadding());
             efunc.setvFlagDesativado(vFlagSupervisor.getIncludeFontPadding());
-
 
             try{
                 //DAO.add(efunc);
                 Toast.makeText(getApplicationContext(), "Funcionário cadastrado!", Toast.LENGTH_LONG).show();
-                onBackPressed();
+                finish();
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(), "Houve um erro, verique e tente " +
                         "novamente...", Toast.LENGTH_LONG).show();
@@ -108,7 +110,7 @@ public class FuncionarioManutencao extends AppCompatActivity {
         builder.setPositiveButton("Sim, vou!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                onBackPressed();
+                finish();
             }
         });
         builder.setNegativeButton("Ok, vou terminar :)", new DialogInterface.OnClickListener() {
@@ -119,7 +121,5 @@ public class FuncionarioManutencao extends AppCompatActivity {
         });
         AlertDialog alert = builder.create();
         alert.show();
-
     }
-
 }
