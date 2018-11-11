@@ -29,7 +29,7 @@ include '../TFuncao.php';
         <!--centro-->
         <div class="content-wrapper" style="min-height: 717px;">
 
-            <div class="container">
+            <div class="container-fluid">
                 <h2>Veiculos cadastrados</h2><br>
                 <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -40,10 +40,10 @@ include '../TFuncao.php';
                         <thead>
                             <tr>
                                 <th scope="col">Código</th>
-                                <th scope="col">Tipo</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Modelo</th>
                                 <th scope="col">Placa</th>
-                                <th scope="col">Capacidade (Passageiros)</th>
-                                <th scope="col">Motorista</th>
+                                <th scope="col">Valor locação</th>
                                 <th scope="col">Selecionar</th>
                             </tr>
                         </thead>
@@ -53,7 +53,7 @@ include '../TFuncao.php';
                                 <td>Van</td>
                                 <td>HKY-3912</td>
                                 <td>10</td>
-                                <td>José A.</td>
+                                <td>R$ 500</td>
                                 <td>
                                     <div class="radio">
                                         <label><input type="radio" name="optradio"></label>
@@ -65,7 +65,7 @@ include '../TFuncao.php';
                                 <td>Van</td>
                                 <td>HTN-5531</td>
                                 <td>13</td>
-                                <td>Lucas B.</td>
+                                <td>R$ 500</td>
                                 <td>
                                     <div class="radio">
                                         <label><input type="radio" name="optradio"></label>
@@ -77,7 +77,7 @@ include '../TFuncao.php';
                                 <td>Ônibus</td>
                                 <td>NME-0574</td>
                                 <td>45</td>
-                                <td>Bruno L.</td>
+                                <td>R$ 500</td>
                                 <td>
                                     <div class="radio">
                                         <label><input type="radio" name="optradio"></label>
@@ -89,7 +89,7 @@ include '../TFuncao.php';
                                 <td>Ônibus</td>
                                 <td>KJG-7711</td>
                                 <td>60</td>
-                                <td>Pedro K.</td>
+                                <td>R$ 500</td>
                                 <td>
                                     <div class="radio">
                                         <label><input type="radio" name="optradio"></label>
@@ -120,23 +120,46 @@ include '../TFuncao.php';
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="form-group col-md-4">
-                                            <label for="campo1">Tipo</label>
+                                        <label for="campo1">Marca:</label>
                                             <input type="text" class="form-control" id="campo1">
                                         </div>
 
                                         <div class="form-group col-md-4">
-                                            <label for="campo2">Placa</label>
+                                            <label for="campo2">Modelo:</label>
                                             <input type="text" class="form-control" id="campo2">
                                         </div>
 
+
                                         <div class="form-group col-md-4">
-                                            <label for="campo3">Capacidade</label>
+                                            <label for="campo3">Placa:</label>
                                             <input type="text" class="form-control" id="campo3">
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="campo3">Motorista</label>
+                                            <label for="campo3">Cor:</label>
                                             <input type="text" class="form-control" id="campo4">
                                         </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="campo3">Nome:</label>
+                                            <input type="text" class="form-control" id="campo4">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="campo3">Valor locação:</label>
+                                            <input type="number" class="form-control" id="campo4">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="campo3">Valor seguro:</label>
+                                            <input type="text" class="form-control" id="campo4">
+                                        </div>
+                                        <div class="dropdown">
+                                            <label for="menu1">Situação:</label><br>
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Selecionar
+                                            <span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Ativo</a></li>
+                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Inativo</a></li>
+                                            </ul>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -180,25 +203,46 @@ include '../TFuncao.php';
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="form-group col-md-4">
-                                                        <label for="campo1">Tipo</label>
+                                                        <label for="campo1">Marca:</label>
                                                         <input type="text" class="form-control" id="campo1">
                                                     </div>
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="campo2">Placa</label>
+                                                        <label for="campo2">Modelo:</label>
                                                         <input type="text" class="form-control" id="campo2">
                                                     </div>
 
 
                                                     <div class="form-group col-md-4">
-                                                        <label for="campo3">Capacidade</label>
+                                                        <label for="campo3">Placa:</label>
                                                         <input type="text" class="form-control" id="campo3">
                                                     </div>
                                                     <div class="form-group col-md-4">
-                                                        <label for="campo3">Motorista</label>
+                                                        <label for="campo3">Cor:</label>
                                                         <input type="text" class="form-control" id="campo4">
                                                     </div>
-
+                                                    <div class="form-group col-md-4">
+                                                        <label for="campo3">Nome:</label>
+                                                        <input type="text" class="form-control" id="campo4">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="campo3">Valor locação:</label>
+                                                        <input type="number" class="form-control" id="campo4">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <label for="campo3">Valor seguro:</label>
+                                                        <input type="text" class="form-control" id="campo4">
+                                                    </div>
+                                                    <div class="dropdown">
+                                                        <label for="menu1">Situação:</label><br>
+                                                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Selecionar
+                                                        <span class="caret"></span></button>
+                                                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Ativo</a></li>
+                                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Inativo</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
