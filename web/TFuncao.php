@@ -4,19 +4,55 @@ abstract class TFuncoes {
 
     public static function AddConexao() {
 
-        $servername = "localhost";
+        $host = "localhost";
         $username = "root";
         $password = "";
-        $db_name = "test";
+        $db_name = "locar";
 
-        $conn = new mysqli($servername, $username, $password, $db_name);
-
+        $conn = new mysqli($host, $username, $password, $db_name);
         if ($conn->connect_error) {
-            die("Falha na Conexão com o banco".$conn->connect_error);
-        }else
+            die("Falha na Conexão com o banco" . $conn->connect_error);
+        } else
             return $conn;
     }
-    
+
+    /* Passar por parametro campos ou um where
+     * Ex: ('pessoa', 'nome, cpf')
+     *  ('pessoa', 'nome, cpf', 'cpf = 0000000000')    */
+
+    public static function Select($tabela, $campos = false, $where = false) {
+        $db = TFuncoes::AddConexao();
+
+        $cp = (!$campos) ? '*' : $campos;
+        $busca = (!$where) ? '' : 'where' . $campos;
+
+        $resul = $db->query("select $cp from $tabela $busca");
+        if ($resul->num_rows > 0) {
+            while ($row = $resul->fetch_assoc()) {
+
+                $dados[] = $row;
+            }
+            return $dados;
+        } else {
+            return false;
+        }
+    }
+    /*
+     *Passar sql que deseja executar por parametro*/
+    public static function ExecSql($sql) {
+        $db = TFuncoes::AddConexao();
+
+        $resul = $db->query($sql);
+        if ($resul->num_rows > 0) {
+            while ($row = $resul->fetch_assoc()) {
+
+                $dados[] = $row;
+            }
+            return $dados;
+        } else {
+            return false;
+        }
+    }
 
     public static function AddCssLogin() {
         return'<link rel="stylesheet" href="./dados/css/bootstrap.min.css">
