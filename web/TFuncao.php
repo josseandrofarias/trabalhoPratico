@@ -4,9 +4,12 @@ abstract class TFuncoes {
 
     public static function AddConexao() {
 
-        $host = "localhost";
-        $username = "root";
-        $password = "";
+        $host = "35.198.39.146";
+        //$host = "localhost";
+        $username = "locar";
+        //$username = "root";
+        $password = "locar258chinelo";
+        //$password = "";
         $db_name = "locar";
 
         $conn = new mysqli($host, $username, $password, $db_name);
