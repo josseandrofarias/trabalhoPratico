@@ -37,8 +37,8 @@ abstract class TFuncoes {
     public static function Select($tabela, $campos = false, $where = false) {
         $db = TFuncoes::AddConexao();
 
-        $cp = (!$campos) ? '*' : $campos;
-        $busca = (!$where) ? '' : 'where' . $campos;
+        $cp = (!$campos) ? ' * ' : $campos;
+        $busca = (!$where) ? '' : ' where ' . $where;
 
         $resul = $db->query("select $cp from $tabela $busca");
         if ($resul->num_rows > 0) {
