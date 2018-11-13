@@ -1,5 +1,5 @@
-
 <?php include './TFuncao.php'; ?>
+
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -10,6 +10,7 @@
         <title>LoCar - Locadora de Veículos</title>
 
         <?php echo TFuncoes::AddCss(true); ?>
+        <link rel='stylesheet' type='text/css' href='dados/css/dataTables.bootstrap4.min.css'/> <!--LINKAGEM TEMPORARIA!-->
     </head>
 
     <body class="skin-blue">
@@ -32,141 +33,47 @@
                             <h1 class="h2">Locações</h1>
                             <div class="btn-toolbar mb-2 mb-md-0">
                                 <div class="btn-group mr-2">	
-                                    <a href="cadastrar_locacao.php" class="btn btn-success" data-toggle="modal" data-target="#modalCadastro">
-                                    <i class="fas fa-pen"></i>
-                                    Nova Locação</a>
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCadastro">
+                                        <i class="fas fa-pen"></i> 
+                                        Nova Locação   
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
+                        <div class="table-responsive">
+                            <table id="tabelaLocacao" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Veículo</th>
+                                        <th>Data de Locação</th>
+                                        <th>Data de Devolução</th>
+                                        <th>KM</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                                    <?php 
+                                    /*
+                                        SELECT PARA TESTE
+                                        $res = TFuncoes::Select('locacao','idlocacao, idcarro, idcliente, datalocacao');
+                                        foreach($res as $tabela) {
+                                            echo "<tr>";
+                                                echo "<th>" . $tabela['idlocacao'] . "</th>";
+                                                echo "<th>" . $tabela['idcliente'] . "</th>";
+                                                echo "<th>" . $tabela['idcarro'] . "</th>";
+                                                echo "<th>" . $tabela['datalocacao'] . "</th>";
+                                            echo "</tr>";
+                                            
+                                        }
+                                    */
+                                    ?>
 
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Data Locação</th>
-                                    <th>Data Devolução</th>
-                                    <th>Km</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1,001</td>
-                                    <td>Lorem</td>
-                                    <td>ipsum</td>
-                                    <td>dolor</td>
-                                    <td>sit</td>
-                                </tr>
-                                <tr>
-                                    <td>1,002</td>
-                                    <td>amet</td>
-                                    <td>consectetur</td>
-                                    <td>adipiscing</td>
-                                    <td>elit</td>
-                                </tr>
-                                <tr>
-                                    <td>1,003</td>
-                                    <td>Integer</td>
-                                    <td>nec</td>
-                                    <td>odio</td>
-                                    <td>Praesent</td>
-                                </tr>
-                                <tr>
-                                    <td>1,003</td>
-                                    <td>libero</td>
-                                    <td>Sed</td>
-                                    <td>cursus</td>
-                                    <td>ante</td>
-                                </tr>
-                                <tr>
-                                    <td>1,004</td>
-                                    <td>dapibus</td>
-                                    <td>diam</td>
-                                    <td>Sed</td>
-                                    <td>nisi</td>
-                                </tr>
-                                <tr>
-                                    <td>1,005</td>
-                                    <td>Nulla</td>
-                                    <td>quis</td>
-                                    <td>sem</td>
-                                    <td>at</td>
-                                </tr>
-                                <tr>
-                                    <td>1,006</td>
-                                    <td>nibh</td>
-                                    <td>elementum</td>
-                                    <td>imperdiet</td>
-                                    <td>Duis</td>
-                                </tr>
-                                <tr>
-                                    <td>1,007</td>
-                                    <td>sagittis</td>
-                                    <td>ipsum</td>
-                                    <td>Praesent</td>
-                                    <td>mauris</td>
-                                </tr>
-                                <tr>
-                                    <td>1,008</td>
-                                    <td>Fusce</td>
-                                    <td>nec</td>
-                                    <td>tellus</td>
-                                    <td>sed</td>
-                                </tr>
-                                <tr>
-                                    <td>1,009</td>
-                                    <td>augue</td>
-                                    <td>semper</td>
-                                    <td>porta</td>
-                                    <td>Mauris</td>
-                                </tr>
-                                <tr>
-                                    <td>1,010</td>
-                                    <td>massa</td>
-                                    <td>Vestibulum</td>
-                                    <td>lacinia</td>
-                                    <td>arcu</td>
-                                </tr>
-                                <tr>
-                                    <td>1,011</td>
-                                    <td>eget</td>
-                                    <td>nulla</td>
-                                    <td>Class</td>
-                                    <td>aptent</td>
-                                </tr>
-                                <tr>
-                                    <td>1,012</td>
-                                    <td>taciti</td>
-                                    <td>sociosqu</td>
-                                    <td>ad</td>
-                                    <td>litora</td>
-                                </tr>
-                                <tr>
-                                    <td>1,013</td>
-                                    <td>torquent</td>
-                                    <td>per</td>
-                                    <td>conubia</td>
-                                    <td>nostra</td>
-                                </tr>
-                                <tr>
-                                    <td>1,014</td>
-                                    <td>per</td>
-                                    <td>inceptos</td>
-                                    <td>himenaeos</td>
-                                    <td>Curabitur</td>
-                                </tr>
-                                <tr>
-                                    <td>1,015</td>
-                                    <td>sodales</td>
-                                    <td>ligula</td>
-                                    <td>in</td>
-                                    <td>libero</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
 
                     <!-- INICIO DOS MODALS-->
@@ -182,18 +89,18 @@
                                 <div class="modal-body">
                                     
                                     <div class="col-6">
-                                        <form>
+                                        <form method="post" action="#"  target="_self" id="consulta" >
                                             <div class="form-group">
                                                 <label for="numeroCliente">Número do Cliente</label>
-                                                <input type="text" class="form-control" id="numeroCliente">
+                                                <input type="text" class="form-control" id="numeroCliente" name="numeroCliente" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="placaCarro">Placa do Carro</label>
-                                                <input type="text" class="form-control" id="placaCarro">
+                                                <input type="text" class="form-control" id="placaCarro" name="placaCarro" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="dataLocacao">Data de Locação</label>
-                                                <input type="date" class="form-control" id="dataLocacao" value="" >
+                                                <input type="date" class="form-control" id="dataLocacao" name="dataLocacao" >
                                             </div>
                                         </form>
                                     </div>
@@ -201,7 +108,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Cadastrar</button>
+                                    <button type="submit" class="btn btn-success" form="consulta">Cadastrar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                 </div>
 
@@ -258,6 +165,10 @@
         </div>
 
         <?php echo TFuncoes::AddJs(true) ?> <!--INCLUIR JS-->
+
+        <script src='dados/js/jquery.dataTables.min.js'></script><!--LINKAGEM TEMPORARIA!-->
+        <script src='dados/js/dataTables.bootstrap4.min.js'></script>
+        <script src='dados/js/site.js'></script>
 
     </body>
 </html>
