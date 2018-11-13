@@ -58,7 +58,7 @@ abstract class TFuncoes {
 
         $resul = $db->query($sql);
         if($resul){
-        var_dump('asd');
+//        var_dump('asd');
         if ($resul->num_rows > 0) {
             while ($row = $resul->fetch_assoc()) {
 
