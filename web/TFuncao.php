@@ -2,6 +2,17 @@
 
 abstract class TFuncoes {
 
+    function teste() {
+        die('morreu');
+        session_start();
+        if(!isset($_SESSION['user_nome']) && ($_SESSION['user_permissao']))
+        {
+            die('morreu');
+            header("location: login.php");
+        }
+        //  print "In constructor\n";
+    }
+
     public static function AddConexao() {
 
         $host = "35.198.39.146";
@@ -46,13 +57,15 @@ abstract class TFuncoes {
         $db = TFuncoes::AddConexao();
 
         $resul = $db->query($sql);
+        if($resul){
+        var_dump('asd');
         if ($resul->num_rows > 0) {
             while ($row = $resul->fetch_assoc()) {
 
                 $dados[] = $row;
             }
             return $dados;
-        } else {
+        }} else {
             return false;
         }
     }
@@ -90,7 +103,7 @@ abstract class TFuncoes {
 
     public static function AddJs($index) {
         if ($index) {
-            return '<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            return '<script src="./dados/js/jquery-3.3.1.min.js" type="text/javascript"></script>
                 <script src="./dados/js/bootstrap.min.js" type="text/javascript"></script>
                 <script src="./dados/js/adminlte.min.js" type="text/javascript"></script>
                 <script src="./dados/js/demo.js" type="text/javascript"></script>
@@ -103,7 +116,7 @@ abstract class TFuncoes {
                 <!-- Graphs -->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>';
         } else {
-            return '<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            return '<script src="./dados/js/jquery-3.3.1.min.js" type="text/javascript"></script>
                 <script src="../dados/js/bootstrap.min.js" type="text/javascript"></script>
                 <script src="../dados/js/adminlte.min.js" type="text/javascript"></script>
                 <script src="../dados/js/demo.js" type="text/javascript"></script>
@@ -261,7 +274,7 @@ abstract class TFuncoes {
                                                 <a class="btn btn-success btn-flat btn-block" href="?acao=logoff&amp;pgn=inicio">Ajustes</a>
                                             </div>
                                             <div class="col-sm-4">
-                                                <a class="btn btn-default btn-flat btn-block" href="?acao=sair&amp;pgn=inicio">Sair</a>
+                                                <a href="logoff.php" class="btn btn-default btn-flat btn-block">Sair</a>
                                             </div>
                                         </div>
                                     </li>
