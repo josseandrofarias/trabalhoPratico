@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,11 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.DaoFuncionario;
 
 public class Funcionario extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     static boolean active = false;
+    private RecyclerView recyclerView;
+    private PessoaAdapter pessoaAdapter;
 
     @Override
     public void onStart() {
@@ -50,6 +55,15 @@ public class Funcionario extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        recyclerView= findViewById(R.id.listFuncinarios);
+        DaoFuncionario daoFunc = new DaoFuncionario(this);
+        daoFunc.abreConexao();
+
+        LinearLayoutManager linearLayout = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayout);
+        pessoaAdapter = new PessoaAdapter(DaoFuncionario.l());
+        recyclerView.setAdapter(pessoaAdapter);
     }
 
     @Override

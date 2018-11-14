@@ -2,20 +2,33 @@ package unigran.br.locvec.Entidades;
 
 import android.widget.EditText;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class EFuncionario {
 
+    @SerializedName("id")
     private int id;
+    @SerializedName("vNome")
     private String vNome;
+    @SerializedName("vEndereco")
     private String vEndereco;
+    @SerializedName("vRG")
     private String vRG;
+    @SerializedName("vCPF")
     private String vCPF;
+    @SerializedName("vCargo")
     private String vCargo;
+    @SerializedName("vAdmissao")
     private Date vAdmissao;
+    @SerializedName("vDemissao")
     private Date vDemissao;
+    @SerializedName("vSenha")
     private String vSenha;
+    @SerializedName("vFlagSupervisor")
     private Boolean vFlagSupervisor;
+    @SerializedName("vFlagDesativado")
     private Boolean vFlagDesativado;
 
     public int getId() {
