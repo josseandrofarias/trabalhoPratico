@@ -252,6 +252,11 @@ abstract class TFuncoes {
     }
 
     public static function AddTopo() {
+        session_start();
+
+        $super = ($_SESSION["user_permissao"] == 1)?'Supervisor':'';
+        $img = ($_SESSION["user_permissao"] == 1)?'supervised_user_circle':'account_circle';
+
         return '<header class="main-header">
                 <a class="logo" href="index.php">
                     <span class="logo-mini"><b>LV</b></span>
@@ -262,22 +267,18 @@ abstract class TFuncoes {
 
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav navbar-expand">
-                            <li class="col-9 dropdown user user-menu nav-item ">
+                            <li class="col-10 col-lg-10 dropdown user user-menu nav-item " >
                                 <a class=" dropdown-toggle" href="#" data-toggle="dropdown">                         
-                                    <span class="material-icons text-white">account_circle</span>
-                                    <span class="hidden-xs">Usuário</span>
+                                    <span class="material-icons text-white">'.$img.'</span>
+                                    <span class="hidden-xs">'. $_SESSION["user_nome"].'</span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li class="user-body">Usuário: Master</li>
+                                    <li class="user-body">Cargo: '.$_SESSION["user_cargo"].'</li>
+                                    <li class="user-body">'.$super.'</li>
                                     <li class="user-footer">
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <a class="btn btn-success btn-flat btn-block" href="?acao=logoff&amp;pgn=inicio">Ajustes</a>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <a href="logoff.php" class="btn btn-default btn-flat btn-block">Sair</a>
-                                            </div>
-                                        </div>
+                                    <div class="offset-8">
+                                        <a href="logoff.php" class="btn btn-default btn-flat btn-block">Sair</a>
+                                    </div>
                                     </li>
                                 </ul>
                             </li>
