@@ -17,19 +17,17 @@ function Relatorio() {
             url: "./gerar_relatorio.php",
             type: 'post',
             data: {
-                dataini : eu.ipt_dataini.val(),
-                datafin : eu.ipt_datafin.val(),
+                datai : eu.ipt_dataini.val(),
+                dataf : eu.ipt_datafin.val(),
                 tipo : eu.tipo.val()
             }
-            // beforeSend : function(){
-            //     console.log('asd')
-            //     $("#result").html("ENVIANDO...");
-            // }
         }).done(function (dados) {
-            if(dados == false) {
-                $("#result").html("<div class='row'>Não foi possível gerar relatório</div>");
-            }else{
-                e.preventDefault();}
+
+            console.log(dados);
+            // if(dados == false) {
+            //     $("#result").html("<div class='row'>Não foi possível gerar relatório</div>");
+            // }else{
+            //     e.preventDefault();}
             //     $('#result').html(dados);
             // console.log(dados);
             // }

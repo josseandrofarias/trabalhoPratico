@@ -39,7 +39,7 @@
                     <p class="input" for="inputGroupSelect01">Tipo do relatório</p>
                     <div class="input-group mb-3">
                         <select class="custom-select custom-select-lg" id="tipo" name="tipo">
-                            <option selected>Selecione...</option>
+                            <option disabled selected hidden>Selecione...</option>
                             <option value="carro">Km Carros</option>
                             <option value="locacao">Locações</option>
                             <option value="cliente">Clientes</option>
@@ -53,15 +53,15 @@
                     <div class="row">
                         <div class="col-md-4 ">
                             <p class="label">Data Inicial</p>
-                            <input class="form-control form-control-lg" type="date" placeholder="Inicial" name="datai">
+                            <input class="form-control form-control-lg" type="date" name="datai">
                         </div>
                         <div class="col-md-4">
                             <p class="label">Data Final</p>
-                            <input class="form-control form-control-lg" type="date" placeholder="Final" name="dataf">
+                            <input class="form-control form-control-lg" type="date" name="dataf">
                         </div>
                     </div>
                     <br>
-                    <input  class="btn btn-primary btn-lg" type="submit" placeholder="Final" id="button" value="Gerar">
+                    <input  class="btn btn-primary btn-lg" type="submit" id="btnGerar" value="Gerar">
                 </div>
             </form>
             <div id="result"></div>
