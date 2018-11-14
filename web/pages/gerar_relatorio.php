@@ -1,183 +1,278 @@
 <?php
 //Buscar classe do fpdf
-require ('../dados/fpdf181/fpdf.php');
-require ('../TFuncao.php');
+require_once '../dados/fpdf181/fpdf.php';
+require_once '../TFuncao.php';
+require_once '../vendor/autoload.php';
 
-//Iniciar o documento pdf
-//$pdf = new FPDF('P');
-$pdf = new FPDF('L');
-$pdf->AddPage();
+
+$mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8',
+        'orientation' => 'L']);
+ob_start();
+$html = ob_clean();
+$html = utf8_encode($html);
 
 $dataini = $_POST['datai'];
 $datafin = $_POST['dataf'] ;
 $tipo = $_POST['tipo'] ;
-//var_dump($_GET, $_POST);
-//var_dump("select * from $tipo where $campo >= '$dataini' && dataCad <= '$datafin'");
 
 //Nome do arquivo a ser gerado
 $arquivo = "relatorio.pdf";
 //$dados = TFuncoes::Select('carro');
-$campo = ($tipo == 'funcionario') ? 'dataAdmissao': 'dataCad';
-$campo = ($tipo == 'locacao') ? 'dataLocacao': 'dataCad';
 
+$campo = ($tipo == 'funcionario')
+    ? 'dataAdmissao'
+    : ($tipo == 'locacao')
+        ? 'dataLocacao'
+        :'dataCad';
 $dados = TFuncoes::ExecSql("select * from $tipo where $campo >= '$dataini' && $campo <= '$datafin'");
-//var_dump("select * from $tipo where $campo >= '$dataini' && $campo <= '$datafin'");
-//var_dump($dados);
+
+//$dados = ($tipo == 'locacao')
+//    ? 'select a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa from locacao as a inner join cliente b on a.idCliente = b.id
+//      inner join carro c on c.id = a.idCarro'
+//    : TFuncoes::Select("$tipo", '', "$campo >= '$dataini' && $campo <= '$datafin'");
 if($dados == false){
 //
     echo 'SEM RELATORIO';
 //    exit();
 }else{
 
-    switch ($tipo){
+    switch ($tipo) {
         case 'carro':
             //TOPO RELATÓRIO
-            $pdf->SetLeftMargin(15);
-            $pdf->SetFont('Arial','B', 15);
-            $pdf->Cell('265','10', 'RELATORIO DE CARROS', 1,1,'C');
-            $pdf->SetFont('Arial','B',12);
 
-            $pdf->Cell(15,10,'ID',1,0,'C');
-            $pdf->Cell(30,10,'NOME',1,0,'C');
-            $pdf->Cell(30,10,'MODELO',1,0,'C');
-            $pdf->Cell(30,10,'PLACA',1,0,'C');
-            $pdf->Cell(30,10,'SEGURO',1,0,'C');
-            $pdf->Cell(30,10,'LOCACAO',1,0,'C');
-            $pdf->Cell(20,10,'COR',1,0,'C');
-            $pdf->Cell(30,10,'MARCA',1,0,'C');
-            $pdf->Cell(50,10,'DATA CADASTRO',1,0,'C');
-            $pdf->Ln(10);
+            $html = "
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
-            for ($i = 0 ; $i< sizeof($dados); $i++){
-                $data = date_create($dados[$i]["dataCad"]);
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
 
-                $pdf->SetFont('Arial','', 12);
-                $pdf->Cell('15','10', $dados[$i]["id"], 1,'0','C');
-                $pdf->Cell('30','10', $dados[$i]["nome"], 1,'0','C');
-                $pdf->Cell('30','10', $dados[$i]["modelo"], 1,'0','C');
-                $pdf->Cell('30','10', $dados[$i]["placa"], 1,'0','C');
-                $pdf->Cell('30','10','R$: '.$dados[$i]["valorSeguro"], 1,'0','C');
-                $pdf->Cell('30','10', 'R$: '.$dados[$i]["valorLocacao"], 1,'0','C');
-                $pdf->Cell('20','10', $dados[$i]["cor"], 1,'0','C');
-                $pdf->Cell('30','10', $dados[$i]["marca"], 1,'0','C');
-                $pdf->Cell('50','10', date_format($data, 'd/m/Y'), 1,'0','C');
-                $pdf->Ln(10);
-
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+<h2 align='center'>RELATORIO DE CARROS</h2>
+<table>
+  <thead >
+    <tr >
+      <th >ID</th>
+        <th>NOME</th>
+        <th>MODELO</th>
+        <th>PLACA</th>
+        <th>SEGURO</th>
+        <th>LOCAÇÃO</th>
+        <th>COR</th>
+        <th>MARCA</th>
+        <th align='center'>DATA CADASTRO</th>
+    </tr>
+  </thead>";
+            for ($i = 0; $i < sizeof($dados); $i++) {
+                $date = date_format(date_create($dados[$i]["dataCad"]), 'd/m/Y');
+//        var_dump(date_format($data, 'd/m/Y'));
+                $html = $html . "
+  <tbody>
+    <tr>
+        <td align='center'>{$dados[$i]["id"]}</td>
+        <td align='center'>{$dados[$i]["nome"]}</td>
+        <td align='center'>{$dados[$i]["modelo"]}</td>
+        <td align='center'>{$dados[$i]["placa"]}</td>
+        <td align='center'>{$dados[$i]["valorSeguro"]}</td>
+        <td align='center'>{$dados[$i]["valorLocacao"]}</td>
+        <td align='center'>{$dados[$i]["cor"]}</td>
+        <td align='center'>{$dados[$i]["marca"]}</td>
+        <td align='center'>{$date}</td>
+      </tr>";
             }
+            $html = $html . "
+                </tbody >
+    </table >";
+
             break;
         case 'locacao':
-            //TOPO RELATÓRIO
-            $pdf->SetLeftMargin(40);
-            $pdf->SetFont('Arial','B', 15);
-            $pdf->Cell('165','10', 'RELATORIO DE LOCAÇÃO', 1,1,'C');
-            $pdf->SetFont('Arial','B',12);
-
-            $pdf->Cell(15,10,'ID',1,0,'C');
-            $pdf->Cell(50,10,'DATA LOCACAO',1,0,'C');
-            $pdf->Cell(50,10,'DATA DEVOLUCAO',1,0,'C');
-            $pdf->Cell(50,10,'QUILOMETRAGEM',1,0,'C');
-
-            $pdf->Ln(10);
-
-            for ($i = 0 ; $i< sizeof($dados); $i++){
-//                $data = date_create($dados[$i]["dataCad"]);
-                $dataLocacao = date_create($dados[$i]["dataLocacao"]);
-                $dataDevolucao = date_create($dados[$i]["dataDevolucao"]);
-
-                $pdf->SetFont('Arial','', 12);
-                $pdf->Cell('15','10', $dados[$i]["id"], 1,'0','C');
-                $pdf->Cell('50','10', date_format($dataLocacao, 'd/m/Y'), 1,'0','C');
-                $pdf->Cell('50','10', date_format($dataDevolucao, 'd/m/Y'), 1,'0','C');
-                $pdf->Cell('50','10', $dados[$i]["quilometragem"], 1,'0','C');
-
-
-                $pdf->Ln(10);
-
+            $html = "
+        <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        </style>
+        <h2 align='center'>RELATORIO DE LOCAÇÃO</h2>
+        <table>
+          <thead >
+            <tr >
+              <th >ID</th>
+                <th align='center'>DATA LOCAÇÃO</th>
+                <th align='center'>DATA DEVOLUÇÃO</th>
+                <th align='center'>QUILOMETRAGEM</th>
+                <th align='center'>NOME</th>
+                <th align='center'>CNH</th>
+                <th align='center'>CARRO</th>
+                <th align='center'>PLACA</th>
+            </tr>
+          </thead>";
+            for ($i = 0; $i < sizeof($dados); $i++) {
+                $dateLoc = date_format(date_create($dados[$i]["dataLocacao"]), 'd/m/Y');
+                $dateDev = date_format(date_create($dados[$i]["dataDevolucao"]), 'd/m/Y');
+                //        var_dump(date_format($data, 'd/m/Y'));
+                $html = $html . "
+          <tbody>
+            <tr>
+                <td align='center'>{$dados[$i]["id"]}</td>
+                <td align='center'>{$dateLoc}</td>
+                <td align='center'>{$dateDev}</td>
+                <td align='center'>{$dados[$i]["quilometragem"]}</td>
+                <td align='center'>{$dados[$i]["nome"]}</td>
+                <td align='center'>{$dados[$i]["cnh"]}</td>
+                <td align='center'>{$dados[$i]["nome"]}</td>
+                <td align='center'>{$dados[$i]["placa"]}</td>
+              </tr>";
             }
+            $html = $html . "
+                        </tbody >
+        </table >";
+
             break;
         case 'cliente':
-            //TOPO RELATÓRIO
-            $pdf->SetLeftMargin(5);
-            $pdf->SetFont('Arial','B', 15);
-            $pdf->Cell('280','10', 'RELATORIO DE CLIENTES', 1,1,'C');
-            $pdf->SetFont('Arial','B',12);
 
-            $pdf->Cell(15,10,'ID',1,0,'C');
-            $pdf->Cell(50,10,'NOME',1,0,'C');
-            $pdf->Cell(30,10,'CPF',1,0,'C');
-            $pdf->Cell(30,10,'RG',1,0,'C');
-            $pdf->Cell(30,10,'CNH',1,0,'C');
-            $pdf->Cell(70,10,'ENDEREÇO',1,0,'C');
-            $pdf->Cell(20,10,'N. Dep.',1,0,'C');
-            $pdf->Cell(40,10,'DATA CADASTRO',1,0,'C');
-
-            $pdf->Ln(10);
-
-            for ($i = 0 ; $i< sizeof($dados); $i++){
-                $data = date_create($dados[$i]["dataCad"]);
-
-
-                $pdf->SetFont('Arial','', 12);
-                $pdf->Cell('15','10', $dados[$i]["id"], 1,'0',"C");
-                $pdf->Cell('50','10', $dados[$i]["nome"], 1,'0');
-                $pdf->Cell('30','10', $dados[$i]["cpf"], 1,'0');
-                $pdf->Cell('30','10', $dados[$i]["rg"], 1,'0');
-                $pdf->Cell('30','10', $dados[$i]["cnh"], 1,'0');
-                $pdf->Cell('70','10', $dados[$i]["endereco"], 1,'0');
-                $pdf->Cell('20','10', $dados[$i]["numeroDependentes"], 1,'0');
-                $pdf->Cell('40','10', date_format($data, 'd/m/Y'), 1,'0');
-
-                $pdf->Ln(10);
-
+            $html = "
+        <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        </style>
+        <h2 align='center'>RELATORIO DE CLIENTES</h2>
+        <table>
+          <thead >
+            <tr >
+              <th align='center'>ID</th>
+                <th align='center'>NOME</th>
+                <th align='center'>CPF</th>
+                <th align='center'>RG</th>
+                <th align='center'>CNH</th>
+                <th align='center'>ENGEREÇO</th>
+                <th align='center'>N. DEPENDENTES</th>
+                <th align='center'>DATA CADASTRO</th>
+            </tr>
+          </thead>";
+            for ($i = 0; $i < sizeof($dados); $i++) {
+                $date = date_format(date_create($dados[$i]["dataCad"]), 'd/m/Y');
+                //        var_dump(date_format($data, 'd/m/Y'));
+                $html = $html . "
+          <tbody>
+            <tr>
+                <td align='center'>{$dados[$i]["id"]}</td>
+                <td align='center'>{$dados[$i]["nome"]}</td>
+                <td align='center'>{$dados[$i]["cpf"]}</td>
+                <td align='center'>{$dados[$i]["rg"]}</td>
+                <td align='center'>{$dados[$i]["cnh"]}</td>
+                <td align='center'>{$dados[$i]["endereco"]}</td>
+                <td align='center'>{$dados[$i]["numeroDependentes"]}</td>
+                <td align='center'>{$date}</td>
+              </tr>";
             }
+            $html = $html . "
+                        </tbody >
+        </table >";
+//
             break;
 
+        case 'funcionarios':
 
-////TOPO RELATÓRIO
-//$pdf->SetLeftMargin(15);
-//$pdf->SetFont('Arial','B', 15);
-//$pdf->Cell('265','10', 'RELATORIO DE CARROS', 1,1,'C');
-///// Select Arial bold 15
-//$pdf->SetFont('Arial','B',12);
-//// Move to the right
-////$pdf->Cell(80);
-//
-//$pdf->Cell(15,10,'ID',1,0,'C');
-//$pdf->Cell(30,10,'NOME',1,0,'C');
-//$pdf->Cell(30,10,'MODELO',1,0,'C');
-//$pdf->Cell(30,10,'PLACA',1,0,'C');
-//$pdf->Cell(30,10,'SEGURO',1,0,'C');
-//$pdf->Cell(30,10,'LOCACAO',1,0,'C');
-//$pdf->Cell(20,10,'COR',1,0,'C');
-//$pdf->Cell(30,10,'MARCA',1,0,'C');
-//$pdf->Cell(50,10,'DATA CADASTRO',1,0,'C');
-//// Line break
-//$pdf->Ln(10);
-//
-////foreach ($dados[0] as $key => $value) {
-//for ($i = 0 ; $i< sizeof($dados); $i++){
-////  $carro = $dados[$i];
-//    $data = date_create($dados[$i]["dataCad"]);
-//
-//    $pdf->SetFont('Arial','', 12);
-//    $pdf->Cell('15','10', $dados[$i]["id"], 1,'0','C');
-//    $pdf->Cell('30','10', $dados[$i]["nome"], 1,'0','C');
-//    $pdf->Cell('30','10', $dados[$i]["modelo"], 1,'0','C');
-//    $pdf->Cell('30','10', $dados[$i]["placa"], 1,'0','C');
-//    $pdf->Cell('30','10','R$: '.$dados[$i]["valorSeguro"], 1,'0','C');
-//    $pdf->Cell('30','10', 'R$: '.$dados[$i]["valorLocacao"], 1,'0','C');
-//    $pdf->Cell('20','10', $dados[$i]["cor"], 1,'0','C');
-//    $pdf->Cell('30','10', $dados[$i]["marca"], 1,'0','C');
-//    $pdf->Cell('50','10', date_format($data, 'd/m/Y'), 1,'0','C');
-//    $pdf->Ln(10);
-////  $pdf->Cell(190, 10, $dados[$i]["placa"], 1 ,1, 'C' );
-//
-}}
+            $html = "
+        <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        </style>
+        <h2 align='center'>RELATORIO DE FUNCIONARIOS</h2>
+        <table>
+          <thead >
+            <tr >
+              <th align='center'>ID</th>
+                <th align='center'>NOME</th>
+                <th align='center'>CPF</th>
+                <th align='center'>RG</th>
+                <th align='center'>ENGEREÇO</th>
+                <th align='center'>CARGO</th>
+                <th align='center'>DATA ADMISSAO</th>
+                <th align='center'>DATA DEMISSAO</th>
+            </tr>
+          </thead>";
+            for ($i = 0; $i < sizeof($dados); $i++) {
+                $date = date_create($dados[$i]["dataAdmissao"]);
+                $date2 = date_create($dados[$i]["dataDemissao"]);
 
+                $html = $html . "
+          <tbody>
+            <tr>
+                <td align='center'>{$dados[$i]["id"]}</td>
+                <td align='center'>{$dados[$i]["nome"]}</td>
+                <td align='center'>{$dados[$i]["cpf"]}</td>
+                <td align='center'>{$dados[$i]["rg"]}</td>
+                <td align='center'>{$dados[$i]["endereco"]}</td>
+                <td align='center'>{$dados[$i]["cargo"]}</td>
+                <td align='center'>{$date}</td>
+                <td align='center'>{$date2}</td>
+              </tr>";
+            }
+            $html = $html . "
+                        </tbody >
+        </table >";
 
+            break;
+    }
+}
 $tipo_pdf = "I";
 
 
 //Fechando o arquivo
-echo json_encode($pdf->Output($arquivo, $tipo_pdf));
+$mpdf->allow_charset_conversion= true;
+$mpdf->charset_in = 'UTF-8';
+//$css  = file_get_contents("../dados/css/bootstrap.min.css");
+//$mpdf-> WriteHTML($css,1);
+$mpdf-> WriteHTML($html);
+$mpdf-> Output($arquivo, $tipo_pdf);
+exit;
 ?>
