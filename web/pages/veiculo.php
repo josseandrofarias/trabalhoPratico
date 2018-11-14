@@ -1,6 +1,7 @@
 
 <?php
 include '../TFuncao.php';
+
 ?>
 <html lang="pt-br">
 <head>
@@ -36,67 +37,49 @@ include '../TFuncao.php';
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar Veiculo</button>
                 </form><br>
                 <div class="row">
+               <?php 
+                    //$consulta = TFuncoes::ExecSql('select placa, nome, modelo, valorLocacao from carro;');
+                    
+                    $sql = 'SELECT nome, modelo, marca, placa, valorLocacao, valorSeguro FROM carro;';
+                    //tive que usar mysqli_query pois a funcao pra preencher tabela nao estava funcionando
+                    $resultado = mysqli_query(TFuncoes::AddConexao(), $sql);
+                    //var_dump($consulta);
+
+                    /*while($registro = mysqli_fetch_assoc($resultado)){
+                    echo '<tr>';
+                    echo '<td>'.$registro["placa"].'</td>';
+                    echo '<td>'.$registro["nome"].'</td>';
+                    echo '<td>'.$registro["modelo"].'</td>';
+                    echo '</tr>';
+                    } */
+                            
+                ?>
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Código</th>
-                                <th scope="col">Marca</th>
+                                <th scope="col">Nome</th>
                                 <th scope="col">Modelo</th>
+                                <th scope="col">Marca</th>
                                 <th scope="col">Placa</th>
                                 <th scope="col">Valor locação</th>
-                                <th scope="col">Selecionar</th>
+                                <th scope="col">Valor Seguro</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Van</td>
-                                <td>HKY-3912</td>
-                                <td>10</td>
-                                <td>R$ 500</td>
-                                <td>
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Van</td>
-                                <td>HTN-5531</td>
-                                <td>13</td>
-                                <td>R$ 500</td>
-                                <td>
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Ônibus</td>
-                                <td>NME-0574</td>
-                                <td>45</td>
-                                <td>R$ 500</td>
-                                <td>
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio"></label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">4</th>
-                                <td>Ônibus</td>
-                                <td>KJG-7711</td>
-                                <td>60</td>
-                                <td>R$ 500</td>
-                                <td>
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio"></label>
-                                    </div>
-                                </td>
-                            </tr>
-
+                            <!-- preenchendo tabela com dados do banco -->
+                            <?php
+                            while($registro = mysqli_fetch_assoc($resultado)){
+                                echo '<tr>';
+                                echo '<td>'.$registro["nome"].'</td>';
+                                echo '<td>'.$registro["modelo"].'</td>';
+                                echo '<td>'.$registro["marca"].'</td>';
+                                echo '<td>'.$registro["placa"].'</td>';
+                                echo '<td>'.$registro["valorLocacao"].'</td>';
+                                echo '<td>'.$registro["valorSeguro"].'</td>';
+                                echo '</tr>';
+                                }
+                                
+                             ?>
                         </tbody>
                     </table>
                 </div>
