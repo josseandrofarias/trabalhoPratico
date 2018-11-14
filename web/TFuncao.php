@@ -2,15 +2,16 @@
 
 abstract class TFuncoes {
 
-    function teste() {
-        die('morreu');
+    /*
+     * Verifica se o usuário está logado
+     *
+     * */
+    public static function VerificaLogin()
+    {
         session_start();
-        if(!isset($_SESSION['user_nome']) && ($_SESSION['user_permissao']))
-        {
-            die('morreu');
-            header("location: login.php");
+        if (!isset($_SESSION["logado"]) || $_SESSION["logado"] != true) {
+            header("Location: login.php");
         }
-        //  print "In constructor\n";
     }
 
     public static function AddConexao() {
