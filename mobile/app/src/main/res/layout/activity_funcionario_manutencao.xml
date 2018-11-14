@@ -85,13 +85,15 @@
 
     <EditText
         android:id="@+id/etRG"
-        android:layout_width="159dp"
+        android:layout_width="172dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="17dp"
         android:ems="10"
         android:inputType="text|textCapCharacters"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etCPF"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
@@ -100,20 +102,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="136dp"
         android:text="Cargo"
+        app:layout_constraintEnd_toStartOf="@+id/textView11"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etCPF" />
 
     <EditText
         android:id="@+id/etCargo"
-        android:layout_width="347dp"
+        android:layout_width="158dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="18dp"
         android:ems="10"
         android:inputType="textCapSentences|textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -210,5 +212,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/etAdmissao"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="147dp"
+        android:text="Senha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRG" />
+
+    <EditText
+        android:id="@+id/etPassWd"
+        android:layout_width="172dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toEndOf="@+id/etCargo"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
 </android.support.constraint.ConstraintLayout>

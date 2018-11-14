@@ -5,6 +5,8 @@ import android.widget.EditText;
 import java.util.Date;
 
 public class EFuncionario {
+
+    private int id;
     private String vNome;
     private String vEndereco;
     private String vRG;
@@ -12,8 +14,17 @@ public class EFuncionario {
     private String vCargo;
     private Date vAdmissao;
     private Date vDemissao;
+    private String vSenha;
     private Boolean vFlagSupervisor;
     private Boolean vFlagDesativado;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getvNome() {
         return vNome;
@@ -85,5 +96,13 @@ public class EFuncionario {
 
     public void setvFlagDesativado(Boolean vFlagDesativado) {
         this.vFlagDesativado = vFlagDesativado;
+    }
+
+    public String getvSenha() {
+        return vSenha;
+    }
+
+    public void setvSenha(String vSenha) {
+        this.vSenha = vSenha;
     }
 }

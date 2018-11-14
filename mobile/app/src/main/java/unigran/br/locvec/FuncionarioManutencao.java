@@ -34,6 +34,7 @@ public class FuncionarioManutencao extends AppCompatActivity {
     private EditText vCargo;
     private EditText vAdmissao;
     private EditText vDemissao;
+    private EditText vSenha;
     private CheckBox vFlagSupervisor;
     private CheckBox vFlagDesativado;
 
@@ -49,6 +50,7 @@ public class FuncionarioManutencao extends AppCompatActivity {
         vCargo = findViewById(R.id.etCargo);
         vAdmissao = findViewById(R.id.etAdmissao);
         vDemissao = findViewById(R.id.etDemissao);
+        vSenha = findViewById(R.id.etPassWd);
         vFlagSupervisor = findViewById(R.id.ckBoxSupervisor);
         vFlagDesativado = findViewById(R.id.ckBoxDesativado);
 
@@ -88,9 +90,11 @@ public class FuncionarioManutencao extends AppCompatActivity {
             efunc.setvRG(vRG.getText().toString());
             efunc.setvCPF(vCPF.getText().toString());
             efunc.setvCargo(vCargo.getText().toString());
-            //fodaZe a data
+            efunc.setvAdmissao(new Date (vAdmissao.getText().toString()));
+            efunc.setvAdmissao(new Date (vDemissao.getText().toString()));
+            efunc.setvSenha(vSenha.getText().toString());
             efunc.setvFlagSupervisor(vFlagSupervisor.getIncludeFontPadding());
-            efunc.setvFlagDesativado(vFlagSupervisor.getIncludeFontPadding());
+            efunc.setvFlagDesativado(vFlagDesativado.getIncludeFontPadding());
 
             try{
                 //DAO.add(efunc);
