@@ -55,19 +55,19 @@
                                 <tbody>
                                 
                                     <?php 
-                                    /*
-                                        SELECT PARA TESTE
-                                        $res = TFuncoes::Select('locacao','idlocacao, idcarro, idcliente, datalocacao');
+                                    
+                                        $res = TFuncoes::JoinLocacao();
                                         foreach($res as $tabela) {
                                             echo "<tr>";
-                                                echo "<th>" . $tabela['idlocacao'] . "</th>";
-                                                echo "<th>" . $tabela['idcliente'] . "</th>";
-                                                echo "<th>" . $tabela['idcarro'] . "</th>";
-                                                echo "<th>" . $tabela['datalocacao'] . "</th>";
+                                                echo "<th>" . $tabela['nome'] . "</th>";
+                                                echo "<th>" . $tabela['placa'] . "</th>";
+                                                echo "<th>" . $tabela['dataLocacao'] . "</th>";
+                                                echo "<th>" . $tabela['dataDevolucao'] . "</th>";
+                                                echo "<th>" . $tabela['quilometragem'] . "</th>";
                                             echo "</tr>";
                                             
                                         }
-                                    */
+                                    
                                     ?>
 
                                 </tbody>
