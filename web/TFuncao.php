@@ -71,27 +71,6 @@ abstract class TFuncoes {
         }
     }
 
-    public static function JoinLocacao() { //JOIN PARA A ASSOCIACAO DA TABELA LOCACAO COM CLIENTE E VEICULO
-        $db = TFuncoes::AddConexao();
-
-        $resul = $db -> query('
-            SELECT locacao.dataLocacao, locacao.dataDevolucao, locacao.quilometragem, cliente.nome, carro.placa
-            FROM (( locacao
-            INNER JOIN cliente ON locacao.idcliente = cliente.id)
-            INNER JOIN carro ON locacao.idcarro = carro.id);
-        ');
-
-        if ($resul->num_rows > 0) {
-            while ($row = $resul->fetch_assoc()) {
-
-                $dados[] = $row;
-            }
-            return $dados;
-        } else {
-            return false;
-        }
-    }
-
     public static function AddCssLogin() {
         return'<link rel="stylesheet" href="./dados/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

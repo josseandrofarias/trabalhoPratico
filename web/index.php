@@ -1,5 +1,20 @@
 <?php include './TFuncao.php'; ?>
 
+<?php
+/*
+    if($_SERVER['REQUEST_METHOD'] == "POST") {
+        if( validar_numero( $_POST['numeroCliente'] ) &&
+        validar_placa( $_POST['numeroCarro'] ) && 
+        validar_data( $_POST['dataLocacao'] ) ) {
+            echo "DADOS PREENCHIDOS!";
+            //echo $_POST['numeroCliente'] . "<br>" . $_POST['numeroCarro'] . "<br>" . $_POST['dataLocacao'];
+        } else {
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web");
+        }
+    }
+*/
+?>
+
 <html lang="pt-br">
     <head>
         <meta charset="utf-8">
@@ -56,13 +71,18 @@
                                 
                                     <?php 
                                     
-                                        $res = TFuncoes::JoinLocacao();
+                                        $res = TFuncoes::ExecSql('
+                                            SELECT locacao.dataLocacao, locacao.dataDevolucao, locacao.quilometragem, cliente.nome, carro.placa
+                                            FROM (( locacao
+                                            INNER JOIN cliente ON locacao.idcliente = cliente.id)
+                                            INNER JOIN carro ON locacao.idcarro = carro.id);
+                                        ');
                                         foreach($res as $tabela) {
                                             echo "<tr>";
                                                 echo "<th>" . $tabela['nome'] . "</th>";
                                                 echo "<th>" . $tabela['placa'] . "</th>";
-                                                echo "<th>" . $tabela['dataLocacao'] . "</th>";
-                                                echo "<th>" . $tabela['dataDevolucao'] . "</th>";
+                                                echo "<th>" . date("d-m-Y", strtotime($tabela['dataLocacao'])) . "</th>";
+                                                echo "<th>" . date("d-m-Y", strtotime($tabela['dataDevolucao'])) . "</th>";
                                                 echo "<th>" . $tabela['quilometragem'] . "</th>";
                                             echo "</tr>";
                                             
@@ -89,14 +109,14 @@
                                 <div class="modal-body">
                                     
                                     <div class="col-6">
-                                        <form method="post" action="#"  target="_self" id="consulta" >
+                                        <form method="POST" action="<?php $_SERVER['PHP_SELF'] ?>" target="_self" id="consulta" >
                                             <div class="form-group">
                                                 <label for="numeroCliente">Número do Cliente</label>
                                                 <input type="text" class="form-control" id="numeroCliente" name="numeroCliente" >
                                             </div>
                                             <div class="form-group">
-                                                <label for="placaCarro">Placa do Carro</label>
-                                                <input type="text" class="form-control" id="placaCarro" name="placaCarro" >
+                                                <label for="placaCarro">Número do Carro</label>
+                                                <input type="text" class="form-control" id="numeroCarro" name="numeroCarro" >
                                             </div>
                                             <div class="form-group">
                                                 <label for="dataLocacao">Data de Locação</label>
@@ -172,3 +192,39 @@
 
     </body>
 </html>
+
+<?php 
+
+    function validar_numero($numeroCliente) {
+        if( ( !isset( $numeroCliente ) || empty( $numeroCliente ) ) ) {
+            return false;
+        } else {
+            if(TFuncoes::Select("cliente", "id", "id = " . $numeroCliente) != false) {
+                return true;
+            } else {
+                return false;
+            }  
+        }
+    }
+
+    function validar_placa($numeroCarro) {
+        if( ( !isset( $numeroCarro ) || empty( $numeroCarro ) ) ) {
+            return false;
+        } else {
+            if(TFuncoes::Select("carro", "id", "id = " . $numeroCarro) != false) {
+                return true;
+            } else {
+                return false;
+            }  
+        }
+    }
+
+    function validar_data($dataLocacao) {
+        if( ( !isset( $dataLocacao ) || empty( $dataLocacao ) ) ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+?>
