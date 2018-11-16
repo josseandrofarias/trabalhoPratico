@@ -251,12 +251,12 @@ abstract class TFuncoes {
             <div class="control-sidebar-bg"></div>';
     }
 
-    public static function AddTopo() {
+    public static function AddTopo($index = false) {
         session_start();
 
         $super = ($_SESSION["user_permissao"] == 1)?'Supervisor':'';
         $img = ($_SESSION["user_permissao"] == 1)?'supervised_user_circle':'account_circle';
-
+        $logoff = ($index) ? './logoff.php': '../logoff.php';
         return '<header class="main-header">
                 <a class="logo" href="index.php">
                     <span class="logo-mini"><b>LV</b></span>
@@ -277,7 +277,7 @@ abstract class TFuncoes {
                                     <li class="user-body">'.$super.'</li>
                                     <li class="user-footer">
                                     <div class="offset-8">
-                                        <a href="logoff.php" class="btn btn-default btn-flat btn-block">Sair</a>
+                                        <a href="'.$logoff.'" class="btn btn-default btn-flat btn-block">Sair</a>
                                     </div>
                                     </li>
                                 </ul>
