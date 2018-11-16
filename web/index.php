@@ -1,18 +1,20 @@
 <?php include './TFuncao.php'; ?>
 
 <?php
-/*
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         if( validar_numero( $_POST['numeroCliente'] ) &&
         validar_placa( $_POST['numeroCarro'] ) && 
         validar_data( $_POST['dataLocacao'] ) ) {
-            echo "DADOS PREENCHIDOS!";
-            //echo $_POST['numeroCliente'] . "<br>" . $_POST['numeroCarro'] . "<br>" . $_POST['dataLocacao'];
+            TFuncoes::ExecSql("
+            INSERT INTO locacao (idCliente, idCarro, dataLocacao)
+            VALUES('" . $_POST['numeroCliente'] . "','" . $_POST['numeroCarro'] . "','" . $_POST['dataLocacao'] . "')
+            ");
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web");
         } else {
             header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web");
         }
     }
-*/
+
 ?>
 
 <html lang="pt-br">
@@ -65,6 +67,7 @@
                                         <th>Data de Locação</th>
                                         <th>Data de Devolução</th>
                                         <th>KM</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -78,12 +81,30 @@
                                             INNER JOIN carro ON locacao.idcarro = carro.id);
                                         ');
                                         foreach($res as $tabela) {
+                                            
+                                            $habilitaBotao = true;
                                             echo "<tr>";
                                                 echo "<th>" . $tabela['nome'] . "</th>";
                                                 echo "<th>" . $tabela['placa'] . "</th>";
                                                 echo "<th>" . date("d-m-Y", strtotime($tabela['dataLocacao'])) . "</th>";
-                                                echo "<th>" . date("d-m-Y", strtotime($tabela['dataDevolucao'])) . "</th>";
+
+                                                if($tabela['dataDevolucao']) {
+                                                    echo "<th>" . date("d-m-Y", strtotime($tabela['dataDevolucao'])) . "</th>";
+                                                    $habilitaBotao = false;
+                                                } else
+                                                    echo "<th></th>";
+
                                                 echo "<th>" . $tabela['quilometragem'] . "</th>";
+
+                                                if($habilitaBotao == true) {
+                                                    echo "<th><button class='btn btn-primary'><i class='fas fa-edit'></i> </button>
+                                                    <button class='btn btn-danger'><i class='fas fa-trash-alt'></i> </button>
+                                                    <button class='btn btn-dark'><i class='fas fa-check'></i></i> </button></th>";
+                                                } else {
+                                                    echo "<th><button class='btn btn-primary'><i class='fas fa-edit'></i> </button>
+                                                    <button class='btn btn-danger'><i class='fas fa-trash-alt'></i> </button>
+                                                    <button class='btn btn-dark' disabled><i class='fas fa-check'></i></i> </button></th>";
+                                                }                                  
                                             echo "</tr>";
                                             
                                         }
