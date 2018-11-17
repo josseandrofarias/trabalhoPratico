@@ -2,17 +2,9 @@
 
 <?php
     if($_SERVER['REQUEST_METHOD'] == "POST") {
-        if( validar_numero( $_POST['numeroCliente'] ) &&
-        validar_placa( $_POST['numeroCarro'] ) && 
-        validar_data( $_POST['dataLocacao'] ) ) {
-            TFuncoes::ExecSql("
-            INSERT INTO locacao (idCliente, idCarro, dataLocacao)
-            VALUES('" . $_POST['numeroCliente'] . "','" . $_POST['numeroCarro'] . "','" . $_POST['dataLocacao'] . "')
-            ");
-            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web");
-        } else {
-            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web");
-        }
+        if( $_POST['acao'] == 'inserir' ) {
+            inserir_locacao($_POST['numeroCliente'], $_POST['numeroCarro'], $_POST['dataLocacao']);
+        } 
     }
 
 ?>
@@ -35,7 +27,7 @@
         <div class="wrapper" style="height: auto; min-height: 100%">
 
             <!--Topo site-->
-            <?php echo TFuncoes::AddTopo() ?>
+            <?php echo TFuncoes::AddTopo(true) ?>
 
             <!--Menu lateral-->
             <?php echo TFuncoes::AddMenuLateral(true); ?>
@@ -58,6 +50,8 @@
                             </div>
                         </div>
 
+                        <!--INICIO DA TABELA-->
+
                         <div class="table-responsive">
                             <table id="tabelaLocacao" class="table table-striped table-bordered">
                                 <thead>
@@ -75,36 +69,37 @@
                                     <?php 
                                     
                                         $res = TFuncoes::ExecSql('
-                                            SELECT locacao.dataLocacao, locacao.dataDevolucao, locacao.quilometragem, cliente.nome, carro.placa
+                                            SELECT locacao.id, locacao.dataLocacao, locacao.dataDevolucao, locacao.quilometragem, cliente.nome, carro.placa
                                             FROM (( locacao
                                             INNER JOIN cliente ON locacao.idcliente = cliente.id)
                                             INNER JOIN carro ON locacao.idcarro = carro.id);
                                         ');
                                         foreach($res as $tabela) {
                                             
-                                            $habilitaBotao = true;
                                             echo "<tr>";
+
                                                 echo "<th>" . $tabela['nome'] . "</th>";
                                                 echo "<th>" . $tabela['placa'] . "</th>";
                                                 echo "<th>" . date("d-m-Y", strtotime($tabela['dataLocacao'])) . "</th>";
 
                                                 if($tabela['dataDevolucao']) {
                                                     echo "<th>" . date("d-m-Y", strtotime($tabela['dataDevolucao'])) . "</th>";
-                                                    $habilitaBotao = false;
                                                 } else
                                                     echo "<th></th>";
 
                                                 echo "<th>" . $tabela['quilometragem'] . "</th>";
 
-                                                if($habilitaBotao == true) {
-                                                    echo "<th><button class='btn btn-primary'><i class='fas fa-edit'></i> </button>
-                                                    <button class='btn btn-danger'><i class='fas fa-trash-alt'></i> </button>
-                                                    <button class='btn btn-dark'><i class='fas fa-check'></i></i> </button></th>";
-                                                } else {
-                                                    echo "<th><button class='btn btn-primary'><i class='fas fa-edit'></i> </button>
-                                                    <button class='btn btn-danger'><i class='fas fa-trash-alt'></i> </button>
-                                                    <button class='btn btn-dark' disabled><i class='fas fa-check'></i></i> </button></th>";
-                                                }                                  
+                                                echo "<form method='POST' action='pages/gerenciar_locacao.php' target='_self'>
+
+                                                    <input type='hidden' name='id' value='" . $tabela['id'] . "'/>
+
+                                                    <th><button type='submit' class='btn btn-primary' name='acao' value='editar'>
+                                                    <i class='fas fa-edit'></i> </button>
+
+                                                    <button type='submit' class='btn btn-danger' name='acao' value='deletar'>
+                                                    <i class='fas fa-trash-alt'></i> </button>
+                                                </form>";
+
                                             echo "</tr>";
                                             
                                         }
@@ -149,7 +144,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success" form="consulta">Cadastrar</button>
+                                    <button type="submit" class="btn btn-success" form="consulta" name='acao' value='inserir'>Cadastrar</button>
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                                 </div>
 
@@ -157,44 +152,6 @@
                         </div>
 				    </div>
 
-                    <div class="modal" id="modalEditar"> <!--MODAL PARA EDIÇÃO-->
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Editar Locação</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-
-                                <div class="modal-body">
-                                    
-                                    <div class="col-6">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="numeroCliente">Número do Cliente</label>
-                                                <input type="text" class="form-control" id="numeroCliente">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="placaCarro">Placa do Carro</label>
-                                                <input type="text" class="form-control" id="placaCarro">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="dataLocacao">Data de Locação</label>
-                                                <input type="date" class="form-control" id="dataLocacao" value="" >
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-success">Salvar</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                                </div>
-                                
-                            </div>
-                        </div>
-				    </div>
                     <!--FIM DOS MODALS-->
 
                     <!--**********************************************************-->
@@ -215,6 +172,20 @@
 </html>
 
 <?php 
+
+    function inserir_locacao($numeroCliente, $numeroCarro, $dataLocacao) {
+        if( validar_numero( $numeroCliente ) &&
+        validar_placa( $numeroCarro ) && 
+        validar_data( $dataLocacao ) ) {
+            TFuncoes::ExecSql("
+            INSERT INTO locacao (idCliente, idCarro, dataLocacao)
+            VALUES('" . $numeroCliente . "','" . $numeroCarro . "','" . $dataLocacao . "')
+            ");
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web");
+        } else {
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web");
+        }
+    }
 
     function validar_numero($numeroCliente) {
         if( ( !isset( $numeroCliente ) || empty( $numeroCliente ) ) ) {
