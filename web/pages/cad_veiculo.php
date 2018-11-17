@@ -19,16 +19,26 @@
     $dataCad = date("Y-m-d H:i:s"); 
     $con = TFuncoes::AddConexao();
 
-    $sql = "insert into carro (placa, nome, modelo, valorSeguro, valorLocacao, cor, ativo, marca, dataCad) 
-    values('".$placa."','".$nome."','".$modelo."','".$valorSeguro."','".$valorLocacao."','".$cor."','".$ativo."','".$marca."','".$dataCad."')";
+    if(isset($_POST['id'])){
+        $sql = "UPDATE carro
+                SET placa = '".$placa."', nome='".$nome."', modelo='".$modelo."', valorSeguro='".$valorSeguro."', valorLocacao='".$valorLocacao."', cor='".$cor."', ativo='".$ativo."', marca='".$marca."'
+                WHERE id = ".$_POST['id'].";"; 
+
+    }else{
+        $sql = "insert into carro (placa, nome, modelo, valorSeguro, valorLocacao, cor, ativo, marca, dataCad) 
+        values('".$placa."','".$nome."','".$modelo."','".$valorSeguro."','".$valorLocacao."','".$cor."','".$ativo."','".$marca."','".$dataCad."')";   
+    }
+
     echo '<br>';
     echo $sql;
-
     if(mysqli_query($con, $sql)){
         $msg = "Gravado com sucesso!";
     }else{
         $msg = "Erro ao gravar!";
     }
-    mysqli_close($con);   
+    mysqli_close($con);  
+    
 
     header('Location: veiculo.php');
+    
+    
