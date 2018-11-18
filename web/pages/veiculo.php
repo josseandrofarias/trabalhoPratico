@@ -33,12 +33,12 @@ include '../TFuncao.php';
             <div class="container-fluid">
                 
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                            <h1 class="h2">Veiculos cadastrador</h1>
+                            <h1 class="h2">Veículos cadastrados</h1>
                             <div class="btn-toolbar mb-2 mb-md-0">
                                 <div class="btn-group mr-2">	
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#telaNovo">
-                                        <i class="fas fa-pen"></i> 
-                                        Novo veículo   
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#telaNovo"> 
+                                        Novo veículo &nbsp;  
+                                        <i class="fas fa-car-side"></i>
                                     </button>
                                 </div>
                             </div>
@@ -53,15 +53,6 @@ include '../TFuncao.php';
                     $resultado = mysqli_query(TFuncoes::AddConexao(), $sql);
                     
 
-                    //var_dump($resultado);
-
-                    /*while($registro = mysqli_fetch_assoc($resultado)){
-                    echo '<tr>';
-                    echo '<td>'.$registro["placa"].'</td>';
-                    echo '<td>'.$registro["nome"].'</td>';
-                    echo '<td>'.$registro["modelo"].'</td>';
-                    echo '</tr>';
-                    } */
                             
                 ?>
                 <div class="table-responsive">
@@ -75,8 +66,7 @@ include '../TFuncao.php';
                                 <th scope="col">Placa</th>
                                 <th scope="col">Valor locação</th>
                                 <th scope="col">Valor Seguro</th>
-                                <th scope="col">Editar</th>
-                                <th scope="col">Excluir</th>
+                                <th scope="col">Gerenciar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,9 +83,10 @@ include '../TFuncao.php';
                                         echo '<td>'.$registro["valorLocacao"].'</td>';
                                         echo '<td>'.$registro["valorSeguro"].'</td>';
                                         echo "  
-                                        <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#telaEditar" .$registro["id"]. "'>Editar</button></td>";
-                                        echo "  
-                                        <td><button type='button' class='btn btn-danger' data-toggle='modal' data-target='#telaExcluir" .$registro["id"]. "'>Excluir</button></td>";
+                                        <td><button type='button' class='btn btn-primary' data-toggle='modal' data-target='#telaEditar" .$registro["id"]. "'><i class='fas fa-pen'></i></button>
+                                        <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#telaExcluir" .$registro["id"]. "'><i class='fas fa-trash-alt'></i></i></button></td>
+                                        ";
+                                        
                                     echo '</tr>';
                                 }
 
@@ -129,39 +120,46 @@ include '../TFuncao.php';
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
                                     <div class="modal-body">
-                                        <form role="form" method="post" action="cad_veiculo.php">
+                                        <form role="form" method="post" action="cad_veiculo.php" data-toggle="validator">
                                             <div class="form-group">
                                                     <input id="id  <?php echo $aqui['id']; ?>" class="form-control" value=" <?php echo $aqui['id']; ?> " name="id" type="hidden">
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
                                                     <label for="marcaVeiculo">Marca:</label>
-                                                    <input name="marca" type="text" class="form-control" id="marcaVeiculo" value="<?php echo $aqui['marca']?>">
+                                                    <input name="marca" type="text" class="form-control" id="marcaVeiculo" value="<?php echo $aqui['marca']?>" id="marcaVeiculo" data-error="Insira a marca do veículo." required>
+                                                    <div class="help-block with-errors"></div>	
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="modeloVeiculo">Modelo:</label>
-                                                    <input name="modelo" type="text" class="form-control" id="modeloVeiculo" value="<?php echo $aqui['modelo'];?>">
+                                                    <input name="modelo" type="text" class="form-control" id="modeloVeiculo" value="<?php echo $aqui['modelo'];?>" data-error="Insira o modelo do veículo." required>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="placaVeiculo">Placa:</label>
-                                                    <input  name="placa" type="text" class="form-control" id="placaVeiculo" value="<?php echo $aqui['placa'];?>">
+                                                    <input  name="placa" type="text" class="form-control" id="placaVeiculo" value="<?php echo $aqui['placa'];?>" data-error="Placa invalida" required>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="corVeiculo">Cor:</label>
-                                                    <input name="cor" type="text" class="form-control" id="corVeiculo" value="<?php echo $aqui['cor'];?>">
+                                                    <input name="cor" type="text" class="form-control" id="corVeiculo" value="<?php echo $aqui['cor'];?>" data-error="Insira a cor" required>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="nomeVeiculo">Nome:</label>
-                                                    <input name="nome" type="text" class="form-control" id="nomeVeiculo" value="<?php echo $aqui['nome'];?>">
+                                                    <input name="nome" type="text" class="form-control" id="nomeVeiculo" value="<?php echo $aqui['nome'];?>" data-error="Insira o nome" required>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="locacaoVeiculo">Valor locação:</label>
-                                                    <input  name="locacao" type="number" class="form-control" id="locacaoVeiculo" value="<?php echo $aqui['valorLocacao'];?>">
+                                                    <input  name="locacao" type="number" class="form-control" id="locacaoVeiculo" value="<?php echo $aqui['valorLocacao'];?>" data-error="Insira o valor da locação" required>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="seguroVeiculo">Valor seguro:</label>
-                                                    <input name="seguro" type="number" class="form-control" id="seguroVeiculo" value="<?php echo $aqui['valorSeguro'];?>">
+                                                    <input name="seguro" type="number" class="form-control" id="seguroVeiculo" value="<?php echo $aqui['valorSeguro'];?>" data-error="Insira o valor do seguro" required>
+                                                    <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div>
                                                 <br>
@@ -193,19 +191,13 @@ include '../TFuncao.php';
 
                                         </div>
                                         <div class="modal-footer">
-                                            <form role="form" method="post" action="veiculo.php">
+                                            <form role="form" method="post" action="del_veiculo.php">
                                                 <div class="form-group">
                                                     <input id="id  <?php echo $aqui['id']; ?>" class="form-control" value=" <?php echo $aqui['id']; ?> " name="id" type="hidden">
-                                                    <button type="submit" class="btn btn-default" data-dismiss="modal">Confirmar</button>
-                                                    <input type="submit" value="Submit me!" />
+                                                    <input type="submit" class="btn btn-default" value="Confirmar" />
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                                                 </div>
                                             </form>
-                                        <?php
-                                               
-                                               
-                                            
-                                        ?>
                                         </div>
                                     </div>
                                 </div>
@@ -222,60 +214,49 @@ include '../TFuncao.php';
                             <div class="modal fade" id="telaNovo" role="dialog">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content" data-backdrop="static">
-                                        <form action="cad_veiculo.php" method="post">
+                                        <form action="cad_veiculo.php" data-toggle="validator" method="post">
                                             <div class="modal-header">
                                                 <h3 class="modal-title">Informe os dados</h4>
                                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
                                                 </div>
-                                                <?php
-                                                 var_dump($_POST);
-                                                //$idVeiculo = $_POST["id"];
-                                                //echo $idVeiculo;
-                                                
-                                                $resultado2 = mysqli_query(TFuncoes::AddConexao(), $sqlEditar);
-                                                 while($registro = mysqli_fetch_assoc($resultado2)){
-                                                    //echo '<tr>';
-                                                    $marca = $registro["marca"];
-                                                    $modelo = $registro["modelo"];
-                                                    $placa = $registro["placa"];
-                                                    $cor = $registro["cor"];
-                                                    $nome = $registro["nome"];
-                                                    $valorLocacao = $registro["valorLocacao"];
-                                                    $valorSeguro = $registro["valorSeguro"];
-                                                }    
-                                                              
-                                                ?>
                                                 <div class="modal-body">
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="marcaVeiculo">Marca:</label>
-                                                            <input name="marca" type="text" class="form-control" id="marcaVeiculo">
+                                                            <input name="marca" type="text" class="form-control" id="marcaVeiculo" data-error="Insira a marca do veículo." required>
+                                                            <div class="help-block with-errors"></div>	
                                                         </div>
 
                                                         <div class="form-group col-md-4">
                                                             <label for="modeloVeiculo">Modelo:</label>
-                                                            <input name="modelo" type="text" class="form-control" id="modeloVeiculo">
+                                                            <input name="modelo" type="text" class="form-control" id="modeloVeiculo" data-error="Insira a modelo do veículo." required>
+                                                            <div class="help-block with-errors"></div>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="placaVeiculo">Placa:</label>
-                                                            <input  name="placa" type="text" class="form-control" id="placaVeiculo">
+                                                            <input  name="placa" type="text" class="form-control" id="placaVeiculo" data-error="Placa inválida."  data-minlength="6" vrequired>
+                                                            <div class="help-block with-errors"></div>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="corVeiculo">Cor:</label>
-                                                            <input name="cor" type="text" class="form-control" id="corVeiculo">
+                                                            <input name="cor" type="text" class="form-control" id="corVeiculo" required>
+                                                            <div class="help-block with-errors"></div>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="nomeVeiculo">Nome:</label>
-                                                            <input name="nome" type="text" class="form-control" id="nomeVeiculo">
+                                                            <input name="nome" type="text" class="form-control" id="nomeVeiculo" data-error="Insira o nome." required>
+                                                            <div class="help-block with-errors"></div>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="locacaoVeiculo">Valor locação:</label>
-                                                            <input  name="locacao" type="number" class="form-control" id="locacaoVeiculo">
+                                                            <input  name="locacao" type="number" class="form-control" id="locacaoVeiculo" data-error="Insira o valor da locação." required>
+                                                            <div class="help-block with-errors"></div>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="seguroVeiculo">Valor seguro:</label>
-                                                            <input name="seguro" type="number" class="form-control" id="seguroVeiculo">
+                                                            <input name="seguro" type="number" class="form-control" id="seguroVeiculo" data-error="Insira o valor do seguro." required>
+                                                            <div class="help-block with-errors"></div>
                                                         </div>
                                                         <div>
                                                         <br>
@@ -312,5 +293,6 @@ include '../TFuncao.php';
     
     <script src='../dados/js/dataTables.bootstrap4.min.js'></script>
     <script src='../dados/js/site.js'></script>
+    <script src="../dados/js/validator.js"></script>
 </body>
 </html>
