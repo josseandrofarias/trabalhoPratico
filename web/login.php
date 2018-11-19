@@ -25,9 +25,7 @@ include './TFuncao.php';
     ?>
     <!--logo-->
     <div class="login-logo">
-        <a href="./index.php">
-            <b class="logo-lg">Lo</b>Car
-        </a>
+        <b class="logo-lg">Lo</b>Car
     </div>
     <!--Form login-->
     <div class="login-box-body">
@@ -38,8 +36,7 @@ include './TFuncao.php';
                 <div class="input-group ">
                             <span class="input-group-text">
                                 <span class="material-icons">person</span>
-                                <input type="text" name="cpf" id="cpf" class="form-control" placeholder="CPF"
-                                       required="required">
+                                <input type="text" name="cpf" maxlength="11" id="cpf" class="form-control" placeholder="CPF">
                             </span>
                 </div>
             </div>
@@ -59,10 +56,6 @@ include './TFuncao.php';
                 <button type="submit" class="btn btn-primary login-btn btn-block">
                     Entrar
                 </button>
-            </div>
-
-            <div class="clearfix">
-                <label class="pull-left checkbox-inline"><input type="checkbox">Lembrar dados</label>
             </div>
 
         </form>
