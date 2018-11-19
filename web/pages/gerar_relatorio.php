@@ -40,9 +40,10 @@ $css = "<style>
                 border: 1px solid rgba(0,0,0,0.78);
                 text-align: left;
                 padding: 8px;
+                text-align: center;
             }
             
-            tr:nth-child(even) {
+            th {
                 background-color: #dddddd;
             }
             </style>";
@@ -67,7 +68,7 @@ $css
 <table>
   <thead >
     <tr >
-      <th >ID</th>
+        <th>ID</th>
         <th>NOME</th>
         <th>MODELO</th>
         <th>PLACA</th>
@@ -75,7 +76,7 @@ $css
         <th>LOCAÇÃO</th>
         <th>COR</th>
         <th>MARCA</th>
-        <th align='center'>DATA CADASTRO</th>
+        <th>DATA CADASTRO</th>
     </tr>
   </thead>";
             for ($i = 0; $i < sizeof($dados); $i++) {
@@ -84,15 +85,15 @@ $css
                 $html = $html . "
   <tbody>
     <tr>
-        <td align='center'>{$dados[$i]["id"]}</td>
-        <td align='center'>{$dados[$i]["nome"]}</td>
-        <td align='center'>{$dados[$i]["modelo"]}</td>
-        <td align='center'>{$dados[$i]["placa"]}</td>
-        <td align='center'>{$dados[$i]["valorSeguro"]}</td>
-        <td align='center'>{$dados[$i]["valorLocacao"]}</td>
-        <td align='center'>{$dados[$i]["cor"]}</td>
-        <td align='center'>{$dados[$i]["marca"]}</td>
-        <td align='center'>{$date}</td>
+        <td>{$dados[$i]["id"]}</td>
+        <td>{$dados[$i]["nome"]}</td>
+        <td>{$dados[$i]["modelo"]}</td>
+        <td>{$dados[$i]["placa"]}</td>
+        <td>{$dados[$i]["valorSeguro"]}</td>
+        <td>{$dados[$i]["valorLocacao"]}</td>
+        <td>{$dados[$i]["cor"]}</td>
+        <td>{$dados[$i]["marca"]}</td>
+        <td>{$date}</td>
       </tr>";
             }
             $html = $html . "
@@ -109,15 +110,15 @@ $css
         <h2 align='center'>RELATORIO DE LOCAÇÃO</h2>
         <table>
           <thead >
-            <tr >
-                 <th >ID</th>
-                <th align='center'>DATA LOCAÇÃO</th>
-                <th align='center'>DATA DEVOLUÇÃO</th>
-                <th align='center'>QUILOMETRAGEM</th>
-                <th align='center'>NOME</th>
-                <th align='center'>CNH</th>
-                <th align='center'>CARRO</th>
-                <th align='center'>PLACA</th>
+            <tr>
+                <th >ID</th>
+                <th>DATA LOCAÇÃO</th>
+                <th>DATA DEVOLUÇÃO</th>
+                <th>QUILOMETRAGEM</th>
+                <th>NOME</th>
+                <th>CNH</th>
+                <th>CARRO</th>
+                <th>PLACA</th>
             </tr>
           </thead>";
             for ($i = 0; $i < sizeof($dados); $i++) {
@@ -127,19 +128,19 @@ $css
                 $html = $html . "
           <tbody>
             <tr>
-                <td align='center'>{$dados[$i]["id"]}</td>
-                <td align='center'>{$dateLoc}</td>
-                <td align='center'>{$dateDev}</td>
-                <td align='center'>{$dados[$i]["quilometragem"]}</td>
-                <td align='center'>{$dados[$i]["nome"]}</td>
-                <td align='center'>{$dados[$i]["cnh"]}</td>
-                <td align='center'>{$dados[$i]["nome"]}</td>
-                <td align='center'>{$dados[$i]["placa"]}</td>
+                <td>{$dados[$i]["id"]}</td>
+                <td>{$dateLoc}</td>
+                <td>{$dateDev}</td>
+                <td>{$dados[$i]["quilometragem"]}</td>
+                <td>{$dados[$i]["nome"]}</td>
+                <td>{$dados[$i]["cnh"]}</td>
+                <td>{$dados[$i]["nome"]}</td>
+                <td>{$dados[$i]["placa"]}</td>
               </tr>";
             }
             $html = $html . "
                         </tbody >
-        </table >";
+        </table>";
 
             break;
         case 'cliente':
@@ -148,15 +149,15 @@ $css
         <h2 align='center'>RELATORIO DE CLIENTES</h2>
         <table>
           <thead >
-            <tr >
-              <th align='center'>ID</th>
-                <th align='center'>NOME</th>
-                <th align='center'>CPF</th>
-                <th align='center'>RG</th>
-                <th align='center'>CNH</th>
-                <th align='center'>ENGEREÇO</th>
-                <th align='center'>N. DEPENDENTES</th>
-                <th align='center'>DATA CADASTRO</th>
+            <tr>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>CNH</th>
+                <th>ENGEREÇO</th>
+                <th>N. DEPENDENTES</th>
+                <th>DATA CADASTRO</th>
             </tr>
           </thead>";
             for ($i = 0; $i < sizeof($dados); $i++) {
@@ -165,14 +166,14 @@ $css
                 $html = $html . "
           <tbody>
             <tr>
-                <td align='center'>{$dados[$i]["id"]}</td>
-                <td align='center'>{$dados[$i]["nome"]}</td>
-                <td align='center'>{$dados[$i]["cpf"]}</td>
-                <td align='center'>{$dados[$i]["rg"]}</td>
-                <td align='center'>{$dados[$i]["cnh"]}</td>
-                <td align='center'>{$dados[$i]["endereco"]}</td>
-                <td align='center'>{$dados[$i]["numeroDependentes"]}</td>
-                <td align='center'>{$date}</td>
+                <td>{$dados[$i]["id"]}</td>
+                <td>{$dados[$i]["nome"]}</td>
+                <td>{$dados[$i]["cpf"]}</td>
+                <td>{$dados[$i]["rg"]}</td>
+                <td>{$dados[$i]["cnh"]}</td>
+                <td>{$dados[$i]["endereco"]}</td>
+                <td>{$dados[$i]["numeroDependentes"]}</td>
+                <td>{$date}</td>
               </tr>";
             }
             $html = $html . "
@@ -188,13 +189,13 @@ $css
         <table>
           <thead >
             <tr >
-              <th align='center'>ID</th>
-                <th align='center'>NOME</th>
-                <th align='center'>CPF</th>
-                <th align='center'>RG</th>
-                <th align='center'>ENGEREÇO</th>
-                <th align='center'>DATA ADMISSAO</th>
-                <th align='center'>DATA DEMISSAO</th>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>ENGEREÇO</th>
+                <th>DATA ADMISSAO</th>
+                <th>DATA DEMISSAO</th>
             </tr>
           </thead>";
             for ($i = 0; $i < sizeof($dados); $i++) {
@@ -204,18 +205,18 @@ $css
                 $html = $html . "
           <tbody>
             <tr>
-                <td align='center'>{$dados[$i]["id"]}</td>
-                <td align='center'>{$dados[$i]["nome"]}</td>
-                <td align='center'>{$dados[$i]["cpf"]}</td>
-                <td align='center'>{$dados[$i]["rg"]}</td>
-                <td align='center'>{$dados[$i]["endereco"]}</td>
-                <td align='center'>{$date}</td>
-                <td align='center'>{$date2}</td>
+                <td>{$dados[$i]["id"]}</td>
+                <td>{$dados[$i]["nome"]}</td>
+                <td>{$dados[$i]["cpf"]}</td>
+                <td>{$dados[$i]["rg"]}</td>
+                <td>{$dados[$i]["endereco"]}</td>
+                <td>{$date}</td>
+                <td>{$date2}</td>
               </tr>";
             }
             $html = $html . "
                         </tbody >
-        </table >";
+        </table>";
 
             break;
     }
