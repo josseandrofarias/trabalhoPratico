@@ -1,9 +1,13 @@
 package unigran.br.locvec;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,16 +19,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.Banco;
 import unigran.br.locvec.DAO.DaoFuncionario;
+import unigran.br.locvec.Entidades.EFuncionario;
 
 public class Funcionario extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Banco bd;
+    private ListView lista;
+    private SQLiteDatabase conexao;
     static boolean active = false;
-    private RecyclerView recyclerView;
-    //private PessoaAdapter pessoaAdapter;
 
     @Override
     public void onStart() {
@@ -46,6 +60,9 @@ public class Funcionario extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        lista = findViewById(R.id.listFuncionario);
+        conexaoDB();
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,15 +72,54 @@ public class Funcionario extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
 
-        recyclerView= findViewById(R.id.listFuncinarios);
-        DaoFuncionario daoFunc = new DaoFuncionario(this);
-        daoFunc.abreConexao();
+    private void conexaoDB(){
+        try {
+            bd = new Banco(this);
+            Toast.makeText(this, "Conexão Ok", Toast.LENGTH_SHORT).show();
+        }catch (SQLException ex) {
+            AlertDialog.Builder msg = new AlertDialog.Builder(this);
+            msg.setTitle("Erro");
+            msg.setMessage("Erro de Conexao");
+            msg.setNeutralButton("Ok", null);
+            msg.show();
+        }
+    }
 
-//        LinearLayoutManager linearLayout = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(linearLayout);
-//        pessoaAdapter = new PessoaAdapter(DaoFuncionario.l());
-//        recyclerView.setAdapter(pessoaAdapter);
+    private List listar(){
+        conexao = bd.getWritableDatabase();
+        List funcionario = new LinkedList();
+        Cursor res = conexao.rawQuery("SELECT * FROM funcionario", null);
+        if(res.getCount() > 0){
+            res.moveToFirst();
+            do {
+                EFuncionario efunc = new EFuncionario();
+                efunc.setvNome(res.getString(res.getColumnIndexOrThrow("nome")));
+                //efunc.setvFlagDesativado(res.getWantsAllOnMoveCalls(res.getColumnIndexOrThrow("desativado")));
+                funcionario.add(efunc);
+            } while (res.moveToNext());
+        }
+        return funcionario;
+    }
+
+    private void acoes() {
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it = new Intent(Funcionario.this, FuncionarioManutencao.class);
+                EFuncionario efunc = (EFuncionario)adapterView.getItemAtPosition(i);
+                it.putExtra("funcionario",efunc);
+                startActivity(it);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ArrayAdapter<EFuncionario> arrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, listar());
+        lista.setAdapter(arrayAdapter);
     }
 
     @Override
