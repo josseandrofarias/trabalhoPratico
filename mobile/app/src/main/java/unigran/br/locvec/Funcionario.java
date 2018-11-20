@@ -24,7 +24,7 @@ public class Funcionario extends AppCompatActivity
 
     static boolean active = false;
     private RecyclerView recyclerView;
-    private PessoaAdapter pessoaAdapter;
+    //private PessoaAdapter pessoaAdapter;
 
     @Override
     public void onStart() {
@@ -60,10 +60,10 @@ public class Funcionario extends AppCompatActivity
         DaoFuncionario daoFunc = new DaoFuncionario(this);
         daoFunc.abreConexao();
 
-        LinearLayoutManager linearLayout = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayout);
-        pessoaAdapter = new PessoaAdapter(DaoFuncionario.l());
-        recyclerView.setAdapter(pessoaAdapter);
+//        LinearLayoutManager linearLayout = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(linearLayout);
+//        pessoaAdapter = new PessoaAdapter(DaoFuncionario.l());
+//        recyclerView.setAdapter(pessoaAdapter);
     }
 
     @Override
