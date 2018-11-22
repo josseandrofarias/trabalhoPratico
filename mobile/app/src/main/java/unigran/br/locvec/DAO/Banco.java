@@ -42,7 +42,7 @@ public class Banco extends SQLiteOpenHelper {
                 "dataCad date NOT NULL);";
 
         String sqlFuncionario = "CREATE TABLE IF NOT EXISTS "+TFuncionario+"(" +
-                "id int(11) PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 "nome varchar(50) NOT NULL," +
                 "cpf varchar(11) NOT NULL," +
                 "rg varchar(15) NOT NULL," +
@@ -55,12 +55,12 @@ public class Banco extends SQLiteOpenHelper {
                 "dataDemissao date DEFAULT NULL);";
 
         String sqlLocacao = "CREATE TABLE IF NOT EXISTS "+TLocacao+"(" +
-                "id int(11) PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 "dataLocacao date NOT NULL," +
-                "dataDevolucao date NOT NULL," +
-                "quilometragem float NOT NULL," +
-                "idCliente int(11) NOT NULL," +
-                "idCarro int(11) NOT NULL," +
+                "dataDevolucao date ," +
+                "quilometragem float ," +
+                "idCliente INTEGER NOT NULL," +
+                "idCarro INTEGER NOT NULL," +
                 "FOREIGN KEY(idCarro) REFERENCES carro(id)," +
                 "FOREIGN KEY(idCliente) REFERENCES cliente(id));";
         db.execSQL(sqlCarro);

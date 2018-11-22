@@ -1,5 +1,6 @@
 package unigran.br.locvec;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +18,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.Banco;
 import unigran.br.locvec.Entidades.ELocacao;
 
 public class LocacaoManutencao extends AppCompatActivity {
+
+    Banco bd;
+    private SQLiteDatabase con;
 
     private ELocacao locacao;
 
@@ -58,21 +63,36 @@ public class LocacaoManutencao extends AppCompatActivity {
     }
 
     public void acaoCadastrar(View view) throws ParseException {
-        //if(validar_locacao()) {
-            //if(locacao == null)
-            //    locacao = new ELocacao();
+        if(validar_locacao()) {
+            locacao = new ELocacao();
             java.util.Date dataInicial = new SimpleDateFormat("dd/MM/yyyy").parse(etDataLocacao.getText().toString());
             SimpleDateFormat formatarData = new SimpleDateFormat("yyyy-MM-dd");
             String dataString = formatarData.format(dataInicial);
             java.sql.Date dataConvertida = java.sql.Date.valueOf(dataString);
 
-            Toast.makeText(this, dataConvertida.toString(), Toast.LENGTH_LONG).show();
-            //locacao.setIdCliente(Integer.parseInt(etNumCliente.getText().toString()));
-            //locacao.setIdCarro(Integer.parseInt(etNumCarro.getText().toString()));
-            //locacao.setDataLocacao(dataConvertida);
-        //} else {
+            //Toast.makeText(this, dataConvertida.toString(), Toast.LENGTH_LONG).show();
 
-        //}
+            locacao.setIdCliente(Integer.parseInt(etNumCliente.getText().toString()));
+            locacao.setIdCarro(Integer.parseInt(etNumCarro.getText().toString()));
+            locacao.setDataLocacao(dataConvertida);
+            inserirLocacao();
+        }
+    }
+
+    public void inserirLocacao() {
+        bd = new Banco(this);
+        try {
+            con = bd.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put("idCliente", locacao.getIdCliente());
+            values.put("idCarro", locacao.getIdCarro());
+            values.put("dataLocacao", locacao.getDataLocacao().toString());
+            con.insertOrThrow("locacao", null, values);
+            con.close();
+            Toast.makeText(this, "Salvo com Sucesso!", Toast.LENGTH_LONG).show();
+        } catch (android.database.SQLException e) {
+            Toast.makeText(this, "Erro: !" + e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public boolean validar_locacao() {
