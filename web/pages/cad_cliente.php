@@ -92,29 +92,29 @@ include '../TFuncao.php';
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form method="POST" action="gerenciar_cliente.php" target="_self" id="cadastrar">
                             <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" placeholder="Nome">
+                                <input class="form-control form-control-lg" type="text" placeholder="Nome" id="nome" name="nome">
                             </div>
                             <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" placeholder="RG">
+                                <input class="form-control form-control-lg" type="text" placeholder="RG" id="rg" name="rg">
                             </div>
                             <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" placeholder="CPF">
+                                <input class="form-control form-control-lg" type="text" placeholder="CPF" id="cpf" name="cpf">
                             </div>    
                             <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" placeholder="CNH">
+                                <input class="form-control form-control-lg" type="text" placeholder="CNH" id="cnh" name="cnh">
                             </div>
                             <div class="form-group"> 
-                                <input class="form-control form-control-lg" type="text" placeholder="Endereço">
+                                <input class="form-control form-control-lg" type="text" placeholder="Endereço" id="endereco" name="endereco">
                             </div>   
                             <div class="form-group">
-                                <input class="form-control form-control-lg" type="text" placeholder="Número de Dependentes">
+                                <input class="form-control form-control-lg" type="text" placeholder="Número de Dependentes" id="dep" name="dep">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">Salvar</button>
+                        <button type="submit" class="btn btn-success" form="cadastrar" name="acao" value="inserir">Salvar</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                     </div>
                 </div>
