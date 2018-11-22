@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 public class Banco extends SQLiteOpenHelper {
 
     public static final String TCarro = "carro";
-    public static final String TCliente = "carro";
+    public static final String TCliente = "cliente";
     public static final String TFuncionario = "funcionario";
     public static final String TLocacao = "locacao";
 
@@ -61,8 +61,6 @@ public class Banco extends SQLiteOpenHelper {
                 "quilometragem float NOT NULL," +
                 "idCliente int(11) NOT NULL," +
                 "idCarro int(11) NOT NULL," +
-                "idCliente int(11)NOT NULL," +
-                "idCarro int(11)NOT NULL," +
                 "FOREIGN KEY(idCarro) REFERENCES carro(id)," +
                 "FOREIGN KEY(idCliente) REFERENCES cliente(id));";
         db.execSQL(sqlCarro);
