@@ -15,7 +15,7 @@
     <string name="relat_rios">Relatórios</string>
 
     <string-array name="tiposRelatorio">
-        <item>Km carros</item>
+        <item>Carros</item>
         <item>Locações</item>
         <item>Clientes</item>
         <item>Funcionários</item>
@@ -39,5 +39,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="gerar">Gerar</string>
 
 </resources>

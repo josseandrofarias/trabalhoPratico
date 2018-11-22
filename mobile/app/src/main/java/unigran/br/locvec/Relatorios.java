@@ -1,21 +1,34 @@
 package unigran.br.locvec;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
+import unigran.br.locvec.DAO.Banco;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.Entidades.EFuncionario;
 import unigran.br.locvec.Utilitarios.MáscaraCampoData;
+
 
 public class Relatorios extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +36,9 @@ public class Relatorios extends AppCompatActivity
     Spinner tipoRelatorio;
     EditText dataInicial, dataFinal;
     static boolean active = false;
+    Banco bd;
+    private ListView lista;
+    private SQLiteDatabase conexao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +46,8 @@ public class Relatorios extends AppCompatActivity
         setContentView(R.layout.activity_relatorios);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+//        ArrayAdapter<EFuncionario> arrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, listar());
+//        lista.setAdapter(arrayAdapter);
 
 
 
@@ -41,13 +59,17 @@ public class Relatorios extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        conexaoDB();
+//        listar();
+        lista = findViewById(R.id.listRelatorio);
         // TIPOS DE RELATORIO
 
         tipoRelatorio = (Spinner) findViewById(R.id.tipoRelatorio);
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.tiposRelatorio, android.R.layout.simple_spinner_item);
         tipoRelatorio.setAdapter(adapter);
+
+
 
         // FIM TIPOS DE RELATORIO
 
@@ -61,6 +83,7 @@ public class Relatorios extends AppCompatActivity
 
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -140,4 +163,62 @@ public class Relatorios extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void conexaoDB(){
+        try {
+            bd = new Banco(this);
+            Toast.makeText(this, "Conexão Ok", Toast.LENGTH_SHORT).show();
+        }catch (SQLException ex) {
+            AlertDialog.Builder msg = new AlertDialog.Builder(this);
+            msg.setTitle("Erro");
+            msg.setMessage("Erro de Conexao");
+            msg.setNeutralButton("Ok", null);
+            msg.show();
+        }
+    }
+
+//    private List listar(){
+//        conexao = bd.getWritableDatabase();
+//        List funcionario = new LinkedList();
+//        Cursor res = conexao.rawQuery("SELECT * FROM funcionario", null);
+//        if(res.getCount() > 0){
+//            res.moveToFirst();
+//            do {
+//                EFuncionario efunc = new EFuncionario();
+//                efunc.setvNome(res.getString(res.getColumnIndexOrThrow("nome")));
+//                //efunc.setvFlagDesativado(res.getWantsAllOnMoveCalls(res.getColumnIndexOrThrow("desativado")));
+//                funcionario.add(efunc);
+//            } while (res.moveToNext());
+//        }
+//        return funcionario;
+//    }
+
+    public void clickBtnGerar(View view) {
+
+        switch ((String) tipoRelatorio.getSelectedItem()){
+
+            case "Carros":
+
+                Toast.makeText(this, ""+tipoRelatorio.getSelectedItem()+" "+dataInicial.getText()+" "+dataFinal.getText(), Toast.LENGTH_SHORT).show();
+                break;
+            case "Locações":
+                Toast.makeText(this, "Locações", Toast.LENGTH_SHORT).show();
+                break;
+            case "Clientes":
+                Toast.makeText(this, "Clientes", Toast.LENGTH_SHORT).show();
+                break;
+            case "Funcionários":
+                Toast.makeText(this, "Funcionario", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+
+    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        ArrayAdapter<Relatorios> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listar());
+//        lista.setAdapter(arrayAdapter);
+//    }
 }
