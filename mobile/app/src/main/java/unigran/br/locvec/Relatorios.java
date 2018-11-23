@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,18 +18,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import unigran.br.locvec.DAO.Banco;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import locvec.unigran.br.locvec.R;
-import unigran.br.locvec.DAO.DaoVeiculo;
 import unigran.br.locvec.Entidades.EFuncionario;
 import unigran.br.locvec.Entidades.ELocacao;
 import unigran.br.locvec.Entidades.EVeiculo;
@@ -192,23 +188,24 @@ public class Relatorios extends AppCompatActivity
                 ArrayAdapter<EVeiculo> arrayAdapter = new ArrayAdapter<EVeiculo>(this, android.R.layout.simple_list_item_1, listaRelatorio("carro"));
                 listRelatorio.setAdapter(arrayAdapter);
 
-                Toast.makeText(this, ""+tipoRelatorio.getSelectedItem()+" "+dataInicial.getText()+" "+dataFinal.getText(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, ""+tipoRelatorio.getSelectedItem()+" "+dataInicial.getText()+" "+dataFinal.getText(), Toast.LENGTH_SHORT).show();
                 break;
             case "Locações":
                 ArrayAdapter<ELocacao> eLocacaoArrayAdapter = new ArrayAdapter<ELocacao>(this, android.R.layout.simple_list_item_1, listaRelatorio("locacao"));
                 listRelatorio.setAdapter(eLocacaoArrayAdapter);
 
-                Toast.makeText(this, "Locações", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Locações", Toast.LENGTH_SHORT).show();
                 break;
             case "Clientes":
 //                ArrayAdapter<ECliente> eClienteArrayAdapter = new ArrayAdapter<ECliente>(this, android.R.layout.simple_list_item_1, listaRelatorio("cliente"));
 //                listRelatorio.setAdapter(eClienteArrayAdapter);
-                Toast.makeText(this, "Clientes", Toast.LENGTH_SHORT).show();
+
+//                Toast.makeText(this, "Clientes", Toast.LENGTH_SHORT).show();
                 break;
             case "Funcionários":
                 ArrayAdapter<EFuncionario> eFuncionarioArrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, listaRelatorio("funcionario"));
                 listRelatorio.setAdapter(eFuncionarioArrayAdapter);
-                Toast.makeText(this, "Funcionario", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Funcionario", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -285,8 +282,8 @@ public class Relatorios extends AppCompatActivity
                 break;
 
             case "locacao":
-//                res = conexao.rawQuery("SELECT a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa FROM locacao AS a INNER JOIN cliente b ON a.idCliente = b.id INNER JOIN carro c ON c.id = a.idCarro",null);
-                res = conexao.rawQuery("SELECT * FROM locacao",null);
+                res = conexao.rawQuery("SELECT a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa FROM locacao AS a INNER JOIN cliente b ON a.idCliente = b.id INNER JOIN carro c ON c.id = a.idCarro",null);
+//                res = conexao.rawQuery("SELECT * FROM locacao",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
@@ -294,7 +291,7 @@ public class Relatorios extends AppCompatActivity
                         eLocacao.setId(res.getInt(res.getColumnIndexOrThrow("ID")));
 //                        eLocacao.setDataLocacao(res.getString(res.getColumnIndexOrThrow("DATA LOCAÇÃO")));
 //                        eLocacao.setDataDevolucao(res.getString(res.getColumnIndexOrThrow("DATA DEVOLUÇÃO")));
-                        eLocacao.setQuilometragem(res.getFloat(res.getColumnIndexOrThrow("QUILOMETRAGEM")));
+                          eLocacao.setQuilometragem(res.getFloat(res.getColumnIndexOrThrow("QUILOMETRAGEM")));
 //                        eLocacao.setNome(res.getString(res.getColumnIndexOrThrow("NOME")));
 //                        eLocacao.setCnh(res.getString(res.getColumnIndexOrThrow("CNH")));
 //                        eLocacao.setNome(res.getString(res.getColumnIndexOrThrow("CARRO")));
