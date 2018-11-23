@@ -53,9 +53,11 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
         android:text="Cor:"
         app:layout_constraintEnd_toStartOf="@+id/edtCor"
+        app:layout_constraintStart_toEndOf="@+id/edtNome"
         app:layout_constraintTop_toBottomOf="@+id/edtPlaca" />
 
     <TextView
@@ -73,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Valor Seguro:"
         app:layout_constraintStart_toEndOf="@+id/edtLocacao"
         app:layout_constraintTop_toBottomOf="@+id/edtCor" />
@@ -107,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="153dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,11 +119,11 @@
 
     <EditText
         android:id="@+id/edtModelo"
-        android:layout_width="154dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/edtPlaca"
@@ -130,10 +132,10 @@
 
     <EditText
         android:id="@+id/edtPlaca"
-        android:layout_width="131dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -143,10 +145,10 @@
 
     <EditText
         android:id="@+id/edtNome"
-        android:layout_width="151dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -156,10 +158,10 @@
 
     <EditText
         android:id="@+id/edtCor"
-        android:layout_width="141dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -169,7 +171,7 @@
 
     <EditText
         android:id="@+id/edtLocacao"
-        android:layout_width="156dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -182,7 +184,7 @@
 
     <EditText
         android:id="@+id/edtSeguro"
-        android:layout_width="180dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"

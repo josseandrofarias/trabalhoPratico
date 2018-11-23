@@ -14,6 +14,15 @@ public class EVeiculo {
     private String marca;
     private Date dataCad;
 
+    @Override
+    public String toString() {
+        return
+                "Placa: '" + placa + '\'' +
+                ", Modelo: '" + modelo + '\'' +
+                ", Marca: '" + marca + '\''
+                ;
+    }
+
     public int getId() {
         return id;
     }
