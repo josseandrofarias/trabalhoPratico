@@ -1,4 +1,5 @@
-<?php include './TFuncao.php'; ?>
+<?php include './TFuncao.php'; 
+TFuncoes::VerificaLogin(true)?>
 
 <?php
     if($_SERVER['REQUEST_METHOD'] == "POST") {
