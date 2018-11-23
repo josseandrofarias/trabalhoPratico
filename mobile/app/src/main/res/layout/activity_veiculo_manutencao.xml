@@ -112,7 +112,6 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="teste"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +126,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="teste1"
         app:layout_constraintEnd_toStartOf="@+id/edtPlaca"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -141,7 +139,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="teste2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edtModelo"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -155,7 +152,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="teste 3"
         app:layout_constraintEnd_toStartOf="@+id/edtCor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -169,7 +165,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="teste5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edtNome"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -183,7 +178,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="number"
-        android:text="100.2"
         app:layout_constraintEnd_toStartOf="@+id/edtSeguro"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -197,7 +191,6 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="number"
-        android:text="12121.00"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.718"
         app:layout_constraintStart_toEndOf="@+id/edtLocacao"
