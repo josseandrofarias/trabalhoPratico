@@ -23,25 +23,10 @@ public class DaoFuncionario extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String cSql = "CREATE TABLE IF NOT EXISTS funcionario(" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                "dataAdmissao date NOT NULL, dataDemissao date DEFAULT NULL," +
-                "supervisor tinyint(1) NOT NULL, senha varchar(20) NOT NULL," +
-                "endereco varchar(150) DEFAULT NULL, cpf varchar(11) DEFAULT NULL," +
-                "rg varchar(15) DEFAULT NULL, cargo varchar(30) DEFAULT NULL," +
-                "desativado smallint(6) DEFAULT NULL, nome varchar(50) DEFAULT NULL);";
-        db.execSQL(cSql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-    }
-
-    public void abreConexao(){
-        db=getReadableDatabase();
-    }
-    public void fechaConexao(){
-        db.close();
     }
 
     public List listaTodos(){

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -62,7 +63,8 @@ public class Funcionario extends AppCompatActivity
 
         lista = findViewById(R.id.listFuncionario);
         conexaoDB();
-
+        //listar();
+        //acoes();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -91,6 +93,7 @@ public class Funcionario extends AppCompatActivity
         conexao = bd.getWritableDatabase();
         List funcionario = new LinkedList();
         Cursor res = conexao.rawQuery("SELECT * FROM funcionario", null);
+        Toast.makeText(this, res.getColumnCount(), Toast.LENGTH_SHORT).show();
         if(res.getCount() > 0){
             res.moveToFirst();
             do {
@@ -109,7 +112,7 @@ public class Funcionario extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it = new Intent(Funcionario.this, FuncionarioManutencao.class);
                 EFuncionario efunc = (EFuncionario)adapterView.getItemAtPosition(i);
-                it.putExtra("funcionario",efunc);
+                it.putExtra("funcionario", (Parcelable) efunc);
                 startActivity(it);
             }
         });
