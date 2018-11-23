@@ -223,7 +223,8 @@ public class Relatorios extends AppCompatActivity
         switch (tipo){
             case "carro":
 
-                 res = conexao.rawQuery("SELECT * FROM carro WHERE dataCad >= "+dataInicial+" && dataCad <= "+ dataFinal,null);
+//                 res = conexao.rawQuery("SELECT * FROM carro WHERE dataCad >= "+dataInicial+" && dataCad <= "+ dataFinal,null);
+                 res = conexao.rawQuery("SELECT * FROM carro",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
@@ -244,7 +245,8 @@ public class Relatorios extends AppCompatActivity
 
 
             case "cliente":
-                res = conexao.rawQuery("SELECT * FROM cliente WHERE dataCad >= "+dataInicial+" && dataCad <= "+ dataFinal,null);
+//                res = conexao.rawQuery("SELECT * FROM cliente WHERE dataCad >= "+dataInicial+" && dataCad <= "+ dataFinal,null);
+                res = conexao.rawQuery("SELECT * FROM cliente",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
@@ -263,7 +265,8 @@ public class Relatorios extends AppCompatActivity
                 break;
 
             case "funcionario":
-                res = conexao.rawQuery("SELECT * FROM funcionario WHERE dataAdmissao >= "+dataInicial+" && dataAdmissao <= "+ dataFinal,null);
+//                res = conexao.rawQuery("SELECT * FROM funcionario WHERE dataAdmissao >= "+dataInicial+" && dataAdmissao <= "+ dataFinal,null);
+                res = conexao.rawQuery("SELECT * FROM funcionario",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
@@ -282,7 +285,8 @@ public class Relatorios extends AppCompatActivity
                 break;
 
             case "locacao":
-                res = conexao.rawQuery("SELECT a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa FROM locacao AS a INNER JOIN cliente b ON a.idCliente = b.id INNER JOIN carro c ON c.id = a.idCarro",null);
+//                res = conexao.rawQuery("SELECT a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa FROM locacao AS a INNER JOIN cliente b ON a.idCliente = b.id INNER JOIN carro c ON c.id = a.idCarro",null);
+                res = conexao.rawQuery("SELECT * FROM locacao",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
