@@ -44,6 +44,7 @@ include '../TFuncao.php';
                                     <th>CPF</th>
                                     <th>CNH</th>
                                     <th>Endereço</th>
+                                    <th>Ação<th>
                                 </tr>
                             </thead>
 
@@ -61,6 +62,10 @@ include '../TFuncao.php';
                                             echo "<th>" . $tabela['cpf'] . "</th>";
                                             echo "<th>" . $tabela['cnh'] . "</th>";
                                             echo "<th>" . $tabela['endereco'] . "</th>";
+                                            echo "<th><form method='POST' action='gerenciar_cliente.php' target='_self'>
+                                            <input type='hidden' name='id' value='" . $tabela['id'] . "' </input>
+                                            <button type='submit' class='btn btn-danger' name='acao' value='deletar'>Deletar</button>                                             
+                                            </form></th>";
                                         echo "</tr>";        
                                     }
 

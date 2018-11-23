@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
         !empty($dep)) {
             TFuncoes::ExecSql("
             INSERT INTO
-            cliente (nome, cpf, rg, cnh, endereco, numeroDependetes)
+            cliente (nome, cpf, rg, cnh, endereco, numeroDependentes)
             VALUES(
                 '" . $nome . "',
                 '" . $cpf . "',
@@ -34,6 +34,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
         } else {
             header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_cliente.php");
         }
+    }
+    if($_POST['acao'] == "deletar") {
+        if(TFuncoes::Select("locacao", "idCliente", "idCliente = " . $_POST['id']) == false) {
+            TFuncoes::ExecSql("
+			DELETE FROM cliente WHERE id='" . $_POST['id'] .  "'
+            ");
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_cliente.php");
+        } else {
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_cliente.php");
+        } 
+
     }
 
     
