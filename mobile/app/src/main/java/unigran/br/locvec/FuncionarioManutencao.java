@@ -27,6 +27,7 @@ import java.util.Locale;
 
 import locvec.unigran.br.locvec.R;
 import unigran.br.locvec.DAO.Banco;
+import unigran.br.locvec.DAO.DaoFuncionario;
 import unigran.br.locvec.Entidades.EFuncionario;
 import unigran.br.locvec.Utilitarios.MáscaraCampoData;
 import unigran.br.locvec.Utilitarios.ValidaCPF;
@@ -109,44 +110,35 @@ public class FuncionarioManutencao extends AppCompatActivity {
         }else if(objValida.CPFValida(vTempCPF) == false){
             Toast.makeText(getApplicationContext(), "CPF incorreto", Toast.LENGTH_LONG).show();
         }else{
-            if (efuncionario == null)
-                efuncionario = new EFuncionario();
-            efuncionario.setvNome(vNome.getText().toString());
-            efuncionario.setvEndereco(vEndereco.getText().toString());
-            efuncionario.setvRG(vRG.getText().toString());
-            efuncionario.setvCPF(vCPF.getText().toString());
-            efuncionario.setvCargo(vCargo.getText().toString());
-            //efuncionario.setvAdmissao(vAdmissao.);
-            //efuncionario.setvAdmissao(vDemissao.getText().toString());
-            efuncionario.setvSenha(vSenha.getText().toString());
-            if (vFlagSupervisor.isChecked())
-                efuncionario.setvFlagSupervisor(1);
-            if (vFlagDesativado.isChecked())
-                efuncionario.setvFlagDesativado(1);
+
 
             bd = new Banco(this);
             try{
-                conexao = bd.getWritableDatabase();
-                ContentValues values = new ContentValues();
-                values.put("nome", efuncionario.getvNome());
-                values.put("cpf", efuncionario.getvCPF());
-                values.put("rg", efuncionario.getvRG());
-                values.put("senha", efuncionario.getvSenha());
-                values.put("endereco", efuncionario.getvEndereco());
-                values.put("cargo", efuncionario.getvCargo());
-                values.put("deativado", efuncionario.getvFlagDesativado());
-                values.put("supervisor", efuncionario.getvFlagSupervisor());
-                values.put("dataAdmissao", efuncionario.getvAdmissao());
-                values.put("dataDemissao", efuncionario.getvDemissao());
+                if (efuncionario == null)
+                    efuncionario = new EFuncionario();
+                efuncionario.setvNome(vNome.getText().toString());
+                efuncionario.setvEndereco(vEndereco.getText().toString());
+                efuncionario.setvRG(vRG.getText().toString());
+                efuncionario.setvCPF(vCPF.getText().toString());
+                efuncionario.setvCargo(vCargo.getText().toString());
+                efuncionario.setvAdmissao(vAdmissao.getText().toString());
+                efuncionario.setvAdmissao(vDemissao.getText().toString());
+                efuncionario.setvSenha(vSenha.getText().toString());
+                if (vFlagSupervisor.isChecked())
+                    efuncionario.setvFlagSupervisor(1);
+                if (vFlagDesativado.isChecked())
+                    efuncionario.setvFlagDesativado(1);
 
-                conexao.insert("funcionario", null, values);
-                conexao.close();
-                Toast.makeText(getApplicationContext(), "Funcionário cadastrado!", Toast.LENGTH_LONG).show();
+                DaoFuncionario daoFunc = new DaoFuncionario(getApplicationContext());
+                daoFunc.abreConexao();
+                String msg = daoFunc.salvarFuncionario(efuncionario);
+                daoFunc.fechaConexao();
+
+                Toast.makeText(getApplicationContext(), ""+msg, Toast.LENGTH_SHORT).show();
                 Intent it = new Intent(FuncionarioManutencao.this, Funcionario.class);
                 startActivity(it);
             }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Houve um erro, verique e tente " +
-                        "novamente...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Erro ao cadastrar: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
