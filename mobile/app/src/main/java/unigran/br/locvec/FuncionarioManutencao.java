@@ -1,7 +1,9 @@
 package unigran.br.locvec;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
@@ -38,13 +41,14 @@ public class FuncionarioManutencao extends AppCompatActivity {
     private EditText vAdmissao;
     private EditText vDemissao;
     private EditText vSenha;
-    private CheckBox vFlagSupervisor;
-    private CheckBox vFlagDesativado;
+    private Switch vFlagSupervisor;
+    private Switch vFlagDesativado;
 
     private EFuncionario efuncionario;
     Banco bd;
     private SQLiteDatabase conexao;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +88,8 @@ public class FuncionarioManutencao extends AppCompatActivity {
             vAdmissao.setText(efuncionario.getvAdmissao().toString());
             vDemissao.setText(efuncionario.getvDemissao().toString());
             vSenha.setText(efuncionario.getvSenha());
-            vFlagSupervisor.setChecked(efuncionario.getvFlagSupervisor());
-            vFlagDesativado.setChecked(efuncionario.getvFlagDesativado());
+            vFlagSupervisor.setText(efuncionario.getvFlagSupervisor());
+            vFlagDesativado.setText(efuncionario.getvFlagDesativado());
         }
     }
 
@@ -112,11 +116,13 @@ public class FuncionarioManutencao extends AppCompatActivity {
             efuncionario.setvRG(vRG.getText().toString());
             efuncionario.setvCPF(vCPF.getText().toString());
             efuncionario.setvCargo(vCargo.getText().toString());
-            efuncionario.setvAdmissao(new Date (vAdmissao.getText().toString()));
-            efuncionario.setvAdmissao(new Date (vDemissao.getText().toString()));
+            //efuncionario.setvAdmissao(vAdmissao.);
+            //efuncionario.setvAdmissao(vDemissao.getText().toString());
             efuncionario.setvSenha(vSenha.getText().toString());
-            efuncionario.setvFlagSupervisor(vFlagSupervisor.getIncludeFontPadding());
-            efuncionario.setvFlagDesativado(vFlagDesativado.getIncludeFontPadding());
+            if (vFlagSupervisor.isChecked())
+                efuncionario.setvFlagSupervisor(1);
+            if (vFlagDesativado.isChecked())
+                efuncionario.setvFlagDesativado(1);
 
             bd = new Banco(this);
             try{
@@ -130,13 +136,14 @@ public class FuncionarioManutencao extends AppCompatActivity {
                 values.put("cargo", efuncionario.getvCargo());
                 values.put("deativado", efuncionario.getvFlagDesativado());
                 values.put("supervisor", efuncionario.getvFlagSupervisor());
-                values.put("dataAdmissao", efuncionario.getvAdmissao().toString());
-                values.put("dataDemissao", efuncionario.getvDemissao().toString());
+                values.put("dataAdmissao", efuncionario.getvAdmissao());
+                values.put("dataDemissao", efuncionario.getvDemissao());
 
                 conexao.insert("funcionario", null, values);
                 conexao.close();
                 Toast.makeText(getApplicationContext(), "Funcionário cadastrado!", Toast.LENGTH_LONG).show();
-                finish();
+                Intent it = new Intent(FuncionarioManutencao.this, Funcionario.class);
+                startActivity(it);
             }catch (Exception e){
                 Toast.makeText(getApplicationContext(), "Houve um erro, verique e tente " +
                         "novamente...", Toast.LENGTH_LONG).show();

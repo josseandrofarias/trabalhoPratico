@@ -1,5 +1,6 @@
 package unigran.br.locvec.Entidades;
 
+import android.content.Intent;
 import android.widget.EditText;
 
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.Date;
 
-public class EFuncionario implements Serializable {
+public class EFuncionario{
 
     private int id;
     private String vNome;
@@ -15,11 +16,11 @@ public class EFuncionario implements Serializable {
     private String vRG;
     private String vCPF;
     private String vCargo;
-    private Date vAdmissao;
-    private Date vDemissao;
+    private String vAdmissao;
+    private String vDemissao;
     private String vSenha;
-    private Boolean vFlagSupervisor;
-    private Boolean vFlagDesativado;
+    private Integer vFlagSupervisor;
+    private Integer vFlagDesativado;
 
     public int getId() {
         return id;
@@ -69,35 +70,35 @@ public class EFuncionario implements Serializable {
         this.vCargo = vCargo;
     }
 
-    public Date getvAdmissao() {
+    public String getvAdmissao() {
         return vAdmissao;
     }
 
-    public void setvAdmissao(Date vAdmissao) {
+    public void setvAdmissao(String vAdmissao) {
         this.vAdmissao = vAdmissao;
     }
 
-    public Date getvDemissao() {
+    public String getvDemissao() {
         return vDemissao;
     }
 
-    public void setvDemissao(Date vDemissao) {
+    public void setvDemissao(String vDemissao) {
         this.vDemissao = vDemissao;
     }
 
-    public Boolean getvFlagSupervisor() {
+    public Integer getvFlagSupervisor() {
         return vFlagSupervisor;
     }
 
-    public void setvFlagSupervisor(Boolean vFlagSupervisor) {
+    public void setvFlagSupervisor(Integer vFlagSupervisor) {
         this.vFlagSupervisor = vFlagSupervisor;
     }
 
-    public Boolean getvFlagDesativado() {
+    public Integer getvFlagDesativado() {
         return vFlagDesativado;
     }
 
-    public void setvFlagDesativado(Boolean vFlagDesativado) {
+    public void setvFlagDesativado(Integer vFlagDesativado) {
         this.vFlagDesativado = vFlagDesativado;
     }
 
