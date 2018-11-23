@@ -18,14 +18,15 @@ import unigran.br.locvec.Entidades.EVeiculo;
 public class VeiculoManutencao extends AppCompatActivity {
 
 
-    EditText cor;
+    /*EditText cor;
     EditText valorLocacao;
     EditText marca;
     EditText modelo;
     EditText nome;
     EditText placa;
     EditText valorSeguro;
-    Switch veiculoAtivo;
+    Switch veiculoAtivo; */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +34,7 @@ public class VeiculoManutencao extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Mostrar o botão
         getSupportActionBar().setHomeButtonEnabled(true);      //Ativar o botão
         getSupportActionBar().setTitle("Cadastro do veículo");     //Titulo para ser exib
-        //mapeando os edit text
-        cor = findViewById(R.id.edtCor);
-        valorLocacao = findViewById(R.id.edtLocacao);
-        marca = findViewById(R.id.edtMarca);
-        modelo = findViewById(R.id.edtModelo);
-        nome = findViewById(R.id.edtNome);
-        placa = findViewById(R.id.edtPlaca);
-        valorSeguro = findViewById(R.id.edtSeguro);
-        veiculoAtivo = findViewById(R.id.swtVeiculoAtivo);
+
 
     }
 
@@ -75,9 +68,20 @@ public class VeiculoManutencao extends AppCompatActivity {
 
     public void btnCadastra(View view){
         //criando objeto veiculo
+        //mapeando os edit text
+        EditText cor = findViewById(R.id.edtCor);
+        EditText valorLocacao = findViewById(R.id.edtLocacao);
+        EditText marca = findViewById(R.id.edtMarca);
+        EditText modelo = findViewById(R.id.edtModelo);
+        EditText nome = findViewById(R.id.edtNome);
+        EditText placa = findViewById(R.id.edtPlaca);
+        EditText valorSeguro = findViewById(R.id.edtSeguro);
+        Switch veiculoAtivo = findViewById(R.id.swtVeiculoAtivo);
+
         try{
             EVeiculo veiculo = new EVeiculo();
-            veiculo.setNome(nome.getText().toString());
+            veiculo.setNome(nome.getText()+"");
+            veiculo.setPlaca(placa.getText()+"");
             veiculo.setCor(cor.getText().toString());
             veiculo.setMarca(marca.getText().toString());
             veiculo.setModelo(modelo.getText().toString());
@@ -87,10 +91,10 @@ public class VeiculoManutencao extends AppCompatActivity {
 
             DaoVeiculo veic = new DaoVeiculo(getApplicationContext());
             veic.abreConexao();
-            veic.salvarVeiculo(veiculo);
-            veic.fechaConexao();
+            String msg = veic.salvarVeiculo(veiculo);
+            //veic.fechaConexao();
 
-            Toast.makeText(getApplicationContext(), "Veículo cadastrado!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), ""+msg, Toast.LENGTH_SHORT).show();
             finish();
         }catch (Error e){
             Toast.makeText(getApplicationContext(), "Erro ao cadastrar: " + e.getMessage(), Toast.LENGTH_LONG).show();

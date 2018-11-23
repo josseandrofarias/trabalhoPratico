@@ -16,25 +16,29 @@ import unigran.br.locvec.VeiculoManutencao;
 public class DaoVeiculo extends SQLiteOpenHelper{
 
     private SQLiteDatabase db;
+    private Banco banco;
     private static final String DATEBASE = "locar";
     private static final int VERSION = 1;
 
+
+
     public DaoVeiculo(Context context) {
         super(context, DATEBASE, null, VERSION);
+
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String cSql = "CREATE TABLE IF NOT EXISTS carro(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "placa varchar(7) NOT NULL," +
-                "nome varchar(50) NOT NULL," +
-                "modelo varchar(50) NOT NULL," +
-                "valorSeguro float NOT NULL," +
-                "valorLocacao float NOT NULL," +
-                "cor varchar(50) NOT NULL," +
-                "ativo boolean NOT NULL," +
-                "marca varchar(50) NOT NULL," +
+                "placa varchar(7) ," +
+                "nome varchar(50) ," +
+                "modelo varchar(50) ," +
+                "valorSeguro float ," +
+                "valorLocacao float ," +
+                "cor varchar(50) ," +
+                "ativo boolean ," +
+                "marca varchar(50) ," +
                 "dataCad date DEFAULT NULL);";
 
         db.execSQL(cSql);
@@ -46,7 +50,7 @@ public class DaoVeiculo extends SQLiteOpenHelper{
 
 
     public void abreConexao(){
-        db = getReadableDatabase();
+        db = getWritableDatabase();
     }
     public void fechaConexao(){
         db.close();
@@ -57,42 +61,68 @@ public class DaoVeiculo extends SQLiteOpenHelper{
 
     public List listaTodos(){
         db = getReadableDatabase();
-        List funcionarios = new LinkedList();
+        List veiculo = new LinkedList();
         Cursor res =
                 db.rawQuery("SELECT * FROM carro",null);
         if(res.getCount()>0){
             res.moveToFirst();
             do{
                 EVeiculo eveic = new EVeiculo();
-                eveic.setNome(res.getString(res.getColumnIndexOrThrow("Nome")));
-                funcionarios.add(eveic);
+                eveic.setMarca(res.getString(res.getColumnIndexOrThrow("marca")));
+                eveic.setModelo(res.getString(res.getColumnIndexOrThrow("modelo")));
+                eveic.setPlaca(res.getString(res.getColumnIndexOrThrow("placa")));
+                veiculo.add(eveic);
             }while (res.moveToNext());
         }
         db.close();
-        return funcionarios;
+        return veiculo;
     }
 
 
-    public void salvarVeiculo(EVeiculo eVeiculo) {
+    public String salvarVeiculo(EVeiculo eVeiculo) {
 
         try{
+            abreConexao();
             ContentValues values = new ContentValues();
+            long resultado;
             values.put("nome",eVeiculo.getNome());
             values.put("placa",eVeiculo.getPlaca());
             values.put("modelo",eVeiculo.getModelo());
             values.put("valorSeguro",eVeiculo.getValorSeguro());
             values.put("valorLocacao",eVeiculo.getValorLocacao());
             values.put("cor",eVeiculo.getCor());
-            //values.put("ativo");
+            values.put("ativo", true);
             values.put("marca",eVeiculo.getMarca());
-            values.put ("dataCad",eVeiculo.getDataCad().toString());
+            //values.put ("dataCad",eVeiculo.getDataCad().toString());
+            resultado = db.insert("carro" , null, values);
+
+            try {
+                //db.execSQL("insert into carro (nome) values ('fiat')");
+                db.execSQL("insert into carro (nome, placa) " +
+                        "values ('" +eVeiculo.getNome()+ "'" + ",'" + eVeiculo.getPlaca()+      "')");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            db.close();
+            if (resultado ==-1) {
+                return "Erro ao inserir registro";
+            }
+            else{
+                return "Registro Inserido com sucesso";
+            }
+
+
+
+
 
 
         }catch (Error e){
-
+            System.out.println("erro" + e.getMessage());
 
         }
 
-
+        return "Registro Inserido com sucesso";
     }
 }

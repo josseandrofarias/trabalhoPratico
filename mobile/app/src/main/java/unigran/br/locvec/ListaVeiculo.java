@@ -13,8 +13,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.DaoVeiculo;
+import unigran.br.locvec.Entidades.EVeiculo;
 
 public class ListaVeiculo extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,6 +33,32 @@ public class ListaVeiculo extends AppCompatActivity
     public void onStart() {
         super.onStart();
         active = true;
+        //criando lista
+        List<EVeiculo> veiculos = new LinkedList<>();
+        DaoVeiculo dao = new DaoVeiculo(this);
+        veiculos = dao.listaTodos();
+        System.out.println(veiculos.toString());
+        ListView listaveiculo = (ListView) findViewById(R.id.ListaVeiculo); //mapeando lista
+        ArrayAdapter<EVeiculo> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, veiculos);
+        listaveiculo.setAdapter(adapter);
+
+        //selecionar item da lista pra editar
+
+        /*
+        listaveiculo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String codigo;
+
+                cursor.moveToPosition(position);
+                codigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.ID));
+                Intent intent = new Intent(Consulta.this, Alterar.class);
+                intent.putExtra("codigo", codigo);
+                startActivity(intent);
+                finish();
+            }
+        }); */
+
     }
 
     @Override
@@ -34,15 +68,14 @@ public class ListaVeiculo extends AppCompatActivity
         //finish(); //Não posso dar finish na tela pois caso eu queira voltar para esta tela o app nao deve ser fechado
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_veiculo);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -51,6 +84,10 @@ public class ListaVeiculo extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
     }
 
     public void clickBtnVeiculo(View view){

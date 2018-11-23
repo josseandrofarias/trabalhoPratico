@@ -21,14 +21,14 @@ public class Banco extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String sqlCarro ="CREATE TABLE IF NOT EXISTS "+TCarro+"(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-                "placa varchar(7) NOT NULL," +
-                "nome varchar(50) NOT NULL," +
-                "modelo varchar(50) NOT NULL," +
-                "valorSeguro float NOT NULL," +
-                "valorLocacao float NOT NULL," +
-                "cor varchar(50) NOT NULL," +
-                "ativo boolean NOT NULL," +
-                "marca varchar(50) NOT NULL," +
+                "placa varchar(7) ," +
+                "nome varchar(50) ," +
+                "modelo varchar(50) ," +
+                "valorSeguro float ," +
+                "valorLocacao float ," +
+                "cor varchar(50) ," +
+                "ativo boolean ," +
+                "marca varchar(50) ," +
                 "dataCad date DEFAULT NULL);";
 
         String sqlCliente = "CREATE TABLE IF NOT EXISTS "+TCliente+"(" +
