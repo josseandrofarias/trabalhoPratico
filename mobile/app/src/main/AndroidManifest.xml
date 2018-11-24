@@ -53,7 +53,8 @@
         <activity android:name="unigran.br.locvec.VeiculoManutencao" />
         <activity
             android:name="unigran.br.locvec.Login"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+        <activity android:name="unigran.br.locvec.LocacaoGerenciamento"></activity>
     </application>
 
 </manifest>

@@ -18,9 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -77,12 +79,23 @@ public class ListaLocacao extends AppCompatActivity
         Cursor data = selecionarLocacoes();
         ArrayList<String> listaLocacoes = new ArrayList<>();
         while(data.moveToNext()) {
-            listaLocacoes.add("ID do Cliente: " + data.getString(data.getColumnIndex("idCliente")) + "\n" +
-            "ID do Veículo: " + data.getString(data.getColumnIndex("idCarro")) + "\n" +
-            "Data de Locação: " + data.getString(data.getColumnIndex("dataLocacao")));
+            listaLocacoes.add("ID da Locação: " + data.getString(data.getColumnIndex("id")) + "\n" +
+                    "ID do Cliente: " + data.getString(data.getColumnIndex("idCliente")) + "\n" +
+                    "ID do Veículo: " + data.getString(data.getColumnIndex("idCarro")) + "\n" +
+                    "Data de Locação: " + data.getString(data.getColumnIndex("dataLocacao")));
         }
         ListAdapter adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, listaLocacoes);
         mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
+                String idLoc = adapterView.getItemAtPosition(i).toString().charAt(15) + "";
+                Intent intent = new Intent(ListaLocacao.this, LocacaoGerenciamento.class);
+                intent.putExtra("id", Integer.parseInt(idLoc));
+                startActivity(intent);
+            }
+        });
     }
 
     public Cursor selecionarLocacoes() {
