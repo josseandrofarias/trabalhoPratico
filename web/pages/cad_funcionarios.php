@@ -1,105 +1,80 @@
+<?php 
 
-<?php
 include '../TFuncao.php';
+
+if($_SERVER['REQUEST_METHOD'] == "POST") {
+    $acao = $_POST['acao'];
+    if($acao == "inserir") {
+        $nome = $_POST["nome"];
+        $cpf = $_POST["cpf"];
+        $rg = $_POST["rg"];
+        $senha = $_POST["senha"];
+        $endereco = $_POST["endereco"];
+        $cargo = $_POST["cargo"];
+        $dataAdmissao = $_POST["dataAdmissao"];
+        $dataDemissao = $_POST["dataDemissao"];
+
+        //caso o checkbox esteja deesmarcado seu status sera 1, caso marcado 0
+        if (!isset($_POST['deativado'])) {
+            $ativo = 1;
+        }else{
+            $ativo = 0;
+        }
+
+        if (!isset($_POST['supervisor'])) {
+            $ativo = 1;
+        }else{
+            $ativo = 0;
+        }
+
+        if(!empty($nome) && 
+        !empty($cpf) && 
+        !empty($rg) && 
+        !empty($senha) && 
+        !empty($endereco) && 
+        !empty($cargo)&& 
+        !empty($dataAdmissao)&& 
+        !empty($dataDemissao)&& 
+        !empty($deativado)&& 
+        !empty($supervisor)) {
+            TFuncoes::ExecSql("
+
+            INSERT INTO
+            (nome, cpf, rg, senha, endereco, cargo, dataAdmissao, dataDemissao, deativado, supervisor)
+            VALUES(
+                '" . $nome . "',
+                '" . $cpf . "',
+                '" . $rg . "',
+                '" . $senha . "',
+                '" . $endereco . "',
+                '" . $cargo . "',
+                '" . $dataAdmissao . "',
+                '" . $dataDemissao . "',
+                '" . $deativado . "',
+                '" . $supervisor . "'
+            )
+            "); 
+    
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_funcionario.php");
+        } else {
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_funcionario.php");
+        }
+    }
+    if($_POST['acao'] == "deletar") {
+        if(TFuncoes::Select("id = " . $_POST['id']) == false) {
+            TFuncoes::ExecSql("
+            DELETE FROM funcionario WHERE id='" . $_POST['id'] .  "'
+            ");
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_funcionario.php");
+        } else {
+            header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_funcionario.php");
+        } 
+
+    }
+
+    
+} else {
+    header("Location: " . "http://" . "$_SERVER[HTTP_HOST]" . "/trabalhoPratico/web/pages/cad_funcionario.php");
+}
+
 ?>
-<html lang="pt-br">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="Grupo2" content="">
-
-        <title>LoCar - Locadora de veículos</title>
-
-        <!--<link href="dados/css/materialize.min.css" rel="stylesheet">-->
-        <?php
-        echo TFuncoes::AddCss(false);
-        ?>
-
-    </head>
-
-    <body class="skin-blue">
-
-        <div class="wrapper" style="height: auto; min-height: 100%">
-
-            <!--Topo site-->
-            <?php echo TFuncoes::AddTopo() ?>
-            <!--Menu lateral-->
-            <?php echo TFuncoes::AddMenuLateral(false);// include './dados/menuLateral.php'; ?>
-
-            <!--centro-->
-            <div class="content-wrapper" style="min-height: 717px;">
-               
-                    <!--SEU CODIGO AQUI DENTRO--> 
-                    <section class="content">
-
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                        <h1 class="h2">Gerenciar Funcionários</h1>
-                    </div>
-
-                    <!-- ESCREVER CODIGO AQUI! -->
-                    
-                    <form>
-                        <div class="form-group">
-                            <input class="form-control form-control-lg" type="text" placeholder="Nome"></br/>
-                            <input class="form-control form-control-lg" type="text" placeholder="Endereço"></br/>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <input class="form-control form-control-lg" type="text" placeholder="CPF"></br/>
-                                </div>
-                                <div class="col-md-4">
-                                    <input class="form-control form-control-lg" type="text" placeholder="RG"></br/> 
-                                </div>
-                                
-                                <div class="col-md-4">
-                                <input class="form-control form-control-lg" type="text" placeholder="Cargo"></br/>
-                            </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4 ">
-                                	<p class="label">Data de Admissão</p>
-                                    <input class="form-control form-control-lg" type="date" placeholder="Admissao">
-
-                                </div>
-                                <div class="col-md-4">
-                                	<p class="label">Data de Demissão</p>
-                                    <input class="form-control form-control-lg" type="date" placeholder="Admissao">   
-                                </div>
-                            </div>
-
-                            
-                            
-                        </div>
-
-                        <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="ckBoxSupervisor">
-                                        <label class="form-check-label" for="ckBoxSupervisor">Funcionário Supervisor</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="ckBoxDesativado">
-                                        <label class="form-check-label" for="ckBoxDesativado">Funcionário Desativado</label>
-                                    </div>  
-                                </div>
-                            </div>
-                        
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                        <button type="submit" class="btn btn-primary">Editar</button>
-                    </form>
-                      
-
-                    <!--FINAL DO SEU CODIGO-->
-                </section>
-            </div>
-            <!--finalização do Centro--> 
-
-            <!--painel mudar de cor-->
-            <?php echo TFuncoes::AddPainelCor(); ?>
-        </div>
-        <?php echo TFuncoes::AddJs(false) ?>
-    </body>
-</html>

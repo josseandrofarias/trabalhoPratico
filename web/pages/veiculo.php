@@ -126,19 +126,13 @@ include '../TFuncao.php';
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-4">
-                                                    <label for="marcaVeiculo">Marca:</label>
-                                                    <input name="marca" type="text" class="form-control" id="marcaVeiculo" value="<?php echo $aqui['marca']?>" id="marcaVeiculo" data-error="Insira a marca do veículo." required>
+                                                    <label for="Marca">Marca:</label>
+                                                    <input name="Marca" type="text" class="form-control" id="Marca" value="<?php echo $aqui['marca']?>" id="Marca" data-error="Insira o nome do funcionário." required>
                                                     <div class="help-block with-errors"></div>	
                                                 </div>
-
                                                 <div class="form-group col-md-4">
-                                                    <label for="modeloVeiculo">Modelo:</label>
-                                                    <input name="modelo" type="text" class="form-control" id="modeloVeiculo" value="<?php echo $aqui['modelo'];?>" data-error="Insira o modelo do veículo." required>
-                                                    <div class="help-block with-errors"></div>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="placaVeiculo">Placa:</label>
-                                                    <input  name="placa" type="text" class="form-control" id="placaVeiculo" value="<?php echo $aqui['placa'];?>" data-error="Placa invalida" required>
+                                                    <label for="placa">Placa:</label>
+                                                    <input  name="placa" type="text" class="form-control" id="placa" value="<?php echo $aqui['placa'];?>" data-error="Informe Placa" required>
                                                     <div class="help-block with-errors"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">

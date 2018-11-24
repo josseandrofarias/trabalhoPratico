@@ -65,7 +65,7 @@
                 </a>
               </li>
               <li class="treeview">
-                <a href="pages/cad_funcionarios.php">
+                <a href="pages/funcionario.php">
                   <span data-feather="users"></span>
                   Funcionários
                 </a>

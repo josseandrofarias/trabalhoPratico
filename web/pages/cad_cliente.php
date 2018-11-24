@@ -68,9 +68,7 @@ include '../TFuncao.php';
                                             </form></th>";
                                         echo "</tr>";        
                                     }
-
                                 ?>
-
                             </tbody>
                         </table>
                     </div>
