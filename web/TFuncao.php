@@ -6,11 +6,14 @@ abstract class TFuncoes {
      * Verifica se o usuário está logado
      *
      * */
-    public static function VerificaLogin()
-    {
+    public static function VerificaLogin($index = false){
+
         session_start();
         if (!isset($_SESSION["logado"]) || $_SESSION["logado"] != true) {
-            header("Location: login.php");
+            if($index){
+                header("Location: login.php");
+            }else
+                header("Location: ../login.php");
         }
     }
 
@@ -252,8 +255,6 @@ abstract class TFuncoes {
     }
 
     public static function AddTopo($index = false) {
-        session_start();
-
         $super = ($_SESSION["user_permissao"] == 1)?'Supervisor':'';
         $img = ($_SESSION["user_permissao"] == 1)?'supervised_user_circle':'account_circle';
         $logoff = ($index) ? './logoff.php': '../logoff.php';

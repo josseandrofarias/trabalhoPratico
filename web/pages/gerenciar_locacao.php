@@ -1,4 +1,5 @@
-<?php include '../TFuncao.php'; ?>
+<?php include '../TFuncao.php'; 
+TFuncoes::VerificaLogin()?>
 
 <?php
 

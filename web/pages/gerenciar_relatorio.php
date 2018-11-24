@@ -1,5 +1,7 @@
 <!-- Importa o arquivo com as funções do site -->
-<?php include '../TFuncao.php'; ?>
+<?php include '../TFuncao.php';
+ TFuncoes::VerificaLogin();
+?>
 
 <html lang="pt-br">
 <head>
