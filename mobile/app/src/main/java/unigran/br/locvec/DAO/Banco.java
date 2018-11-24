@@ -49,10 +49,10 @@ public class Banco extends SQLiteOpenHelper {
                 "senha varchar(20) NOT NULL," +
                 "endereco varchar(150) NOT NULL," +
                 "cargo varchar(30) NOT NULL," +
-                "deativado smallint(6) NOT NULL," +
-                "supervisor tinyint(1) NOT NULL," +
-                "dataAdmissao date DEFAULT NULL," +
-                "dataDemissao date DEFAULT NULL);";
+                "deativado integer(1) NOT NULL," +
+                "supervisor integer(1) NOT NULL," +
+                "dataAdmissao varchar(8) DEFAULT NULL," +
+                "dataDemissao varchar(8) DEFAULT NULL);";
 
         String sqlLocacao = "CREATE TABLE IF NOT EXISTS "+TLocacao+"(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +

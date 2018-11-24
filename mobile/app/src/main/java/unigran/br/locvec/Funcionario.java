@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -44,6 +45,13 @@ public class Funcionario extends AppCompatActivity
     public void onStart() {
         super.onStart();
         active = true;
+        List<EFuncionario> funcionario = new LinkedList();
+        DaoFuncionario daoFuncionario = new DaoFuncionario(this);
+        //daoFuncionario.listaTodos();
+        lista = findViewById(R.id.listFuncionario);
+        ArrayAdapter<EFuncionario> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, funcionario);
+        ArrayAdapter<EFuncionario> arrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, funcionario);
+        lista.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -59,11 +67,6 @@ public class Funcionario extends AppCompatActivity
         setContentView(R.layout.activity_funcionario);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        lista = findViewById(R.id.listFuncionario);
-        conexaoDB();
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -87,29 +90,13 @@ public class Funcionario extends AppCompatActivity
         }
     }
 
-    private List listar(){
-        conexao = bd.getWritableDatabase();
-        List funcionario = new LinkedList();
-        Cursor res = conexao.rawQuery("SELECT * FROM funcionario", null);
-        if(res.getCount() > 0){
-            res.moveToFirst();
-            do {
-                EFuncionario efunc = new EFuncionario();
-                efunc.setvNome(res.getString(res.getColumnIndexOrThrow("nome")));
-                //efunc.setvFlagDesativado(res.getWantsAllOnMoveCalls(res.getColumnIndexOrThrow("desativado")));
-                funcionario.add(efunc);
-            } while (res.moveToNext());
-        }
-        return funcionario;
-    }
-
     private void acoes() {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it = new Intent(Funcionario.this, FuncionarioManutencao.class);
                 EFuncionario efunc = (EFuncionario)adapterView.getItemAtPosition(i);
-                it.putExtra("funcionario",efunc);
+                it.putExtra("funcionario", (Parcelable) efunc);
                 startActivity(it);
             }
         });
@@ -118,8 +105,6 @@ public class Funcionario extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        ArrayAdapter<EFuncionario> arrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, listar());
-        lista.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -150,7 +135,6 @@ public class Funcionario extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

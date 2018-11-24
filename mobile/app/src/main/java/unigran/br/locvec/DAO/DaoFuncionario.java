@@ -14,6 +14,7 @@ import unigran.br.locvec.Entidades.EFuncionario;
 public class DaoFuncionario extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
+    private Banco banco;
     private static final String DATEBASE = "locar";
     private static final int VERSION = 1;
 
@@ -24,12 +25,17 @@ public class DaoFuncionario extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String cSql = "CREATE TABLE IF NOT EXISTS funcionario(" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
-                "dataAdmissao date NOT NULL, dataDemissao date DEFAULT NULL," +
-                "supervisor tinyint(1) NOT NULL, senha varchar(20) NOT NULL," +
-                "endereco varchar(150) DEFAULT NULL, cpf varchar(11) DEFAULT NULL," +
-                "rg varchar(15) DEFAULT NULL, cargo varchar(30) DEFAULT NULL," +
-                "desativado smallint(6) DEFAULT NULL, nome varchar(50) DEFAULT NULL);";
+                "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
+                "nome varchar(50) NOT NULL," +
+                "cpf varchar(11) NOT NULL," +
+                "rg varchar(15) NOT NULL," +
+                "senha varchar(20) NOT NULL," +
+                "endereco varchar(150) NOT NULL," +
+                "cargo varchar(30) NOT NULL," +
+                "deativado integer(1) NOT NULL," +
+                "supervisor integer(1) NOT NULL," +
+                "dataAdmissao varchar(8) DEFAULT NULL," +
+                "dataDemissao varchar(8) DEFAULT NULL);";
         db.execSQL(cSql);
     }
 
@@ -37,18 +43,10 @@ public class DaoFuncionario extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
 
-    public void abreConexao(){
-        db=getReadableDatabase();
-    }
-    public void fechaConexao(){
-        db.close();
-    }
-
     public List listaTodos(){
         db = getReadableDatabase();
         List funcionarios = new LinkedList();
-        Cursor res =
-                db.rawQuery("SELECT * FROM FUNCIONARIO",null);
+        Cursor res = db.rawQuery("select * from funcionario",null); // "SELECT * FROM funcionario",null
         if(res.getCount()>0){
             res.moveToFirst();
             do{
@@ -61,17 +59,45 @@ public class DaoFuncionario extends SQLiteOpenHelper {
         return funcionarios;
     }
 
-    public void salvarFuncionario(EFuncionario eFunc) {
+    public void abreConexao(){
+        db = getWritableDatabase();
+    }
+    public void fechaConexao(){
+        db.close();
+    }
+
+    public String salvarFuncionario(EFuncionario eFunc) {
         ContentValues values = new ContentValues();
-        values.put("nome",eFunc.getvNome());
-        values.put("endereco",eFunc.getvEndereco());
-        values.put("cpf",eFunc.getvCPF());
-        values.put("rg",eFunc.getvRG());
-        values.put("cargo",eFunc.getvCargo());
-        values.put("desativado",eFunc.getvFlagDesativado());
-        values.put("supervisor",eFunc.getvFlagSupervisor());
-        values.put("senha",eFunc.getvSenha());
-        //values.put ("dataDemissao",eFunc.getvDemissao());
-        values.put("nome",eFunc.getvNome());
+        long resultado;
+        values.put("nome", eFunc.getvNome());
+        values.put("cpf", eFunc.getvCPF());
+        values.put("rg", eFunc.getvRG());
+        values.put("senha", eFunc.getvSenha());
+        values.put("endereco", eFunc.getvEndereco());
+        values.put("cargo", eFunc.getvCargo());
+        values.put("deativado", eFunc.getvFlagDesativado());
+        values.put("supervisor", eFunc.getvFlagSupervisor());
+        values.put("dataAdmissao", eFunc.getvAdmissao());
+        values.put("dataDemissao", eFunc.getvDemissao());
+        resultado = db.insert("funcionario" , null, values);
+
+        try {
+            db.execSQL("insert into funcionario (nome, cpf, rg, senha, endereco, cargo, deativado, supervisor, dataAdmissao, dataDemissao) " +
+                    "values ('" +eFunc.getvNome()+ "'" + ",'" + eFunc.getvCPF()+ ",'" + eFunc.getvRG()+ ",'" + eFunc.getvSenha()+
+                    ",'" + eFunc.getvEndereco()+ ",'" + eFunc.getvCargo()+ ",'" + eFunc.getvFlagDesativado()+ ",'" +
+                    ",'" + eFunc.getvAdmissao()+ ",'" + eFunc.getvDemissao()+"')");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.close();
+        if (resultado ==-1) {
+            return "Erro ao cadastrar!";
+        }
+        else{
+            return "Cadastrado!";
+        }
+
     }
 }
