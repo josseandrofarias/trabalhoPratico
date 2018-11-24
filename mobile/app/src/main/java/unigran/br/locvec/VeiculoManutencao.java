@@ -1,6 +1,9 @@
 package unigran.br.locvec;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -10,8 +13,11 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.Banco;
 import unigran.br.locvec.DAO.DaoVeiculo;
 import unigran.br.locvec.Entidades.EVeiculo;
 
@@ -26,6 +32,8 @@ public class VeiculoManutencao extends AppCompatActivity {
     EditText placa;
     EditText valorSeguro;
     Switch veiculoAtivo; */
+    private SQLiteDatabase db;
+    private Banco banco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +97,9 @@ public class VeiculoManutencao extends AppCompatActivity {
             veiculo.setValorSeguro(Float.parseFloat(valorSeguro.getText().toString()));
             veiculo.setDataCad(new Date()); //chamando data atual para cadastro
 
-            DaoVeiculo veic = new DaoVeiculo(getApplicationContext());
-            veic.abreConexao();
-            String msg = veic.salvarVeiculo(veiculo);
+            //DaoVeiculo veic = new DaoVeiculo(getApplicationContext());
+            //veic.abreConexao();
+            String msg = salvarVeiculo(veiculo);
             //veic.fechaConexao();
 
             Toast.makeText(getApplicationContext(), ""+msg, Toast.LENGTH_SHORT).show();
@@ -102,5 +110,52 @@ public class VeiculoManutencao extends AppCompatActivity {
 
 
     }
+
+
+    public String salvarVeiculo(EVeiculo eVeiculo) {
+        try{
+            banco = new Banco(this);
+            db = banco.getReadableDatabase();
+            ContentValues values = new ContentValues();
+            long resultado;
+            values.put("nome",eVeiculo.getNome());
+            values.put("placa",eVeiculo.getPlaca());
+            values.put("modelo",eVeiculo.getModelo());
+            values.put("valorSeguro",eVeiculo.getValorSeguro());
+            values.put("valorLocacao",eVeiculo.getValorLocacao());
+            values.put("cor",eVeiculo.getCor());
+            values.put("ativo", true);
+            values.put("marca",eVeiculo.getMarca());
+            //values.put ("dataCad",eVeiculo.getDataCad().toString());
+            resultado = db.insert("carro" , null, values);
+
+            try {
+                //db.execSQL("insert into carro (nome) values ('fiat')");
+                db.execSQL("insert into carro (nome, placa) " +
+                        "values ('" +eVeiculo.getNome()+ "'" + ",'" + eVeiculo.getPlaca()+      "')");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            db.close();
+            if (resultado ==-1) {
+                return "Erro ao inserir registro";
+            }
+            else{
+                return "Registro Inserido com sucesso";
+            }
+
+
+        }catch (Error e){
+            System.out.println("erro" + e.getMessage());
+
+        }
+
+        return "Registro Inserido com sucesso";
+    }
+
+
+
 
 }

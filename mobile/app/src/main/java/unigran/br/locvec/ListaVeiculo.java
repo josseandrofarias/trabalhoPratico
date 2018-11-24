@@ -1,6 +1,8 @@
 package unigran.br.locvec;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.Banco;
 import unigran.br.locvec.DAO.DaoVeiculo;
 import unigran.br.locvec.Entidades.EVeiculo;
 
@@ -28,15 +31,17 @@ public class ListaVeiculo extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     static boolean active = false;
+    private SQLiteDatabase db;
+    private Banco banco;
 
     @Override
     public void onStart() {
         super.onStart();
         active = true;
+
         //criando lista
         List<EVeiculo> veiculos = new LinkedList<>();
-        DaoVeiculo dao = new DaoVeiculo(this);
-        veiculos = dao.listaTodos();
+        veiculos = listaTodos();
         System.out.println(veiculos.toString());
         ListView listaveiculo = (ListView) findViewById(R.id.ListaVeiculo); //mapeando lista
         ArrayAdapter<EVeiculo> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, veiculos);
@@ -169,5 +174,26 @@ public class ListaVeiculo extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public List listaTodos(){
+
+        banco = new Banco(this);
+        db = banco.getReadableDatabase();
+        List veiculo = new LinkedList();
+        Cursor res =
+                db.rawQuery("SELECT * FROM carro",null);
+        if(res.getCount()>0){
+            res.moveToFirst();
+            do{
+                EVeiculo eveic = new EVeiculo();
+                eveic.setMarca(res.getString(res.getColumnIndexOrThrow("marca")));
+                eveic.setModelo(res.getString(res.getColumnIndexOrThrow("modelo")));
+                eveic.setPlaca(res.getString(res.getColumnIndexOrThrow("placa")));
+                veiculo.add(eveic);
+            }while (res.moveToNext());
+        }
+        db.close();
+        return veiculo;
     }
 }

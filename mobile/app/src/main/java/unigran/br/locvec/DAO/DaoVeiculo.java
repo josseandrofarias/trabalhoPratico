@@ -80,7 +80,6 @@ public class DaoVeiculo extends SQLiteOpenHelper{
 
 
     public String salvarVeiculo(EVeiculo eVeiculo) {
-
         try{
             abreConexao();
             ContentValues values = new ContentValues();
@@ -112,10 +111,6 @@ public class DaoVeiculo extends SQLiteOpenHelper{
             else{
                 return "Registro Inserido com sucesso";
             }
-
-
-
-
 
 
         }catch (Error e){
