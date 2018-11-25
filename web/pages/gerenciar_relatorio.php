@@ -62,8 +62,8 @@
                             <input class="form-control form-control-lg" type="date" name="dataf">
                         </div>
                     </div>
-                    <br>
-                    <input  class="btn btn-primary btn-lg" type="submit" id="btnGerar" value="Gerar">
+                    <br>    
+                    <input  class="btn btn-primary btn-md" type="submit" id="btnGerar" value="Gerar">
                 </div>
             </form>
             <div id="result"></div>

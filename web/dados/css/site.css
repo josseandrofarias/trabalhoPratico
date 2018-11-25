@@ -70,15 +70,17 @@ textarea.big {
 }
 
 #btnGerar{
-    background-color: #545254;
-    border-color: #000;
+    background-color: #008d4c;
+    font-size: 20px;
+    border-color: #008d4c;
     width: 150px;
+    padding: 5px;
     box-shadow: none;
 }
 
 #btnGerar:hover {
   color: #ffffff !important;
-  background-color: #1F2838 !important;
-  border-color: #000 !important;
+  background-color: #006c36 !important;
+  /*border-color: #000 !important;*/
   box-shadow: none;
 }
