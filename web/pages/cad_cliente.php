@@ -1,6 +1,7 @@
 
 <?php
 include '../TFuncao.php';
+TFuncoes::VerificaLogin();
 ?>
 <html lang="pt-br">
     <head>
@@ -35,7 +36,7 @@ include '../TFuncao.php';
                     <!--SEU CODIGO AQUI DENTRO--> 
 					<h2>Cadastrar Cliente</h2>
                     
-                    <div class="table-responsive">
+                    <div class="table-responsive"> 
                         <table id="tabelaCliente" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
