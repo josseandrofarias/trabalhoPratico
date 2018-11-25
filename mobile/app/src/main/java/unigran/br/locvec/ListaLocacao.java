@@ -24,7 +24,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import locvec.unigran.br.locvec.R;
 import unigran.br.locvec.DAO.Banco;
@@ -34,7 +37,6 @@ public class ListaLocacao extends AppCompatActivity
 
     static boolean active = false;
 
-    private static final String TAG = "ListDataActivity";
     Banco bd;
     private SQLiteDatabase con;
     private ListView mListView;
@@ -75,14 +77,26 @@ public class ListaLocacao extends AppCompatActivity
     }
 
     private void criarListView() {
-        Log.d(TAG,"populateListView: Displaying data in the ListView");
         Cursor data = selecionarLocacoes();
         ArrayList<String> listaLocacoes = new ArrayList<>();
         while(data.moveToNext()) {
+            //TRECHO RESPONSAVEL POR TRANSFORMAR A DATA EM PADRÃO DIA/MES/ANO
+            SimpleDateFormat entrada = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat saida = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataInicial;
+            String dataString = null;
+
+            try {
+                dataInicial = entrada.parse(data.getString(data.getColumnIndex("dataLocacao")));
+                dataString = saida.format(dataInicial);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //TRECHO RESPONSAVEL POR TRANSFORMAR A DATA EM PADRÃO DIA/MES/ANO
             listaLocacoes.add("ID da Locação: " + data.getString(data.getColumnIndex("id")) + "\n" +
                     "ID do Cliente: " + data.getString(data.getColumnIndex("idCliente")) + "\n" +
                     "ID do Veículo: " + data.getString(data.getColumnIndex("idCarro")) + "\n" +
-                    "Data de Locação: " + data.getString(data.getColumnIndex("dataLocacao")));
+                    "Data de Locação: " + dataString);
         }
         ListAdapter adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, listaLocacoes);
         mListView.setAdapter(adapter);
@@ -90,21 +104,21 @@ public class ListaLocacao extends AppCompatActivity
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long id) {
-                String idLoc = adapterView.getItemAtPosition(i).toString().charAt(15) + "";
+                String idLoc = adapterView.getItemAtPosition(i).toString().charAt(15) + ""; //CAPTURANDO O ID DA LOCAÇÃO
                 Intent intent = new Intent(ListaLocacao.this, LocacaoGerenciamento.class);
-                intent.putExtra("id", Integer.parseInt(idLoc));
+                intent.putExtra("id", Integer.parseInt(idLoc)); //ENVIANDO O ID DA LOCAÇÃO PARA A ACTIVITY DE GERENCIAMENTO
                 startActivity(intent);
             }
         });
     }
 
-    public Cursor selecionarLocacoes() {
+    public Cursor selecionarLocacoes() { //CAPTURANDO AS LOCAÇÕES NO BANCO
         bd = new Banco(this);
         con = bd.getWritableDatabase();
         String query = "SELECT * FROM locacao";
         Cursor data = con.rawQuery(query, null);
         return data;
-    }
+    } //CAPTURANDO AS LOCAÇÕES NO BANCO
 
     // SELECT locacao.dataLocacao, locacao.dataDevolucao, locacao.quilometragem
     // FROM ((locacao
