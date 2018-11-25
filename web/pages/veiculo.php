@@ -1,6 +1,7 @@
 
 <?php
 include '../TFuncao.php';
+TFuncoes::VerificaLogin();
 
 ?>
 <html lang="pt-br">
