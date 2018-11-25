@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,8 +29,7 @@ import locvec.unigran.br.locvec.R;
 import unigran.br.locvec.Entidades.EFuncionario;
 import unigran.br.locvec.Entidades.ELocacao;
 import unigran.br.locvec.Entidades.EVeiculo;
-//import unigran.br.locvec.Entidades.ECliente;
-import unigran.br.locvec.Utilitarios.MáscaraCampoData;
+import unigran.br.locvec.Entidades.ECliente;
 
 
 public class Relatorios extends AppCompatActivity
@@ -39,7 +37,6 @@ public class Relatorios extends AppCompatActivity
 
     Spinner tipoRelatorio;
     Button btGerar;
-    EditText dataInicial, dataFinal;
     static boolean active = false;
     Banco bd;
     private ListView listRelatorio;
@@ -66,15 +63,8 @@ public class Relatorios extends AppCompatActivity
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.tiposRelatorio, android.R.layout.simple_spinner_item);
         tipoRelatorio.setAdapter(adapter);
 
-        // Metodos para aplicar mascaras aos campos de data
-        dataInicial = (EditText) findViewById(R.id.edDataInicial);
-        new MáscaraCampoData(dataInicial);
-        dataFinal = (EditText) findViewById(R.id.edDataFinal);
-        new MáscaraCampoData(dataFinal);
-
         btGerar = (Button) findViewById(R.id.btGerar);
         listRelatorio = (ListView) findViewById(R.id.listRelatorio);
-
 
     }
     // CONECTANDO NO BANCO
@@ -90,6 +80,8 @@ public class Relatorios extends AppCompatActivity
             msg.show();
         }
     }
+
+
 
     @Override
     protected void onResume() {
@@ -183,29 +175,33 @@ public class Relatorios extends AppCompatActivity
 
         switch ((String) tipoRelatorio.getSelectedItem()){
 
+            case "Selecione o tipo de relatório":
+
+                ArrayAdapter<String> selecione = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaRelatorio("selecione"));
+                listRelatorio.setAdapter(selecione);
+
+                break;
+
             case "Carros":
 
                 ArrayAdapter<EVeiculo> arrayAdapter = new ArrayAdapter<EVeiculo>(this, android.R.layout.simple_list_item_1, listaRelatorio("carro"));
                 listRelatorio.setAdapter(arrayAdapter);
 
-//                Toast.makeText(this, ""+tipoRelatorio.getSelectedItem()+" "+dataInicial.getText()+" "+dataFinal.getText(), Toast.LENGTH_SHORT).show();
                 break;
             case "Locações":
                 ArrayAdapter<ELocacao> eLocacaoArrayAdapter = new ArrayAdapter<ELocacao>(this, android.R.layout.simple_list_item_1, listaRelatorio("locacao"));
                 listRelatorio.setAdapter(eLocacaoArrayAdapter);
 
-//                Toast.makeText(this, "Locações", Toast.LENGTH_SHORT).show();
                 break;
             case "Clientes":
-//                ArrayAdapter<ECliente> eClienteArrayAdapter = new ArrayAdapter<ECliente>(this, android.R.layout.simple_list_item_1, listaRelatorio("cliente"));
-//                listRelatorio.setAdapter(eClienteArrayAdapter);
+                // CASO ESTEJA COMENTADO É PORQUE O INTEGRANTE DO GRUPO NÃO TERMINOU SUA PARTE
+                ArrayAdapter<ECliente> eClienteArrayAdapter = new ArrayAdapter<ECliente>(this, android.R.layout.simple_list_item_1, listaRelatorio("cliente"));
+                listRelatorio.setAdapter(eClienteArrayAdapter);
 
-//                Toast.makeText(this, "Clientes", Toast.LENGTH_SHORT).show();
                 break;
             case "Funcionários":
                 ArrayAdapter<EFuncionario> eFuncionarioArrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, listaRelatorio("funcionario"));
                 listRelatorio.setAdapter(eFuncionarioArrayAdapter);
-//                Toast.makeText(this, "Funcionario", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -218,25 +214,40 @@ public class Relatorios extends AppCompatActivity
         List dados = new LinkedList();
         Cursor res;
         switch (tipo){
+
+            case "selecione":
+
+                AlertDialog.Builder msg = new AlertDialog.Builder(this);
+                msg.setTitle("Tipo não selecionado");
+                msg.setMessage("Selecione um tipo de relatório para continuar!");
+                msg.setNeutralButton("Ok" ,null);
+                msg.show();
+
+                break;
+
             case "carro":
                 conexao = bd.getReadableDatabase();
-//                 res = conexao.rawQuery("SELECT * FROM carro WHERE dataCad >= "+dataInicial+" && dataCad <= "+ dataFinal,null);
                   res = conexao.rawQuery("SELECT * FROM carro",null);
-//                 Toast.makeText(this, ""+dataInicial+" "+res.getColumnIndexOrThrow("dataCad"), Toast.LENGTH_SHORT).show();
 
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
                         EVeiculo eveic = new EVeiculo();
-//                        eveic.setId(res.getInt(res.getColumnIndexOrThrow("id")));
-//                        eveic.setNome(res.getString(res.getColumnIndexOrThrow("nome")));
+                        eveic.setId(res.getInt(res.getColumnIndexOrThrow("id")));
+                        eveic.setNome(res.getString(res.getColumnIndexOrThrow("nome")));
                         eveic.setMarca(res.getString(res.getColumnIndexOrThrow("marca")));
                         eveic.setModelo(res.getString(res.getColumnIndexOrThrow("modelo")));
                         eveic.setPlaca(res.getString(res.getColumnIndexOrThrow("placa")));
-//                        eveic.setValorSeguro(res.getFloat(res.getColumnIndexOrThrow("seguro")));
-//                        eveic.setValorLocacao(res.getFloat(res.getColumnIndexOrThrow("locacao")));
-//                        eveic.setCor(res.getString(res.getColumnIndexOrThrow("cor")));
-                        dados.add(eveic);
+                        eveic.setValorSeguro(res.getFloat(res.getColumnIndexOrThrow("valorSeguro")));
+                        eveic.setValorLocacao(res.getFloat(res.getColumnIndexOrThrow("valorLocacao")));
+                        eveic.setCor(res.getString(res.getColumnIndexOrThrow("cor")));
+                        dados.add("Id: "+eveic.getId()
+                                + "\n" +"Nome: "+ eveic.getNome()
+                                + "\n" +"Marca: "+ eveic.getMarca()
+                                + "\n" +"Modelo: "+ eveic.getModelo()
+                                + "\n" +"Placa: "+ eveic.getPlaca()
+                                + "\n" +"Valor Locação: "+ eveic.getValorLocacao()
+                                + "\n" +"Valor Seguro: "+ eveic.getValorSeguro());
                     }while (res.moveToNext());
                 }else
                     msgErroGerar();
@@ -245,61 +256,67 @@ public class Relatorios extends AppCompatActivity
 
 
             case "cliente":
-//                res = conexao.rawQuery("SELECT * FROM cliente WHERE dataCad >= "+dataInicial+" && dataCad <= "+ dataFinal,null);
                 res = conexao.rawQuery("SELECT * FROM cliente",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
+                        // CASO ESTEJA COMENTADO É PORQUE O INTEGRANTE DO GRUPO NÃO TERMINOU SUA PARTE
+
+
+
 //                        ECliente eCliente = new ECliente();
-//                        eCliente.setId(res.getInt(res.getColumnIndexOrThrow("ID")));
-//                        eCliente.setNome(res.getString(res.getColumnIndexOrThrow("NOME")));
-//                        eCliente.setCpf(res.getString(res.getColumnIndexOrThrow("CPF")));
-//                        eCliente.setRg(res.getString(res.getColumnIndexOrThrow("RG")));
-//                        eCliente.setCnh(res.getString(res.getColumnIndexOrThrow("CNH")));
-//                        eCliente.setEndereco(res.getString(res.getColumnIndexOrThrow("ENDEREÇO")));
-//                        eCliente.setNumeroDependentes(res.getInt(res.getColumnIndexOrThrow("DEPENDENTES")));
-//                        dados.add(eCliente);
+//                        eCliente.setId(res.getInt(res.getColumnIndexOrThrow("id")));
+//                        eCliente.setNome(res.getString(res.getColumnIndexOrThrow("nome")));
+//                        eCliente.setCpf(res.getString(res.getColumnIndexOrThrow("cpf")));
+//                        eCliente.setRg(res.getString(res.getColumnIndexOrThrow("rg")));
+//                        eCliente.setCnh(res.getString(res.getColumnIndexOrThrow("cnh")));
+//                        eCliente.setEndereco(res.getString(res.getColumnIndexOrThrow("endereco")));
+//                        eCliente.setNumeroDependentes(res.getInt(res.getColumnIndexOrThrow("numeroDependentes")));
+//                        dados.add("Id: "+eCliente.getId()
+//                                + "\n" +"Nome: "+ eCliente.getNome()
+//                                + "\n" +"CPF: "+ eCliente.getCpf()
+//                                + "\n" +"RG: "+ eCliente.getRg()
+//                                + "\n" +"Endereço: "+ eCliente.getEndereco()
+//                                + "\n" +"N. Dependentes: "+ eCliente.getNumeroDependentes());
                     }while (res.moveToNext());
                 }else
-                    msgErroGerar();
+//                    msgErroGerar();
+                    msgIntegranteNaoFez();
                 break;
 
             case "funcionario":
-//                res = conexao.rawQuery("SELECT * FROM funcionario WHERE dataAdmissao >= "+dataInicial+" && dataAdmissao <= "+ dataFinal,null);
                 res = conexao.rawQuery("SELECT * FROM funcionario",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
                         EFuncionario eFuncionario = new EFuncionario();
-//                        eFuncionario.setId(res.getInt(res.getColumnIndexOrThrow("id")));
-                        res.getString(res.getColumnIndexOrThrow("nome"));
-//                        eFuncionario.setvCPF(res.getString(res.getColumnIndexOrThrow("cpf")));
-//                        eFuncionario.setvRG(res.getString(res.getColumnIndexOrThrow("rg")));
-//                        eFuncionario.setvEndereco(res.getString(res.getColumnIndexOrThrow("endereco")));
-//                        eFuncionario.setvAdmissao(res.getString(res.getColumnIndexOrThrow("DATA ADMISSAO")));
-//                        eFuncionario.setvDemissao(res.getString(res.getColumnIndexOrThrow("DATA DEMISSAO")));
-                        dados.add(eFuncionario);
+                        eFuncionario.setId(res.getInt(res.getColumnIndexOrThrow("id")));
+                        eFuncionario.setvNome(res.getString(res.getColumnIndexOrThrow("nome")));
+                        eFuncionario.setvCPF(res.getString(res.getColumnIndexOrThrow("cpf")));
+                        eFuncionario.setvRG(res.getString(res.getColumnIndexOrThrow("rg")));
+                        eFuncionario.setvEndereco(res.getString(res.getColumnIndexOrThrow("endereco")));
+                        dados.add("Id: "+eFuncionario.getId()
+                                + "\n" +"Nome: "+ eFuncionario.getvNome()
+                                + "\n" +"CPF: "+ eFuncionario.getvCPF()
+                                + "\n" +"RG: "+ eFuncionario.getvRG()
+                                + "\n" +"Endereço: "+ eFuncionario.getvEndereco());
                     }while (res.moveToNext());
                 }else
                     msgErroGerar();
                 break;
 
             case "locacao":
-//                res = conexao.rawQuery("SELECT a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa FROM locacao AS a INNER JOIN cliente b ON a.idCliente = b.id INNER JOIN carro c ON c.id = a.idCarro",null);
                 res = conexao.rawQuery("SELECT * FROM locacao",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
                         ELocacao eLocacao = new ELocacao();
                         eLocacao.setId(res.getInt(res.getColumnIndexOrThrow("id")));
-//                        eLocacao.setDataLocacao(res.getString(res.getColumnIndexOrThrow("DATA LOCAÇÃO")));
-//                        eLocacao.setDataDevolucao(res.getString(res.getColumnIndexOrThrow("DATA DEVOLUÇÃO")));
                           eLocacao.setQuilometragem(res.getFloat(res.getColumnIndexOrThrow("quilometragem")));
-//                        eLocacao.setNome(res.getString(res.getColumnIndexOrThrow("NOME")));
-//                        eLocacao.setCnh(res.getString(res.getColumnIndexOrThrow("CNH")));
-//                        eLocacao.setNome(res.getString(res.getColumnIndexOrThrow("CARRO")));
-//                        eLocacao.setPlaca(res.getString(res.getColumnIndexOrThrow("PLACA")));
-                        dados.add(eLocacao);
+                        dados.add("Id: "+eLocacao.getId()
+                                + "\n" +"Id Cliente: "+ eLocacao.getIdCliente()
+                                + "\n" +"Id Carro: "+ eLocacao.getIdCarro()
+                                + "\n" +"Km: "+ eLocacao.getQuilometragem());
                     }while (res.moveToNext());
                 }else
                     msgErroGerar();
@@ -318,6 +335,14 @@ public class Relatorios extends AppCompatActivity
         AlertDialog.Builder msg = new AlertDialog.Builder(this);
         msg.setTitle("Erro");
         msg.setMessage("Não possui dados Cadastrados!");
+        msg.setNeutralButton("Ok" ,null);
+        msg.show();
+    }
+
+    private void msgIntegranteNaoFez(){
+        AlertDialog.Builder msg = new AlertDialog.Builder(this);
+        msg.setTitle("Erro");
+        msg.setMessage("Outro integrante do grupo não fez sua parte!");
         msg.setNeutralButton("Ok" ,null);
         msg.show();
     }
