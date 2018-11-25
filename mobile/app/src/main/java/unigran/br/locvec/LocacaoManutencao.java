@@ -45,9 +45,11 @@ public class LocacaoManutencao extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("Cadastro de Locação");
 
+        //COLOCANDO MASCARA NA DATA
         SimpleMaskFormatter smfDataLocacao = new SimpleMaskFormatter("NN/NN/NNNN");
         MaskTextWatcher mtwDataLocacao = new MaskTextWatcher(etDataLocacao, smfDataLocacao);
         etDataLocacao.addTextChangedListener(mtwDataLocacao);
+        //COLOCANDO MASCARA NA DATA
     }
 
     @Override
@@ -65,21 +67,23 @@ public class LocacaoManutencao extends AppCompatActivity {
     public void acaoCadastrar(View view) throws ParseException {
         if(validar_locacao()) {
             locacao = new ELocacao();
+
+            //TRECHO RESPONSAVEL POR TORNAR A DATA INSERIVEL NO BANCO
             java.util.Date dataInicial = new SimpleDateFormat("dd/MM/yyyy").parse(etDataLocacao.getText().toString());
             SimpleDateFormat formatarData = new SimpleDateFormat("yyyy-MM-dd");
             String dataString = formatarData.format(dataInicial);
             java.sql.Date dataConvertida = java.sql.Date.valueOf(dataString);
-
-            //Toast.makeText(this, dataConvertida.toString(), Toast.LENGTH_LONG).show();
+            //TRECHO RESPONSAVEL POR TORNAR A DATA INSERIVEL NO BANCO
 
             locacao.setIdCliente(Integer.parseInt(etNumCliente.getText().toString()));
             locacao.setIdCarro(Integer.parseInt(etNumCarro.getText().toString()));
             locacao.setDataLocacao(dataConvertida);
             inserirLocacao();
+
         }
     }
 
-    public void inserirLocacao() {
+    public void inserirLocacao() { //FUNCAO PARA INSERÇÃO NO BANCO
         bd = new Banco(this);
         try {
             con = bd.getWritableDatabase();
@@ -93,9 +97,9 @@ public class LocacaoManutencao extends AppCompatActivity {
         } catch (android.database.SQLException e) {
             Toast.makeText(this, "Erro: !" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
+    } //FUNÇÃO PARA INSERÇÃO NO BANCO
 
-    public boolean validar_locacao() {
+    public boolean validar_locacao() { //FUNÇÃO DE VALIDAÇÃO
         if(!validar_cliente()) {
             if(!validar_carro()) {
                 if(!validar_data()) {
@@ -115,17 +119,17 @@ public class LocacaoManutencao extends AppCompatActivity {
             etNumCliente.requestFocus();
             return false;
         }
-    }
+    } //FUNÇÃO DE VALIDAÇÃO
 
-    public boolean validar_cliente() {
+    public boolean validar_cliente() { //FUNÇÃO DE VALIDAÇÃO
         return TextUtils.isEmpty(etNumCliente.getText());
     }
 
-    public boolean validar_carro() {
+    public boolean validar_carro() { //FUNÇÃO DE VALIDAÇÃO
         return TextUtils.isEmpty(etNumCarro.getText());
     }
 
-    public boolean validar_data() {
+    public boolean validar_data() { //FUNÇÃO DE VALIDAÇÃO
         return TextUtils.isEmpty(etDataLocacao.getText());
     }
 }
