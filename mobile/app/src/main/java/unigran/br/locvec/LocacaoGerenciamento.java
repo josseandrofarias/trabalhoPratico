@@ -93,7 +93,7 @@ public class LocacaoGerenciamento extends AppCompatActivity {
                     SimpleDateFormat formatarData = new SimpleDateFormat("yyyy-MM-dd");
                     String dataString = formatarData.format(dataInicial);
                     java.sql.Date itemDataConvertida = java.sql.Date.valueOf(dataString);
-                    if(!etNumCliente.equals("") && !etNumCarro.equals("") && !etDataLocacao.equals("")) {
+                    if(!etNumCliente.equals("") && !etNumCarro.equals("") && !etDataLocacao.equals("")) { //VERIFICA SE OS CAMPOS ESTÃO PREENCHIDOS
                         editarLocacao(id, itemIDCliente, itemIDCarro,itemDataConvertida);
                         toast("Editado com Sucesso!");
                     } else {
@@ -105,7 +105,25 @@ public class LocacaoGerenciamento extends AppCompatActivity {
 
             }
         });
+
+        btnDeletar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deletarLocacao(id);
+                etNumCliente.setText("");
+                etNumCarro.setText("");
+                etDataLocacao.setText("");
+                toast("Deletado com Sucesso!");
+                btnSalvar.setEnabled(false);
+            }
+        });
     }
+
+    public void deletarLocacao(int idLocacao) { //FUNÇÃO PARA DELETAR LOCAÇÕES
+        con = bd.getWritableDatabase();
+        String query = "DELETE FROM locacao WHERE id = '" +  idLocacao + "';";
+        con.execSQL(query);
+    } //FUNÇÃO PARA DELETAR LOCAÇÕES
 
     public void editarLocacao(int id, int idCliente, int idCarro, Date dataLocacao) { //FUNÇÃO RESPONSAVEL POR REALIZAR UPDATE DA LOCAÇÃO
         con = bd.getWritableDatabase();
