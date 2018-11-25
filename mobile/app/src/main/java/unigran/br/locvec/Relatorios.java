@@ -219,25 +219,28 @@ public class Relatorios extends AppCompatActivity
         Cursor res;
         switch (tipo){
             case "carro":
-
+                conexao = bd.getReadableDatabase();
 //                 res = conexao.rawQuery("SELECT * FROM carro WHERE dataCad >= "+dataInicial+" && dataCad <= "+ dataFinal,null);
-                 res = conexao.rawQuery("SELECT * FROM carro",null);
+                  res = conexao.rawQuery("SELECT * FROM carro",null);
+//                 Toast.makeText(this, ""+dataInicial+" "+res.getColumnIndexOrThrow("dataCad"), Toast.LENGTH_SHORT).show();
+
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
                         EVeiculo eveic = new EVeiculo();
-                        eveic.setId(res.getInt(res.getColumnIndexOrThrow("ID")));
-                        eveic.setNome(res.getString(res.getColumnIndexOrThrow("NOME")));
-                        eveic.setModelo(res.getString(res.getColumnIndexOrThrow("MODELO")));
-                        eveic.setPlaca(res.getString(res.getColumnIndexOrThrow("PLACA")));
-                        eveic.setValorSeguro(res.getFloat(res.getColumnIndexOrThrow("SEGURO")));
-                        eveic.setValorLocacao(res.getFloat(res.getColumnIndexOrThrow("LOCAÇÃO")));
-                        eveic.setCor(res.getString(res.getColumnIndexOrThrow("COR")));
-                        eveic.setMarca(res.getString(res.getColumnIndexOrThrow("MARCA")));
+//                        eveic.setId(res.getInt(res.getColumnIndexOrThrow("id")));
+//                        eveic.setNome(res.getString(res.getColumnIndexOrThrow("nome")));
+                        eveic.setMarca(res.getString(res.getColumnIndexOrThrow("marca")));
+                        eveic.setModelo(res.getString(res.getColumnIndexOrThrow("modelo")));
+                        eveic.setPlaca(res.getString(res.getColumnIndexOrThrow("placa")));
+//                        eveic.setValorSeguro(res.getFloat(res.getColumnIndexOrThrow("seguro")));
+//                        eveic.setValorLocacao(res.getFloat(res.getColumnIndexOrThrow("locacao")));
+//                        eveic.setCor(res.getString(res.getColumnIndexOrThrow("cor")));
                         dados.add(eveic);
                     }while (res.moveToNext());
                 }else
                     msgErroGerar();
+
                 break;
 
 
@@ -268,11 +271,11 @@ public class Relatorios extends AppCompatActivity
                     res.moveToFirst();
                     do{
                         EFuncionario eFuncionario = new EFuncionario();
-                        eFuncionario.setId(res.getInt(res.getColumnIndexOrThrow("ID")));
-                        eFuncionario.setvNome(res.getString(res.getColumnIndexOrThrow("NOME")));
-                        eFuncionario.setvCPF(res.getString(res.getColumnIndexOrThrow("CPF")));
-                        eFuncionario.setvRG(res.getString(res.getColumnIndexOrThrow("RG")));
-                        eFuncionario.setvEndereco(res.getString(res.getColumnIndexOrThrow("ENDERECO")));
+//                        eFuncionario.setId(res.getInt(res.getColumnIndexOrThrow("id")));
+                        res.getString(res.getColumnIndexOrThrow("nome"));
+//                        eFuncionario.setvCPF(res.getString(res.getColumnIndexOrThrow("cpf")));
+//                        eFuncionario.setvRG(res.getString(res.getColumnIndexOrThrow("rg")));
+//                        eFuncionario.setvEndereco(res.getString(res.getColumnIndexOrThrow("endereco")));
 //                        eFuncionario.setvAdmissao(res.getString(res.getColumnIndexOrThrow("DATA ADMISSAO")));
 //                        eFuncionario.setvDemissao(res.getString(res.getColumnIndexOrThrow("DATA DEMISSAO")));
                         dados.add(eFuncionario);
@@ -282,16 +285,16 @@ public class Relatorios extends AppCompatActivity
                 break;
 
             case "locacao":
-                res = conexao.rawQuery("SELECT a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa FROM locacao AS a INNER JOIN cliente b ON a.idCliente = b.id INNER JOIN carro c ON c.id = a.idCarro",null);
-//                res = conexao.rawQuery("SELECT * FROM locacao",null);
+//                res = conexao.rawQuery("SELECT a.id, a.dataLocacao, a.dataDevolucao, a.quilometragem, b.nome, b.cnh, c.nome, c.placa FROM locacao AS a INNER JOIN cliente b ON a.idCliente = b.id INNER JOIN carro c ON c.id = a.idCarro",null);
+                res = conexao.rawQuery("SELECT * FROM locacao",null);
                 if(res.getCount()>0){
                     res.moveToFirst();
                     do{
                         ELocacao eLocacao = new ELocacao();
-                        eLocacao.setId(res.getInt(res.getColumnIndexOrThrow("ID")));
+                        eLocacao.setId(res.getInt(res.getColumnIndexOrThrow("id")));
 //                        eLocacao.setDataLocacao(res.getString(res.getColumnIndexOrThrow("DATA LOCAÇÃO")));
 //                        eLocacao.setDataDevolucao(res.getString(res.getColumnIndexOrThrow("DATA DEVOLUÇÃO")));
-                          eLocacao.setQuilometragem(res.getFloat(res.getColumnIndexOrThrow("QUILOMETRAGEM")));
+                          eLocacao.setQuilometragem(res.getFloat(res.getColumnIndexOrThrow("quilometragem")));
 //                        eLocacao.setNome(res.getString(res.getColumnIndexOrThrow("NOME")));
 //                        eLocacao.setCnh(res.getString(res.getColumnIndexOrThrow("CNH")));
 //                        eLocacao.setNome(res.getString(res.getColumnIndexOrThrow("CARRO")));
@@ -300,12 +303,13 @@ public class Relatorios extends AppCompatActivity
                     }while (res.moveToNext());
                 }else
                     msgErroGerar();
+
                 break;
 
 
         }
-                conexao.close();
-                return dados;
+        conexao.close();
+        return dados;
 
 
     }
