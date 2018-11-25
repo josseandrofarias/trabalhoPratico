@@ -47,9 +47,8 @@ public class Funcionario extends AppCompatActivity
         active = true;
         List<EFuncionario> funcionario = new LinkedList();
         DaoFuncionario daoFuncionario = new DaoFuncionario(this);
-        //daoFuncionario.listaTodos();
+        funcionario = daoFuncionario.listaTodos();
         lista = findViewById(R.id.listFuncionario);
-        ArrayAdapter<EFuncionario> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, funcionario);
         ArrayAdapter<EFuncionario> arrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, funcionario);
         lista.setAdapter(arrayAdapter);
     }

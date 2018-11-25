@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -46,14 +47,18 @@ public class FuncionarioManutencao extends AppCompatActivity {
     private Switch vFlagDesativado;
 
     private EFuncionario efuncionario;
+    private Banco banco;
     Banco bd;
     private SQLiteDatabase conexao;
+    private SQLiteDatabase db;
+    String codigo;
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_funcionario_manutencao);
+        codigo = this.getIntent().getStringExtra("codigo");
 
         vNome = findViewById(R.id.etNome);
         vEndereco = findViewById(R.id.etEndereco);
@@ -86,8 +91,8 @@ public class FuncionarioManutencao extends AppCompatActivity {
             vRG.setText(efuncionario.getvRG());
             vCPF.setText(efuncionario.getvCPF());
             vCargo.setText(efuncionario.getvCargo());
-            vAdmissao.setText(efuncionario.getvAdmissao().toString());
-            vDemissao.setText(efuncionario.getvDemissao().toString());
+            vAdmissao.setText(efuncionario.getvAdmissao());
+            vDemissao.setText(efuncionario.getvDemissao());
             vSenha.setText(efuncionario.getvSenha());
             vFlagSupervisor.setText(efuncionario.getvFlagSupervisor());
             vFlagDesativado.setText(efuncionario.getvFlagDesativado());
@@ -98,6 +103,7 @@ public class FuncionarioManutencao extends AppCompatActivity {
         ValidaCPF objValida = new ValidaCPF();
         //remove formatação do cpf para validação
         String vTempCPF = vCPF.getText().toString().replaceAll("[^0-9]", "");
+        String vData = vAdmissao.getText().toString().replaceAll("[^0-6]", "");
 
         if(TextUtils.isEmpty(vNome.getText())){
             Toast.makeText(getApplicationContext(), "Informe um nome", Toast.LENGTH_LONG).show();
@@ -110,37 +116,72 @@ public class FuncionarioManutencao extends AppCompatActivity {
         }else if(objValida.CPFValida(vTempCPF) == false){
             Toast.makeText(getApplicationContext(), "CPF incorreto", Toast.LENGTH_LONG).show();
         }else{
+            EFuncionario efuncionario = new EFuncionario();
+            efuncionario.setvNome(vNome.getText().toString());
+            efuncionario.setvEndereco(vEndereco.getText().toString());
+            efuncionario.setvRG(vRG.getText().toString());
+            efuncionario.setvCPF(vCPF.getText().toString().replaceAll("[^0-9]", ""));
+            efuncionario.setvCargo(vCargo.getText().toString());
+            efuncionario.setvAdmissao(vAdmissao.getText().toString());
+            efuncionario.setvAdmissao(vDemissao.getText().toString());
+            efuncionario.setvSenha(vSenha.getText().toString());
+            efuncionario.setvFlagSupervisor(0);
+            efuncionario.setvFlagDesativado(0);
+            if (vFlagSupervisor.isChecked())
+                efuncionario.setvFlagSupervisor(1);
+            if (vFlagDesativado.isChecked())
+                efuncionario.setvFlagDesativado(1);
 
+            banco = new Banco(this);
+            db = banco.getReadableDatabase();
+            if(codigo == null) {
+                try {
+                    ContentValues values = new ContentValues();
+                    long resultado;
+                    values.put("nome", efuncionario.getvNome());
+                    values.put("cpf", efuncionario.getvCPF());
+                    values.put("rg", efuncionario.getvRG());
+                    values.put("senha", efuncionario.getvSenha());
+                    values.put("endereco", efuncionario.getvEndereco());
+                    values.put("cargo", efuncionario.getvCargo());
+                    values.put("deativado", efuncionario.getvFlagDesativado());
+                    values.put("supervisor", efuncionario.getvFlagSupervisor());
+                    values.put("dataAdmissao", efuncionario.getvAdmissao());
+                    values.put("dataDemissao", efuncionario.getvDemissao());
+                    resultado = db.insertOrThrow("funcionario" , null, values);
+                    db.close();
+                    Toast.makeText(getApplicationContext(), "Cadastro realizado", Toast.LENGTH_SHORT).show();
+                } catch (Error e) {
+                    Toast.makeText(getApplicationContext(), "Erro " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }else{ //rotina de update
+                try {
+                    ContentValues values = new ContentValues();
+                    long resultado;
+                    values.put("nome", efuncionario.getvNome());
+                    values.put("cpf", efuncionario.getvCPF());
+                    values.put("rg", efuncionario.getvRG());
+                    values.put("senha", efuncionario.getvSenha());
+                    values.put("endereco", efuncionario.getvEndereco());
+                    values.put("cargo", efuncionario.getvCargo());
+                    values.put("deativado", efuncionario.getvFlagDesativado());
+                    values.put("supervisor", efuncionario.getvFlagSupervisor());
+                    values.put("dataAdmissao", efuncionario.getvAdmissao());
+                    values.put("dataDemissao", efuncionario.getvDemissao());
 
-            bd = new Banco(this);
-            try{
-                if (efuncionario == null)
-                    efuncionario = new EFuncionario();
-                efuncionario.setvNome(vNome.getText().toString());
-                efuncionario.setvEndereco(vEndereco.getText().toString());
-                efuncionario.setvRG(vRG.getText().toString());
-                efuncionario.setvCPF(vCPF.getText().toString());
-                efuncionario.setvCargo(vCargo.getText().toString());
-                efuncionario.setvAdmissao(vAdmissao.getText().toString());
-                efuncionario.setvAdmissao(vDemissao.getText().toString());
-                efuncionario.setvSenha(vSenha.getText().toString());
-                if (vFlagSupervisor.isChecked())
-                    efuncionario.setvFlagSupervisor(1);
-                if (vFlagDesativado.isChecked())
-                    efuncionario.setvFlagDesativado(1);
+                    String where = "id=?";
+                    String[] whereArgs = new String[] {String.valueOf(codigo+1)};
 
-                DaoFuncionario daoFunc = new DaoFuncionario(getApplicationContext());
-                daoFunc.abreConexao();
-                String msg = daoFunc.salvarFuncionario(efuncionario);
-                daoFunc.fechaConexao();
-
-                Toast.makeText(getApplicationContext(), ""+msg, Toast.LENGTH_SHORT).show();
-                Intent it = new Intent(FuncionarioManutencao.this, Funcionario.class);
-                startActivity(it);
-            }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "Erro ao cadastrar: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    resultado = db.update("funcionario", values, where, whereArgs);
+                    codigo = null;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                db.close();
             }
         }
+        Intent it = new Intent(FuncionarioManutencao.this, Funcionario.class);
+        startActivity(it);
     }
 
     public void acSair(View view) {
@@ -150,7 +191,8 @@ public class FuncionarioManutencao extends AppCompatActivity {
         builder.setPositiveButton("Sim, vou!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
+                Intent it = new Intent(FuncionarioManutencao.this, Funcionario.class);
+                startActivity(it);
             }
         });
         builder.setNegativeButton("Ok, vou terminar :)", new DialogInterface.OnClickListener() {

@@ -15,8 +15,10 @@ public class DaoFuncionario extends SQLiteOpenHelper {
 
     private SQLiteDatabase db;
     private Banco banco;
-    private static final String DATEBASE = "locar";
+    Cursor cursor;
+    private static final String DATEBASE = "dbLocar";
     private static final int VERSION = 1;
+    private String vTempSituacao;
 
     public DaoFuncionario(Context context) {
         super(context, DATEBASE, null, VERSION);
@@ -34,8 +36,8 @@ public class DaoFuncionario extends SQLiteOpenHelper {
                 "cargo varchar(30) NOT NULL," +
                 "deativado integer(1) NOT NULL," +
                 "supervisor integer(1) NOT NULL," +
-                "dataAdmissao varchar(8) DEFAULT NULL," +
-                "dataDemissao varchar(8) DEFAULT NULL);";
+                "dataAdmissao varchar(10) DEFAULT NULL," +
+                "dataDemissao varchar(10) DEFAULT NULL);";
         db.execSQL(cSql);
     }
 
@@ -46,13 +48,19 @@ public class DaoFuncionario extends SQLiteOpenHelper {
     public List listaTodos(){
         db = getReadableDatabase();
         List funcionarios = new LinkedList();
-        Cursor res = db.rawQuery("select * from funcionario",null); // "SELECT * FROM funcionario",null
+        Cursor res = db.rawQuery("select * from funcionario",null);
         if(res.getCount()>0){
             res.moveToFirst();
             do{
                 EFuncionario efunc = new EFuncionario();
-                efunc.setvNome(res.getString(res.getColumnIndexOrThrow("Nome")));
-                funcionarios.add(efunc);
+                efunc.setvNome(res.getString(res.getColumnIndexOrThrow("nome")));
+                efunc.setvFlagDesativado(res.getInt(res.getColumnIndexOrThrow("deativado")));
+                if (efunc.getvFlagDesativado()==0) {
+                    vTempSituacao = "Ativo";
+                }else {
+                    vTempSituacao = "Inativo";
+                }
+                funcionarios.add(efunc.getvNome().toString() + " - " + vTempSituacao);
             }while (res.moveToNext());
         }
         db.close();
@@ -66,38 +74,4 @@ public class DaoFuncionario extends SQLiteOpenHelper {
         db.close();
     }
 
-    public String salvarFuncionario(EFuncionario eFunc) {
-        ContentValues values = new ContentValues();
-        long resultado;
-        values.put("nome", eFunc.getvNome());
-        values.put("cpf", eFunc.getvCPF());
-        values.put("rg", eFunc.getvRG());
-        values.put("senha", eFunc.getvSenha());
-        values.put("endereco", eFunc.getvEndereco());
-        values.put("cargo", eFunc.getvCargo());
-        values.put("deativado", eFunc.getvFlagDesativado());
-        values.put("supervisor", eFunc.getvFlagSupervisor());
-        values.put("dataAdmissao", eFunc.getvAdmissao());
-        values.put("dataDemissao", eFunc.getvDemissao());
-        resultado = db.insert("funcionario" , null, values);
-
-        try {
-            db.execSQL("insert into funcionario (nome, cpf, rg, senha, endereco, cargo, deativado, supervisor, dataAdmissao, dataDemissao) " +
-                    "values ('" +eFunc.getvNome()+ "'" + ",'" + eFunc.getvCPF()+ ",'" + eFunc.getvRG()+ ",'" + eFunc.getvSenha()+
-                    ",'" + eFunc.getvEndereco()+ ",'" + eFunc.getvCargo()+ ",'" + eFunc.getvFlagDesativado()+ ",'" +
-                    ",'" + eFunc.getvAdmissao()+ ",'" + eFunc.getvDemissao()+"')");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        db.close();
-        if (resultado ==-1) {
-            return "Erro ao cadastrar!";
-        }
-        else{
-            return "Cadastrado!";
-        }
-
-    }
 }

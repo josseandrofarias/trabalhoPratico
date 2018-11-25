@@ -51,8 +51,8 @@ public class Banco extends SQLiteOpenHelper {
                 "cargo varchar(30) NOT NULL," +
                 "deativado integer(1) NOT NULL," +
                 "supervisor integer(1) NOT NULL," +
-                "dataAdmissao varchar(8) DEFAULT NULL," +
-                "dataDemissao varchar(8) DEFAULT NULL);";
+                "dataAdmissao varchar(10) DEFAULT NULL," +
+                "dataDemissao varchar(10) DEFAULT NULL);";
 
         String sqlLocacao = "CREATE TABLE IF NOT EXISTS "+TLocacao+"(" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
