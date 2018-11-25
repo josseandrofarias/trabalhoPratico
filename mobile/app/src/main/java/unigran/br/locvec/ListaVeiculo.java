@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -48,21 +49,24 @@ public class ListaVeiculo extends AppCompatActivity
         listaveiculo.setAdapter(adapter);
 
         //selecionar item da lista pra editar
-
-        /*
         listaveiculo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String codigo;
+                codigo = position+"";
 
-                cursor.moveToPosition(position);
-                codigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.ID));
-                Intent intent = new Intent(Consulta.this, Alterar.class);
+                //cursor.moveToPosition(position);
+                //codigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.ID));
+                Intent intent = new Intent(ListaVeiculo.this, VeiculoManutencao.class);
                 intent.putExtra("codigo", codigo);
+                Toast.makeText(getApplicationContext(), "ID: " + position, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
-                finish();
+                //finish();
+
             }
-        }); */
+        });
+
+
 
     }
 
@@ -191,8 +195,15 @@ public class ListaVeiculo extends AppCompatActivity
                 eveic.setModelo(res.getString(res.getColumnIndexOrThrow("modelo")));
                 eveic.setPlaca(res.getString(res.getColumnIndexOrThrow("placa")));
                 veiculo.add(eveic);
+
+
+
             }while (res.moveToNext());
         }
+
+
+
+
         db.close();
         return veiculo;
     }
