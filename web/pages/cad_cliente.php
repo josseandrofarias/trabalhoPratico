@@ -45,7 +45,7 @@ TFuncoes::VerificaLogin();
                                     <th>CPF</th>
                                     <th>CNH</th>
                                     <th>Endereço</th>
-                                    <th>Ação<th>
+                                    <th>Ação</th>
                                 </tr>
                             </thead>
 
