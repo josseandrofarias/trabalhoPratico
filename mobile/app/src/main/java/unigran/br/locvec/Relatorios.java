@@ -20,8 +20,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import unigran.br.locvec.DAO.Banco;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,12 +71,13 @@ public class Relatorios extends AppCompatActivity
         listRelatorio = (ListView) findViewById(R.id.listRelatorio);
 
     }
+
     // CONECTANDO NO BANCO
-    private void conexaoDB(){
+    private void conexaoDB() {
         try {
             bd = new Banco(this);
             Toast.makeText(this, "Conexão Ok", Toast.LENGTH_SHORT).show();
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             AlertDialog.Builder msg = new AlertDialog.Builder(this);
             msg.setTitle("Erro");
             msg.setMessage("Erro de Conexao");
@@ -80,8 +85,6 @@ public class Relatorios extends AppCompatActivity
             msg.show();
         }
     }
-
-
 
     @Override
     protected void onResume() {
@@ -135,6 +138,7 @@ public class Relatorios extends AppCompatActivity
         active = false;
         finishAffinity();
     }
+
     // MENU LATERAL
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -152,9 +156,9 @@ public class Relatorios extends AppCompatActivity
             Intent it = new Intent(Relatorios.this, ListaVeiculo.class);
             startActivity(it);
         } else if (id == R.id.nav_relatorios) {
-            if(active){
+            if (active) {
 
-            }else{
+            } else {
                 Intent it = new Intent(Relatorios.this, Relatorios.class);
                 startActivity(it);
             }
@@ -169,181 +173,173 @@ public class Relatorios extends AppCompatActivity
         return true;
     }
 
-
     // AO CLICAR NO BOTÃO SERÁ VERIFICADO O TIPO DE RELATORIO SELECIONADO
     public void clickBtnGerar(View view) {
 
-        switch ((String) tipoRelatorio.getSelectedItem()){
+        switch ((String) tipoRelatorio.getSelectedItem()) {
 
             case "Selecione o tipo de relatório":
 
                 ArrayAdapter<String> selecione = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listaRelatorio("selecione"));
                 listRelatorio.setAdapter(selecione);
-
                 break;
 
             case "Carros":
 
                 ArrayAdapter<EVeiculo> arrayAdapter = new ArrayAdapter<EVeiculo>(this, android.R.layout.simple_list_item_1, listaRelatorio("carro"));
                 listRelatorio.setAdapter(arrayAdapter);
-
                 break;
+
             case "Locações":
                 ArrayAdapter<ELocacao> eLocacaoArrayAdapter = new ArrayAdapter<ELocacao>(this, android.R.layout.simple_list_item_1, listaRelatorio("locacao"));
                 listRelatorio.setAdapter(eLocacaoArrayAdapter);
-
                 break;
+
             case "Clientes":
-                // CASO ESTEJA COMENTADO É PORQUE O INTEGRANTE DO GRUPO NÃO TERMINOU SUA PARTE
                 ArrayAdapter<ECliente> eClienteArrayAdapter = new ArrayAdapter<ECliente>(this, android.R.layout.simple_list_item_1, listaRelatorio("cliente"));
                 listRelatorio.setAdapter(eClienteArrayAdapter);
-
                 break;
+
             case "Funcionários":
                 ArrayAdapter<EFuncionario> eFuncionarioArrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, listaRelatorio("funcionario"));
                 listRelatorio.setAdapter(eFuncionarioArrayAdapter);
                 break;
-
         }
 
     }
 
     //APÓS VERIFICAR O TIPO SELECIONADO É FEITA A CONSULTA NO BANCO E LOGO EM SEGUIDA A LISTAGEM
-    public List listaRelatorio(String tipo){
+    public List listaRelatorio(String tipo) {
         conexao = bd.getReadableDatabase();
-        List dados = new LinkedList();
+        List lista = new LinkedList();
         Cursor res;
-        switch (tipo){
+        switch (tipo) {
 
             case "selecione":
 
                 AlertDialog.Builder msg = new AlertDialog.Builder(this);
                 msg.setTitle("Tipo não selecionado");
                 msg.setMessage("Selecione um tipo de relatório para continuar!");
-                msg.setNeutralButton("Ok" ,null);
+                msg.setNeutralButton("Ok", null);
                 msg.show();
 
                 break;
 
             case "carro":
                 conexao = bd.getReadableDatabase();
-                  res = conexao.rawQuery("SELECT * FROM carro",null);
+                res = conexao.rawQuery("SELECT * FROM carro", null);
 
-                if(res.getCount()>0){
+                if (res.getCount() > 0) {
                     res.moveToFirst();
-                    do{
-                        EVeiculo eveic = new EVeiculo();
-                        eveic.setId(res.getInt(res.getColumnIndexOrThrow("id")));
-                        eveic.setNome(res.getString(res.getColumnIndexOrThrow("nome")));
-                        eveic.setMarca(res.getString(res.getColumnIndexOrThrow("marca")));
-                        eveic.setModelo(res.getString(res.getColumnIndexOrThrow("modelo")));
-                        eveic.setPlaca(res.getString(res.getColumnIndexOrThrow("placa")));
-                        eveic.setValorSeguro(res.getFloat(res.getColumnIndexOrThrow("valorSeguro")));
-                        eveic.setValorLocacao(res.getFloat(res.getColumnIndexOrThrow("valorLocacao")));
-                        eveic.setCor(res.getString(res.getColumnIndexOrThrow("cor")));
-                        dados.add("Id: "+eveic.getId()
-                                + "\n" +"Nome: "+ eveic.getNome()
-                                + "\n" +"Marca: "+ eveic.getMarca()
-                                + "\n" +"Modelo: "+ eveic.getModelo()
-                                + "\n" +"Placa: "+ eveic.getPlaca()
-                                + "\n" +"Valor Locação: "+ eveic.getValorLocacao()
-                                + "\n" +"Valor Seguro: "+ eveic.getValorSeguro());
-                    }while (res.moveToNext());
-                }else
+                    do {
+                        lista.add("Id: " + res.getInt(res.getColumnIndexOrThrow("id"))
+                                + "\n" + "Nome: " + res.getString(res.getColumnIndexOrThrow("nome"))
+                                + "\n" + "Marca: " + res.getString(res.getColumnIndexOrThrow("marca"))
+                                + "\n" + "Modelo: " + res.getString(res.getColumnIndexOrThrow("modelo"))
+                                + "\n" + "Placa: " + res.getString(res.getColumnIndexOrThrow("placa"))
+                                + "\n" + "Cor: " + res.getString(res.getColumnIndexOrThrow("cor"))
+                                + "\n" + "Valor Seguro: " + res.getFloat(res.getColumnIndexOrThrow("valorSeguro"))
+                                + "\n" + "Valor Locação: " + res.getFloat(res.getColumnIndexOrThrow("valorLocacao")));
+                    } while (res.moveToNext());
+                } else
                     msgErroGerar();
 
                 break;
 
-
             case "cliente":
-                res = conexao.rawQuery("SELECT * FROM cliente",null);
-                if(res.getCount()>0){
+                res = conexao.rawQuery("SELECT * FROM cliente", null);
+                if (res.getCount() > 0) {
                     res.moveToFirst();
-                    do{
+                    do {
                         // CASO ESTEJA COMENTADO É PORQUE O INTEGRANTE DO GRUPO NÃO TERMINOU SUA PARTE
 
-
-
-//                        ECliente eCliente = new ECliente();
-//                        eCliente.setId(res.getInt(res.getColumnIndexOrThrow("id")));
-//                        eCliente.setNome(res.getString(res.getColumnIndexOrThrow("nome")));
-//                        eCliente.setCpf(res.getString(res.getColumnIndexOrThrow("cpf")));
-//                        eCliente.setRg(res.getString(res.getColumnIndexOrThrow("rg")));
-//                        eCliente.setCnh(res.getString(res.getColumnIndexOrThrow("cnh")));
-//                        eCliente.setEndereco(res.getString(res.getColumnIndexOrThrow("endereco")));
-//                        eCliente.setNumeroDependentes(res.getInt(res.getColumnIndexOrThrow("numeroDependentes")));
-//                        dados.add("Id: "+eCliente.getId()
-//                                + "\n" +"Nome: "+ eCliente.getNome()
-//                                + "\n" +"CPF: "+ eCliente.getCpf()
-//                                + "\n" +"RG: "+ eCliente.getRg()
-//                                + "\n" +"Endereço: "+ eCliente.getEndereco()
-//                                + "\n" +"N. Dependentes: "+ eCliente.getNumeroDependentes());
-                    }while (res.moveToNext());
-                }else
+//                        lista.add("Id: "+ res.getInt(res.getColumnIndexOrThrow("id"))
+//                                + "\n" +"Nome: "+ res.getString(res.getColumnIndexOrThrow("nome"))
+//                                + "\n" +"CPF: "+ res.getString(res.getColumnIndexOrThrow("cpf"))
+//                                + "\n" +"RG: "+ res.getString(res.getColumnIndexOrThrow("rg"))
+//                                + "\n" +"CNH: "+ res.getString(res.getColumnIndexOrThrow("cnh"))
+//                                + "\n" +"Endereço: "+ res.getString(res.getColumnIndexOrThrow("endereco"))
+//                                + "\n" +"N. Dependentes: "+ res.getInt(res.getColumnIndexOrThrow("numeroDependentes"))
+                    } while (res.moveToNext());
+                } else
 //                    msgErroGerar();
                     msgIntegranteNaoFez();
                 break;
 
             case "funcionario":
-                res = conexao.rawQuery("SELECT * FROM funcionario",null);
-                if(res.getCount()>0){
+                res = conexao.rawQuery("SELECT * FROM funcionario", null);
+                if (res.getCount() > 0) {
                     res.moveToFirst();
-                    do{
-                        EFuncionario eFuncionario = new EFuncionario();
-                        eFuncionario.setId(res.getInt(res.getColumnIndexOrThrow("id")));
-                        eFuncionario.setvNome(res.getString(res.getColumnIndexOrThrow("nome")));
-                        eFuncionario.setvCPF(res.getString(res.getColumnIndexOrThrow("cpf")));
-                        eFuncionario.setvRG(res.getString(res.getColumnIndexOrThrow("rg")));
-                        eFuncionario.setvEndereco(res.getString(res.getColumnIndexOrThrow("endereco")));
-                        dados.add("Id: "+eFuncionario.getId()
-                                + "\n" +"Nome: "+ eFuncionario.getvNome()
-                                + "\n" +"CPF: "+ eFuncionario.getvCPF()
-                                + "\n" +"RG: "+ eFuncionario.getvRG()
-                                + "\n" +"Endereço: "+ eFuncionario.getvEndereco());
-                    }while (res.moveToNext());
-                }else
+                    do {
+                        lista.add("Id: " + (res.getInt(res.getColumnIndexOrThrow("id"))
+                                + "\n" + "Nome: " + res.getString(res.getColumnIndexOrThrow("nome"))
+                                + "\n" + "CPF: " + res.getString(res.getColumnIndexOrThrow("cpf"))
+                                + "\n" + "RG: " + res.getString(res.getColumnIndexOrThrow("rg"))
+                                + "\n" + "Endereço: " + res.getString(res.getColumnIndexOrThrow("endereco"))
+                                + "\n" + "Data Admissão: " + res.getString(res.getColumnIndex("dataAdmissao"))
+                                + "\n" + "Data Demissão: " + res.getString(res.getColumnIndex("dataDemissao"))));
+                    } while (res.moveToNext());
+                } else
                     msgErroGerar();
                 break;
 
             case "locacao":
-                res = conexao.rawQuery("SELECT * FROM locacao",null);
-                if(res.getCount()>0){
+                res = conexao.rawQuery("SELECT * FROM locacao", null);
+                if (res.getCount() > 0) {
                     res.moveToFirst();
-                    do{
-                        ELocacao eLocacao = new ELocacao();
-                        eLocacao.setId(res.getInt(res.getColumnIndexOrThrow("id")));
-                          eLocacao.setQuilometragem(res.getFloat(res.getColumnIndexOrThrow("quilometragem")));
-                        dados.add("Id: "+eLocacao.getId()
-                                + "\n" +"Id Cliente: "+ eLocacao.getIdCliente()
-                                + "\n" +"Id Carro: "+ eLocacao.getIdCarro()
-                                + "\n" +"Km: "+ eLocacao.getQuilometragem());
-                    }while (res.moveToNext());
-                }else
+                    do {
+                        String placa = selecionarCarro(res.getInt(res.getColumnIndex("idCarro")));
+
+                        //Pegar e Formatar a data
+                        SimpleDateFormat entrada = new SimpleDateFormat("yyyy-MM-dd");
+                        SimpleDateFormat saida = new SimpleDateFormat("dd/MM/yyyy");
+                        Date dataInicial;
+                        String dataString = null;
+                        try {
+                            dataInicial = entrada.parse(res.getString(res.getColumnIndex("dataLocacao")));
+                            dataString = saida.format(dataInicial);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        lista.add("ID Locação: " + res.getString(res.getColumnIndex("id")) + "\n" +
+                                "ID Cliente: " + res.getString(res.getColumnIndex("idCliente")) + "\n" +
+                                "Placa do Veículo: " + placa + "\n" +
+                                "Data de Locação: " + dataString);
+                    } while (res.moveToNext());
+                } else
                     msgErroGerar();
-
                 break;
-
-
         }
         conexao.close();
-        return dados;
-
+        return lista;
 
     }
 
-    private void msgErroGerar(){
+    private void msgErroGerar() {
         AlertDialog.Builder msg = new AlertDialog.Builder(this);
         msg.setTitle("Erro");
-        msg.setMessage("Não possui dados Cadastrados!");
-        msg.setNeutralButton("Ok" ,null);
+        msg.setMessage("Não possui lista Cadastrados!");
+        msg.setNeutralButton("Ok", null);
         msg.show();
     }
 
-    private void msgIntegranteNaoFez(){
+    private void msgIntegranteNaoFez() {
         AlertDialog.Builder msg = new AlertDialog.Builder(this);
         msg.setTitle("Erro");
         msg.setMessage("Outro integrante do grupo não fez sua parte!");
-        msg.setNeutralButton("Ok" ,null);
+        msg.setNeutralButton("Ok", null);
         msg.show();
+    }
+
+    //Função para pegar a placa do carro
+    public String selecionarCarro(int idCarro) {
+        Cursor data = conexao.rawQuery("SELECT placa FROM carro WHERE id=" + idCarro + ";", null);
+        String placa = null;
+        if (data != null && data.moveToFirst()) {
+            do {
+                placa = data.getString(data.getColumnIndex("placa"));
+            } while (data.moveToNext());
+        }
+        return placa;
     }
 }
