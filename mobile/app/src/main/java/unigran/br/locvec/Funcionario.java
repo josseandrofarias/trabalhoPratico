@@ -1,9 +1,16 @@
 package unigran.br.locvec;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,18 +20,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.Banco;
+import unigran.br.locvec.DAO.DaoFuncionario;
+import unigran.br.locvec.Entidades.EFuncionario;
 
 public class Funcionario extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Banco bd;
+    private ListView lista;
+    private SQLiteDatabase conexao;
     static boolean active = false;
 
     @Override
     public void onStart() {
         super.onStart();
         active = true;
+        List<EFuncionario> funcionario = new LinkedList();
+        DaoFuncionario daoFuncionario = new DaoFuncionario(this);
+        funcionario = daoFuncionario.listaTodos();
+        lista = findViewById(R.id.listFuncionario);
+        ArrayAdapter<EFuncionario> arrayAdapter = new ArrayAdapter<EFuncionario>(this, android.R.layout.simple_list_item_1, funcionario);
+        lista.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -40,8 +66,6 @@ public class Funcionario extends AppCompatActivity
         setContentView(R.layout.activity_funcionario);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -50,6 +74,36 @@ public class Funcionario extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void conexaoDB(){
+        try {
+            bd = new Banco(this);
+            Toast.makeText(this, "Conexão Ok", Toast.LENGTH_SHORT).show();
+        }catch (SQLException ex) {
+            AlertDialog.Builder msg = new AlertDialog.Builder(this);
+            msg.setTitle("Erro");
+            msg.setMessage("Erro de Conexao");
+            msg.setNeutralButton("Ok", null);
+            msg.show();
+        }
+    }
+
+    private void acoes() {
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it = new Intent(Funcionario.this, FuncionarioManutencao.class);
+                EFuncionario efunc = (EFuncionario)adapterView.getItemAtPosition(i);
+                it.putExtra("funcionario", (Parcelable) efunc);
+                startActivity(it);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -80,7 +134,6 @@ public class Funcionario extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

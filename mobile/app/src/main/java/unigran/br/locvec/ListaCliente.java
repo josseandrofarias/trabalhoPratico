@@ -1,6 +1,8 @@
 package unigran.br.locvec;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,18 +15,56 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import locvec.unigran.br.locvec.R;
+import unigran.br.locvec.DAO.Banco;
+import unigran.br.locvec.Entidades.ECliente;
+import unigran.br.locvec.Entidades.EVeiculo;
 
 public class ListaCliente extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     static boolean active = false;
+    private SQLiteDatabase db;
+    private Banco banco;
 
     @Override
     public void onStart() {
         super.onStart();
         active = true;
+        //criando lista
+        List<ECliente> clientes = new LinkedList<>();
+        clientes = listaTodos();
+        System.out.println(clientes.toString());
+        ListView listacliente = (ListView) findViewById(R.id.listaCliente); //mapeando lista
+        ArrayAdapter<ECliente> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, clientes);
+        listacliente.setAdapter(adapter);
+
+        //selecionar item da lista pra editar
+        listacliente.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String codigo;
+                codigo = position+"";
+
+                //cursor.moveToPosition(position);
+                //codigo = cursor.getString(cursor.getColumnIndexOrThrow(CriaBanco.ID));
+                Intent intent = new Intent(ListaCliente.this, ClienteManutencao.class);
+                intent.putExtra("codigo", codigo);
+                Toast.makeText(getApplicationContext(), "ID: " + position, Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+                //finish();
+
+            }
+        });
+
     }
 
     @Override
@@ -120,5 +160,36 @@ public class ListaCliente extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public List listaTodos(){
+
+        banco = new Banco(this);
+        db = banco.getReadableDatabase();
+        List cliente = new LinkedList();
+        Cursor res =
+                db.rawQuery("SELECT * FROM cliente",null);
+        if(res.getCount()>0){
+            res.moveToFirst();
+            do{
+                ECliente ecli = new ECliente();
+                ecli.setId(res.getInt(res.getColumnIndexOrThrow("id")));
+                ecli.setNome(res.getString(res.getColumnIndexOrThrow("nome")));
+                ecli.setCNH(res.getString(res.getColumnIndexOrThrow("cnh")));
+
+                cliente.add("Id: "+ res.getInt(res.getColumnIndexOrThrow("id"))
+                                + "\n" +"Nome: "+ res.getString(res.getColumnIndexOrThrow("nome"))
+                                + "\n" +"CPF: "+ res.getString(res.getColumnIndexOrThrow("cpf")));
+
+
+
+
+            }while (res.moveToNext());
+        }
+
+
+
+
+        db.close();
+        return cliente;
     }
 }

@@ -9,13 +9,14 @@
     <string name="nav_header_title">LocVec</string>
     <string name="nav_header_subtitle">Locadora de veículos</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Configurações</string>
+    <string name="action_settings">Sobre</string>
     <string name="data_final">Data final</string>
     <string name="data_inicial">Data inicial</string>
     <string name="relat_rios">Relatórios</string>
 
     <string-array name="tiposRelatorio">
-        <item>Km carros</item>
+        <item>Selecione o tipo de relatório</item>
+        <item>Carros</item>
         <item>Locações</item>
         <item>Clientes</item>
         <item>Funcionários</item>
@@ -25,5 +26,20 @@
     <string name="title_activity_lista_cliente">Lista Cliente</string>
     <string name="title_activity_lista_locacao">Lista Locacao</string>
     <string name="title_activity_lista_veiculo">Lista Veiculo</string>
+    <string name="title_activity_login">Entrar</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">CPF</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Entrar</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">CPF inválido</string>
+    <string name="error_invalid_password">Senha inválida</string>
+    <string name="error_incorrect_password">Acho que você errou a senha</string>
+    <string name="error_field_required">Informe o CPF primeiro</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="gerar">Gerar</string>
 
 </resources>
