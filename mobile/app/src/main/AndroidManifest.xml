@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="unigran.br.locvec.ListaLocacao"
+            android:name="unigran.br.locvec.Login"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -42,7 +42,7 @@
             android:label="@string/title_activity_lista_cliente"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="unigran.br.locvec.MainActivity"
+            android:name="unigran.br.locvec.ListaLocacao"
             android:label="@string/title_activity_lista_locacao"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -51,9 +51,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="unigran.br.locvec.LocacaoManutencao" />
         <activity android:name="unigran.br.locvec.VeiculoManutencao" />
-        <activity
-            android:name="unigran.br.locvec.Login"
-            android:label="@string/title_activity_login" />
+
+
         <activity android:name="unigran.br.locvec.LocacaoGerenciamento"></activity>
     </application>
 

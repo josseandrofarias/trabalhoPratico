@@ -150,9 +150,9 @@ public class Login extends AppCompatActivity {
 
 
             if (login) {
-                Intent it = new Intent(Login.this, Relatorios.class);
+                Intent it = new Intent(Login.this, ListaCliente.class);
                 startActivity(it);
-                finish();
+
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

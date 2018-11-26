@@ -4,16 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -21,16 +17,9 @@ import android.widget.Toast;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 import locvec.unigran.br.locvec.R;
 import unigran.br.locvec.DAO.Banco;
-import unigran.br.locvec.DAO.DaoFuncionario;
 import unigran.br.locvec.Entidades.EFuncionario;
-import unigran.br.locvec.Utilitarios.MáscaraCampoData;
 import unigran.br.locvec.Utilitarios.ValidaCPF;
 
 public class FuncionarioManutencao extends AppCompatActivity {
@@ -64,8 +53,8 @@ public class FuncionarioManutencao extends AppCompatActivity {
         vEndereco = findViewById(R.id.etEndereco);
         vRG = findViewById(R.id.etRG);
         vCPF = findViewById(R.id.etCPF);
-        vCargo = findViewById(R.id.etCargo);
-        vAdmissao = findViewById(R.id.etAdmissao);
+        vCargo = findViewById(R.id.etCNH);
+        vAdmissao = findViewById(R.id.etNdependentes);
         vDemissao = findViewById(R.id.etDemissao);
         vSenha = findViewById(R.id.etPassWd);
         vFlagSupervisor = findViewById(R.id.ckBoxSupervisor);

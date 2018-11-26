@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etCPF" />
 
     <EditText
-        android:id="@+id/etCargo"
+        android:id="@+id/etCNH"
         android:layout_width="158dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -127,7 +127,7 @@
         android:layout_marginTop="8dp"
         android:text="Admissão"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCargo" />
+        app:layout_constraintTop_toBottomOf="@+id/etCNH" />
 
     <TextView
         android:id="@+id/textView9"
@@ -139,7 +139,7 @@
         android:text="Demissão"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/etCargo" />
+        app:layout_constraintTop_toBottomOf="@+id/etCNH" />
 
     <Button
         android:id="@+id/button2"
@@ -164,7 +164,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ckBoxDesativado" />
 
     <EditText
-        android:id="@+id/etAdmissao"
+        android:id="@+id/etNdependentes"
         android:layout_width="157dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -184,7 +184,7 @@
         android:ems="10"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/etAdmissao"
+        app:layout_constraintStart_toEndOf="@+id/etNdependentes"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <TextView
@@ -205,7 +205,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPassword"
-        app:layout_constraintStart_toEndOf="@+id/etCargo"
+        app:layout_constraintStart_toEndOf="@+id/etCNH"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <Switch
@@ -216,7 +216,7 @@
         android:layout_marginTop="24dp"
         android:text="Supervisor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAdmissao" />
+        app:layout_constraintTop_toBottomOf="@+id/etNdependentes" />
 
     <Switch
         android:id="@+id/ckBoxDesativado"

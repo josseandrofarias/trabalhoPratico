@@ -120,6 +120,7 @@ public class Relatorios extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
 
@@ -251,19 +252,18 @@ public class Relatorios extends AppCompatActivity
                 if (res.getCount() > 0) {
                     res.moveToFirst();
                     do {
-                        // CASO ESTEJA COMENTADO É PORQUE O INTEGRANTE DO GRUPO NÃO TERMINOU SUA PARTE
 
-//                        lista.add("Id: "+ res.getInt(res.getColumnIndexOrThrow("id"))
-//                                + "\n" +"Nome: "+ res.getString(res.getColumnIndexOrThrow("nome"))
-//                                + "\n" +"CPF: "+ res.getString(res.getColumnIndexOrThrow("cpf"))
-//                                + "\n" +"RG: "+ res.getString(res.getColumnIndexOrThrow("rg"))
-//                                + "\n" +"CNH: "+ res.getString(res.getColumnIndexOrThrow("cnh"))
-//                                + "\n" +"Endereço: "+ res.getString(res.getColumnIndexOrThrow("endereco"))
-//                                + "\n" +"N. Dependentes: "+ res.getInt(res.getColumnIndexOrThrow("numeroDependentes"))
+                        lista.add("Id: "+ res.getInt(res.getColumnIndexOrThrow("id"))
+                                + "\n" +"Nome: "+ res.getString(res.getColumnIndexOrThrow("nome"))
+                                + "\n" +"CPF: "+ res.getString(res.getColumnIndexOrThrow("cpf"))
+                                + "\n" +"RG: "+ res.getString(res.getColumnIndexOrThrow("rg"))
+                                + "\n" +"CNH: "+ res.getString(res.getColumnIndexOrThrow("cnh"))
+                                + "\n" +"Endereço: "+ res.getString(res.getColumnIndexOrThrow("endereco"))
+                                + "\n" +"N. Dependentes: "+ res.getInt(res.getColumnIndexOrThrow("numeroDependentes")));
                     } while (res.moveToNext());
                 } else
-//                    msgErroGerar();
-                    msgIntegranteNaoFez();
+                    msgErroGerar();
+
                 break;
 
             case "funcionario":

@@ -9,7 +9,7 @@
     <string name="nav_header_title">LocVec</string>
     <string name="nav_header_subtitle">Locadora de veículos</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Configurações</string>
+    <string name="action_settings">Sobre</string>
     <string name="data_final">Data final</string>
     <string name="data_inicial">Data inicial</string>
     <string name="relat_rios">Relatórios</string>
