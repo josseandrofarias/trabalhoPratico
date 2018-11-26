@@ -80,12 +80,12 @@ public class ListaLocacao extends AppCompatActivity
         Cursor data = selecionarLocacoes();
         ArrayList<String> listaLocacoes = new ArrayList<>();
         while(data.moveToNext()) {
+            String placa = selecionarCarro(data.getInt(data.getColumnIndex("idCarro")));
             //TRECHO RESPONSAVEL POR TRANSFORMAR A DATA EM PADRÃO DIA/MES/ANO
             SimpleDateFormat entrada = new SimpleDateFormat("yyyy-MM-dd");
             SimpleDateFormat saida = new SimpleDateFormat("dd/MM/yyyy");
             Date dataInicial;
             String dataString = null;
-
             try {
                 dataInicial = entrada.parse(data.getString(data.getColumnIndex("dataLocacao")));
                 dataString = saida.format(dataInicial);
@@ -95,7 +95,7 @@ public class ListaLocacao extends AppCompatActivity
             //TRECHO RESPONSAVEL POR TRANSFORMAR A DATA EM PADRÃO DIA/MES/ANO
             listaLocacoes.add("ID da Locação: " + data.getString(data.getColumnIndex("id")) + "\n" +
                     "ID do Cliente: " + data.getString(data.getColumnIndex("idCliente")) + "\n" +
-                    "ID do Veículo: " + data.getString(data.getColumnIndex("idCarro")) + "\n" +
+                    "Placa do Veículo: " + placa + "\n" +
                     "Data de Locação: " + dataString);
         }
         ListAdapter adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, listaLocacoes);
@@ -112,6 +112,20 @@ public class ListaLocacao extends AppCompatActivity
         });
     }
 
+    public String selecionarCarro(int idCarro) { //FUNÇÃO RETORNA A PLACA DO CARRO VINCULADA A LOCAÇÃO
+        bd = new Banco(this);
+        con = bd.getWritableDatabase();
+        String query = "SELECT placa FROM carro WHERE id=" + idCarro +";";
+        Cursor data = con.rawQuery(query, null);
+        String placa = null;
+        if (data != null && data.moveToFirst()) {
+            do {
+                placa = data.getString(data.getColumnIndex("placa"));
+            } while (data.moveToNext());
+        }
+        return placa;
+    } //FUNÇÃO RETORNA A PLACA DO CARRO VINCULADA A LOCAÇÃO
+
     public Cursor selecionarLocacoes() { //CAPTURANDO AS LOCAÇÕES NO BANCO
         bd = new Banco(this);
         con = bd.getWritableDatabase();
@@ -120,10 +134,6 @@ public class ListaLocacao extends AppCompatActivity
         return data;
     } //CAPTURANDO AS LOCAÇÕES NO BANCO
 
-    // SELECT locacao.dataLocacao, locacao.dataDevolucao, locacao.quilometragem
-    // FROM ((locacao
-    // INNER JOIN cliente ON locacao.idCliente = cliente.id)
-    // INNER JOIN cliente ON locacao.idCarro = carro.id);
 
     public void clickBtnCadLocacao(View view) {
         Intent intent = new Intent(this, LocacaoManutencao.class);

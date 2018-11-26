@@ -2,6 +2,7 @@ package unigran.br.locvec;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,6 +65,8 @@ public class LocacaoManutencao extends AppCompatActivity {
         return true;
     }
 
+    //IMPORTANTE: UTILIZAR O ID DO CLIENTE E VEÍCULO PARA CADASTRAR LOCAÇÃO
+
     public void acaoCadastrar(View view) throws ParseException {
         if(validar_locacao()) {
             locacao = new ELocacao();
@@ -110,7 +113,7 @@ public class LocacaoManutencao extends AppCompatActivity {
                     return false;
                 }
             } else {
-                Toast.makeText(this, "Carro inválido!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "ID do Veículo inválido!", Toast.LENGTH_LONG).show();
                 etNumCarro.requestFocus();
                 return false;
             }
@@ -126,7 +129,20 @@ public class LocacaoManutencao extends AppCompatActivity {
     }
 
     public boolean validar_carro() { //FUNÇÃO DE VALIDAÇÃO
-        return TextUtils.isEmpty(etNumCarro.getText());
+        //return TextUtils.isEmpty(etNumCarro.getText());
+        if(!TextUtils.isEmpty(etNumCarro.getText())) {
+            /*
+            bd = new Banco(this);
+            con = bd.getWritableDatabase();
+            String query = "SELECT * FROM carro WHERE id=" + Integer.parseInt(etNumCarro.getText().toString()) + ";";
+            Cursor data = con.rawQuery(query, null);
+            if (!(data.moveToFirst()) || data.getCount() == 0) {
+                return true;
+            }
+            */
+            return false;
+        }
+        return true;
     }
 
     public boolean validar_data() { //FUNÇÃO DE VALIDAÇÃO

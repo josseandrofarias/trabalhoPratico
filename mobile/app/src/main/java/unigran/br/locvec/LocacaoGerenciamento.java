@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -86,23 +87,22 @@ public class LocacaoGerenciamento extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int itemIDCliente = Integer.parseInt(etNumCliente.getText().toString());
-                int itemIDCarro = Integer.parseInt(etNumCarro.getText().toString());
-                try {
-                    java.util.Date dataInicial = new SimpleDateFormat("dd/MM/yyyy").parse(etDataLocacao.getText().toString());
-                    SimpleDateFormat formatarData = new SimpleDateFormat("yyyy-MM-dd");
-                    String dataString = formatarData.format(dataInicial);
-                    java.sql.Date itemDataConvertida = java.sql.Date.valueOf(dataString);
-                    if(!etNumCliente.equals("") && !etNumCarro.equals("") && !etDataLocacao.equals("")) { //VERIFICA SE OS CAMPOS ESTÃO PREENCHIDOS
-                        editarLocacao(id, itemIDCliente, itemIDCarro,itemDataConvertida);
+                String itemIDCliente = etNumCliente.getText().toString();
+                String itemIDCarro = etNumCarro.getText().toString();
+                if(validar_locacao()) { //VERIFICA SE OS CAMPOS ESTÃO PREENCHIDOS
+                    try {
+                        java.util.Date dataInicial = new SimpleDateFormat("dd/MM/yyyy").parse(etDataLocacao.getText().toString());
+                        SimpleDateFormat formatarData = new SimpleDateFormat("yyyy-MM-dd");
+                        String dataString = formatarData.format(dataInicial);
+                        java.sql.Date itemDataConvertida = java.sql.Date.valueOf(dataString);
+
+                        editarLocacao(id, Integer.parseInt(itemIDCliente), Integer.parseInt(itemIDCarro), itemDataConvertida);
                         toast("Editado com Sucesso!");
-                    } else {
-                        toast("Erro!");
+
+                    } catch (ParseException e) {
+
                     }
-                } catch (ParseException e) {
-
                 }
-
             }
         });
 
@@ -156,5 +156,52 @@ public class LocacaoGerenciamento extends AppCompatActivity {
         String query = "SELECT id, idCliente, idCarro, dataLocacao FROM locacao WHERE id = '" + idLoc + "';";
         Cursor data = con.rawQuery(query, null);
         return data;
+    }
+
+    public boolean validar_locacao() { //FUNÇÃO DE VALIDAÇÃO
+        if(!validar_cliente()) {
+            if(!validar_carro()) {
+                if(!validar_data()) {
+                    return true;
+                } else {
+                    Toast.makeText(this, "Data inválida!", Toast.LENGTH_LONG).show();
+                    etDataLocacao.requestFocus();
+                    return false;
+                }
+            } else {
+                Toast.makeText(this, "ID do Veículo inválido!", Toast.LENGTH_LONG).show();
+                etNumCarro.requestFocus();
+                return false;
+            }
+        } else {
+            Toast.makeText(this, "Cliente inválido!", Toast.LENGTH_LONG).show();
+            etNumCliente.requestFocus();
+            return false;
+        }
+    } //FUNÇÃO DE VALIDAÇÃO
+
+    public boolean validar_cliente() { //FUNÇÃO DE VALIDAÇÃO
+        return TextUtils.isEmpty(etNumCliente.getText());
+    }
+
+    public boolean validar_carro() { //FUNÇÃO DE VALIDAÇÃO
+        //return TextUtils.isEmpty(etNumCarro.getText());
+        if(!TextUtils.isEmpty(etNumCarro.getText())) {
+            /*
+            bd = new Banco(this);
+            con = bd.getWritableDatabase();
+            String query = "SELECT * FROM carro WHERE id=" + Integer.parseInt(etNumCarro.getText().toString()) + ";";
+            Cursor data = con.rawQuery(query, null);
+            if (!(data.moveToFirst()) || data.getCount() == 0) {
+                return true;
+            }
+            */
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validar_data() { //FUNÇÃO DE VALIDAÇÃO
+        return TextUtils.isEmpty(etDataLocacao.getText());
     }
 }
